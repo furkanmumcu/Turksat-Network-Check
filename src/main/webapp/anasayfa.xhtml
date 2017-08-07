@@ -1,0 +1,125 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="sablon.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid>
+                <p:panelGrid columns="4" styleClass="combo">
+                    <p:selectOneMenu value="#{anasayfaBean.selectMenu1}">
+                        <f:selectItem itemValue="Günlük" itemLabel="Günlük"/>
+                        <f:selectItem itemValue="Haftalık" itemLabel="Haftalık"/>
+                        <f:selectItem itemValue="Aylık" itemLabel="Aylık"/>
+                        <f:selectItem itemValue="Yıllık" itemLabel="Yıllık"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu value="#{anasayfaBean.selectMenu2}">
+                        <f:selectItem itemValue="Tüm Sunucular" itemLabel="Tüm Sunucular"/>
+                        <f:selectItem itemValue="Belgenet Sunucuları" itemLabel="BelgeNet Sunucuları"/>
+                        <f:selectItem itemValue="Dış Sunucular" itemLabel="Dış Sunucular"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu value="#{anasayfaBean.selectMenu3}">
+                        <f:selectItem itemValue="Web Sunucuları" itemLabel="Web Sunucuları"/>
+                        <f:selectItem itemValue="DB Sunucuları" itemLabel="DB Sunucuları"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Uygula" update="anatablo" icon="ui-icon-check" action="#{anasayfaBean.uygulaButonu}" />
+                </p:panelGrid>
+
+                <p:dataTable id="anatablo" value="#{anasayfaBean.tablo}" reflow="true" rows="5" styleClass="tablo" paginator="true">
+                        <p:column headerText="Sunucular ">
+                            <h:outputText value="#{anaData.sunucuAdi}" style="float: left"/>
+                        </p:column>
+
+                        <p:column headerText="IP Adresi" style="width: 150px">
+                           <h:outputText value="#{anaData.sunucuIp}" style="float: left"/>
+                        </p:column>
+                        <p:column headerText="Sunucu Uygulama Tipi">
+                          <h:outputText value="#{anaData.sunucuUygulamaTipi}" style="float: left"/>
+                        </p:column>
+                     
+                        <p:column headerText="Sunucu Tipi">
+                            <h:outputText value="#{anaData.sunucuTipi}" style="float: left"/>
+                        </p:column>
+                    <p:column headerText="Sunucu Port Bilgisi">
+                                <h:outputText value="#{anaData.sunucuPort}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="Sunucu Türü">
+                                <h:outputText value="#{anaData.sunucuTuru}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="Ulaşılabilirlik" style="width: 120px">
+                                <h:outputText value="#{anaData.ulasim}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="Loglar" style="width: 50px;text-align: center">
+                              <p:commandButton title="Detay" icon="ui-icon-search" type="button" action="#{anasayfaBean.logButonu}"
+                                               onclick="PF('dlg3').show();"/>
+
+                            </p:column>
+                    <p:column headerText="Son Ulaşma Zamanı">
+                                 <h:outputText value="#{anaData.sonUlasim}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="Son Durum">
+                                 <h:outputText value="#{anaData.sonDurum}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="Son Durum Zamanı">
+                                 <h:outputText value="#{anaData.sonDurumZamani}" style="float: left"/>
+                            </p:column>
+                    <p:column headerText="" style="text-align: center;width: 77px">
+                                 <p:commandButton value="Anlık İzle" action="#{anasayfaBean.anlikButonu}"/>
+                            </p:column>
+                </p:dataTable>
+            </h:panelGrid>
+            <p:dialog header="Log Detay" showEffect="explode" widgetVar="dlg3" style="text-align: center" modal="true"
+                      height="500" width="750">
+                    <p:tabView style="height: 470px">
+                        <p:tab title="Günlük">
+                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                        <p:column headerText="Hatalar">
+                            <h:outputText value="#{logDetay.hata}"/>
+                        </p:column>
+                     
+                        <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
+                            <h:outputText value="#{logDetay.hatazaman}"/>
+                        </p:column>
+                </p:dataTable>
+                        </p:tab>
+                        <p:tab title="1 Haftalık">
+                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                        <p:column headerText="Hatalar">
+                            <h:outputText value="#{logDetay.hata}"/>
+                        </p:column>
+                     
+                        <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
+                            <h:outputText value="#{logDetay.hatazaman}"/>
+                        </p:column>
+                </p:dataTable>
+                        </p:tab>
+                        <p:tab title="1 Aylık">
+                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                        <p:column headerText="Hatalar">
+                            <h:outputText value="#{logDetay.hata}"/>
+                        </p:column>
+                     
+                        <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
+                            <h:outputText value="#{logDetay.hatazaman}"/>
+                        </p:column>
+                </p:dataTable>
+                        </p:tab>
+                        <p:tab title="1 Yıllık">
+                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                        <p:column headerText="Hatalar">
+                            <h:outputText value="#{logDetay.hata}"/>
+                        </p:column>
+                     
+                        <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
+                            <h:outputText value="#{logDetay.hatazaman}"/>
+                        </p:column>
+                </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

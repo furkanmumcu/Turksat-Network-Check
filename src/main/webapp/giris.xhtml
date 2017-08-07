@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<link href="style.css" type="text/css" rel="stylesheet"/>
+<h:head>
+
+</h:head>
+<h:body>
+
+    <h:form>
+        <h1><h:graphicImage value = "http://www.kablonetbasvuru.com/wp-content/uploads/2017/02/turksat_internet_logo.png"/></h1>
+
+        <p:panelGrid columns="2" styleClass="centered" >
+            <h:outputText value="Kullanıcı Adı" />
+            <p:inputText value="#{girisBean.kullaniciAdi}"/>
+            <h:outputText value="Şifre"/>
+            <p:password value="#{girisBean.sifre}"/>
+            <p:commandLink value= "Şifremi Unuttum!" onclick="PF('dlg3').show();" />
+            <p:commandButton value="GİRİŞ" action="#{girisBean.girisButonu}" />
+        </p:panelGrid>
+        <p:dialog header="Şifremi Unuttum!" showEffect="explode" widgetVar="dlg3" style="text-align: center" modal="true" height="185" width="400">
+                        <p:panelGrid columns="2"  >
+            <h:outputText value="Kullanıcı Adı" />
+            <p:inputText value="#{girisBean.kullaniciAdiUnuttum}"/>
+            <h:outputText value="E-posta" />
+            <p:inputText value="#{girisBean.eposta}"/>
+        </p:panelGrid>
+            <p:commandButton value="Doğrula" action="#{girisBean.dogrulaButonu}"/>
+        </p:dialog>
+
+    </h:form>
+</h:body>
+</html>

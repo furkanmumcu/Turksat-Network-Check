@@ -1,7 +1,7 @@
 package com.turksat.networkcheck;
 
 import javax.faces.bean.ManagedBean;
-
+// dummy class
 @ManagedBean(name = "editor")
 public class EditorBean {
 

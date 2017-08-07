@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 /**
  * Created by furkanmumcu on 31/07/2017.
  */
-
+//dummy class
 @ManagedBean//(name = "teditor")
 public class TextEditor {
 

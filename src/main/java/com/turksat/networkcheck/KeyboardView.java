@@ -4,7 +4,7 @@ package com.turksat.networkcheck;
  * Created by furkanmumcu on 31/07/2017.
  */
 import javax.faces.bean.ManagedBean;
-
+//dummy class
 @ManagedBean
 public class KeyboardView {
 
