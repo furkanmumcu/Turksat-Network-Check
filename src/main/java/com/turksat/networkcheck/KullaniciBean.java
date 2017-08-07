@@ -12,23 +12,32 @@ import java.util.List;
 @SessionScoped
 @ManagedBean
 public class KullaniciBean {
-    private String Ad;
-    private String SoyAd;
-    private String RolTanimla;
+    private String ad;
+    private String soyAd;
+    private String rolTanimla;
+
     public String getAd() {
-        return Ad;
+        return ad;
     }
 
     public void setAd(String ad) {
-        Ad = ad;
+        this.ad = ad;
     }
 
     public String getSoyAd() {
-        return SoyAd;
+        return soyAd;
     }
 
     public void setSoyAd(String soyAd) {
-        SoyAd = soyAd;
+        this.soyAd = soyAd;
+    }
+
+    public String getRolTanimla() {
+        return rolTanimla;
+    }
+
+    public void setRolTanimla(String rolTanimla) {
+        this.rolTanimla = rolTanimla;
     }
 
     private List<KullaniciData> kullaniciTablo=new ArrayList<KullaniciData>(  );
@@ -48,14 +57,6 @@ public class KullaniciBean {
     public void kisiAraButonu() {
 
 
-    }
-
-    public String getRolTanimla() {
-        return RolTanimla;
-    }
-
-    public void setRolTanimla(String rolTanimla) {
-        RolTanimla = rolTanimla;
     }
 
     public void kisiDuzenleButonu() {

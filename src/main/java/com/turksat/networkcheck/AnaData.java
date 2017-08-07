@@ -8,95 +8,95 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class AnaData {
-    private String SunucuAdi;
-    private String SunucuIp;
-    private String SunucuUygulamaTipi;
-    private String SunucuTipi;
-    private String SunucuPort;
-    private String SunucuTuru;
-    private String Ulasim;
-    private String SonUlasim;
-    private String SonDurumZamani;
-    private String SonDurum;
-
-    public String getSonDurum() {
-        return SonDurum;
-    }
-
-    public void setSonDurum(String sonDurum) {
-        SonDurum = sonDurum;
-    }
+    private String sunucuAdi;
+    private String sunucuIp;
+    private String sunucuUygulamaTipi;
+    private String sunucuTipi;
+    private String sunucuPort;
+    private String sunucuTuru;
+    private String ulasim;
+    private String sonUlasim;
+    private String sonDurumZamani;
+    private String sonDurum;
 
     public String getSunucuAdi() {
-        return SunucuAdi;
+        return sunucuAdi;
     }
 
     public void setSunucuAdi(String sunucuAdi) {
-        SunucuAdi = sunucuAdi;
+        this.sunucuAdi = sunucuAdi;
     }
 
     public String getSunucuIp() {
-        return SunucuIp;
+        return sunucuIp;
     }
 
     public void setSunucuIp(String sunucuIp) {
-        SunucuIp = sunucuIp;
+        this.sunucuIp = sunucuIp;
     }
 
     public String getSunucuUygulamaTipi() {
-        return SunucuUygulamaTipi;
+        return sunucuUygulamaTipi;
     }
 
     public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
-        SunucuUygulamaTipi = sunucuUygulamaTipi;
+        this.sunucuUygulamaTipi = sunucuUygulamaTipi;
     }
 
     public String getSunucuTipi() {
-        return SunucuTipi;
+        return sunucuTipi;
     }
 
     public void setSunucuTipi(String sunucuTipi) {
-        SunucuTipi = sunucuTipi;
+        this.sunucuTipi = sunucuTipi;
     }
 
     public String getSunucuPort() {
-        return SunucuPort;
+        return sunucuPort;
     }
 
     public void setSunucuPort(String sunucuPort) {
-        SunucuPort = sunucuPort;
+        this.sunucuPort = sunucuPort;
     }
 
     public String getSunucuTuru() {
-        return SunucuTuru;
+        return sunucuTuru;
     }
 
     public void setSunucuTuru(String sunucuTuru) {
-        SunucuTuru = sunucuTuru;
+        this.sunucuTuru = sunucuTuru;
     }
 
     public String getUlasim() {
-        return Ulasim;
+        return ulasim;
     }
 
     public void setUlasim(String ulasim) {
-        Ulasim = ulasim;
+        this.ulasim = ulasim;
     }
 
     public String getSonUlasim() {
-        return SonUlasim;
+        return sonUlasim;
     }
 
     public void setSonUlasim(String sonUlasim) {
-        SonUlasim = sonUlasim;
+        this.sonUlasim = sonUlasim;
     }
 
     public String getSonDurumZamani() {
-        return SonDurumZamani;
+        return sonDurumZamani;
     }
 
     public void setSonDurumZamani(String sonDurumZamani) {
-        SonDurumZamani = sonDurumZamani;
+        this.sonDurumZamani = sonDurumZamani;
+    }
+
+    public String getSonDurum() {
+        return sonDurum;
+    }
+
+    public void setSonDurum(String sonDurum) {
+        this.sonDurum = sonDurum;
     }
 }
 

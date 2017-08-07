@@ -7,77 +7,77 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean
 public class KullaniciData {
-    private String KullaniciAdi;
-    private String SoyAd;
-    private String Ad;
-    private String Sifre;
-    private String SifreTekrar;
-    private String TelNo;
-    private String Eposta;
-    private String Rol;
+    private String kullaniciAdi;
+    private String soyAd;
+    private String ad;
+    private String sifre;
+    private String sifreTekrar;
+    private String telNo;
+    private String eposta;
+    private String rol;
 
     public String getKullaniciAdi() {
-        return KullaniciAdi;
+        return kullaniciAdi;
     }
 
     public void setKullaniciAdi(String kullaniciAdi) {
-        KullaniciAdi = kullaniciAdi;
+        this.kullaniciAdi = kullaniciAdi;
     }
 
     public String getSoyAd() {
-        return SoyAd;
+        return soyAd;
     }
 
     public void setSoyAd(String soyAd) {
-        SoyAd = soyAd;
+        this.soyAd = soyAd;
     }
 
     public String getAd() {
-        return Ad;
+        return ad;
     }
 
     public void setAd(String ad) {
-        Ad = ad;
+        this.ad = ad;
     }
 
     public String getSifre() {
-        return Sifre;
+        return sifre;
     }
 
     public void setSifre(String sifre) {
-        Sifre = sifre;
+        this.sifre = sifre;
     }
 
     public String getSifreTekrar() {
-        return SifreTekrar;
+        return sifreTekrar;
     }
 
     public void setSifreTekrar(String sifreTekrar) {
-        SifreTekrar = sifreTekrar;
+        this.sifreTekrar = sifreTekrar;
     }
 
     public String getTelNo() {
-        return TelNo;
+        return telNo;
     }
 
     public void setTelNo(String telNo) {
-        TelNo = telNo;
+        this.telNo = telNo;
     }
 
     public String getEposta() {
-        return Eposta;
+        return eposta;
     }
 
     public void setEposta(String eposta) {
-        Eposta = eposta;
+        this.eposta = eposta;
     }
 
     public String getRol() {
-        return Rol;
+        return rol;
     }
 
     public void setRol(String rol) {
-        Rol = rol;
+        this.rol = rol;
     }
 }
 

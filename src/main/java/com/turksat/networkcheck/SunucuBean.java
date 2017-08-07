@@ -9,101 +9,98 @@ import java.util.List;
  */
 @ManagedBean
 public class SunucuBean {
-    private String SunucuBilgisi;
-    private String SunucuTipi;
-    private String SunucuTuru;
-    private String SunucuUygulamaTipi;
-    private String SunucuSifre;
+    private String sunucuBilgisi;
+    private String sunucuTipi;
+    private String sunucuTuru;
+    private String sunucuUygulamaTipi;
+    private String sunucuSifre;
 
-    private String[] Protokol;
-    private String[] HataMesaj;
+    private String[] protokol;
+    private String[] hataMesaj;
 
-    private List<SunucuData> SunucuTablo=new ArrayList<SunucuData>(  );
-    private int KontrolPeriyodu;
-    private String SunucuKullaniciAdi;
-
-    public String getSunucuSifre() {
-        return SunucuSifre;
-    }
-
-    public void setSunucuSifre(String sunucuSifre) {
-        SunucuSifre = sunucuSifre;
-    }
-
-
-    public String getSunucuKullaniciAdi() {
-        return SunucuKullaniciAdi;
-    }
-
-    public void setSunucuKullaniciAdi(String sunucuKullaniciAdi) {
-        SunucuKullaniciAdi = sunucuKullaniciAdi;
-    }
-
-    public int getKontrolPeriyodu() {
-        return KontrolPeriyodu;
-    }
-
-    public void setKontrolPeriyodu(int kontrolPeriyodu) {
-        KontrolPeriyodu = kontrolPeriyodu;
-    }
-
-    public List<SunucuData> getSunucuTablo() {
-        return SunucuTablo;
-    }
-
-    public void setSunucuTablo(List<SunucuData> sunucuTablo) {
-        SunucuTablo = sunucuTablo;
-    }
-
-    public String getSunucuTipi() {
-        return SunucuTipi;
-    }
-
-    public void setSunucuTipi(String sunucuTipi) {
-        SunucuTipi = sunucuTipi;
-    }
-
-    public String getSunucuTuru() {
-        return SunucuTuru;
-    }
-
-    public void setSunucuTuru(String sunucuTuru) {
-        SunucuTuru = sunucuTuru;
-    }
-
-    public String getSunucuUygulamaTipi() {
-        return SunucuUygulamaTipi;
-    }
-
-    public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
-        SunucuUygulamaTipi = sunucuUygulamaTipi;
-    }
-
-
-    public String[] getHataMesaj() {
-        return HataMesaj;
-    }
-
-    public void setHataMesaj(String[] hataMesaj) {
-        HataMesaj = hataMesaj;
-    }
+    private List<SunucuData> sunucuTablo=new ArrayList<SunucuData>(  );
+    private int kontrolPeriyodu;
+    private String sunucuKullaniciAdi;
 
     public String getSunucuBilgisi() {
-        return SunucuBilgisi;
+        return sunucuBilgisi;
     }
 
     public void setSunucuBilgisi(String sunucuBilgisi) {
-        SunucuBilgisi = sunucuBilgisi;
+        this.sunucuBilgisi = sunucuBilgisi;
+    }
+
+    public String getSunucuTipi() {
+        return sunucuTipi;
+    }
+
+    public void setSunucuTipi(String sunucuTipi) {
+        this.sunucuTipi = sunucuTipi;
+    }
+
+    public String getSunucuTuru() {
+        return sunucuTuru;
+    }
+
+    public void setSunucuTuru(String sunucuTuru) {
+        this.sunucuTuru = sunucuTuru;
+    }
+
+    public String getSunucuUygulamaTipi() {
+        return sunucuUygulamaTipi;
+    }
+
+    public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
+        this.sunucuUygulamaTipi = sunucuUygulamaTipi;
+    }
+
+    public String getSunucuSifre() {
+        return sunucuSifre;
+    }
+
+    public void setSunucuSifre(String sunucuSifre) {
+        this.sunucuSifre = sunucuSifre;
     }
 
     public String[] getProtokol() {
-        return Protokol;
+        return protokol;
     }
 
     public void setProtokol(String[] protokol) {
-        Protokol = protokol;
+        this.protokol = protokol;
     }
 
+    public String[] getHataMesaj() {
+        return hataMesaj;
+    }
+
+    public void setHataMesaj(String[] hataMesaj) {
+        this.hataMesaj = hataMesaj;
+    }
+
+    public List<SunucuData> getSunucuTablo() {
+        return sunucuTablo;
+    }
+
+    public void setSunucuTablo(List<SunucuData> sunucuTablo) {
+        this.sunucuTablo = sunucuTablo;
+    }
+
+    public int getKontrolPeriyodu() {
+        return kontrolPeriyodu;
+    }
+
+    public void setKontrolPeriyodu(int kontrolPeriyodu) {
+        this.kontrolPeriyodu = kontrolPeriyodu;
+    }
+
+    public String getSunucuKullaniciAdi() {
+        return sunucuKullaniciAdi;
+    }
+
+    public void setSunucuKullaniciAdi(String sunucuKullaniciAdi) {
+        this.sunucuKullaniciAdi = sunucuKullaniciAdi;
+    }
 
     public void sunucuaraButonu()  {    }
 

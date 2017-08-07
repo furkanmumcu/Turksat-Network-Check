@@ -9,68 +9,67 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 
 public class SunucuData {
-    private String SunucuSanalAdi;
-    private String SunucuAdi;
-    private String SunucuIp;
-    private String SunucuUgulamaTipi;
-    private int SunucuTipi;
-    private String SunucuPortBilgisi;
-    private String SunucuTuru;
-
+    private String sunucuSanalAdi;
+    private String sunucuAdi;
+    private String sunucuIp;
+    private String sunucuUgulamaTipi;
+    private String sunucuTipi;
+    private String sunucuPortBilgisi;
+    private String sunucuTuru;
 
     public String getSunucuSanalAdi() {
-        return SunucuSanalAdi;
+        return sunucuSanalAdi;
     }
 
     public void setSunucuSanalAdi(String sunucuSanalAdi) {
-        SunucuSanalAdi = sunucuSanalAdi;
+        this.sunucuSanalAdi = sunucuSanalAdi;
     }
 
     public String getSunucuAdi() {
-        return SunucuAdi;
+        return sunucuAdi;
     }
 
     public void setSunucuAdi(String sunucuAdi) {
-        SunucuAdi = sunucuAdi;
+        this.sunucuAdi = sunucuAdi;
     }
 
     public String getSunucuIp() {
-        return SunucuIp;
+        return sunucuIp;
     }
 
     public void setSunucuIp(String sunucuIp) {
-        SunucuIp = sunucuIp;
+        this.sunucuIp = sunucuIp;
     }
 
     public String getSunucuUgulamaTipi() {
-        return SunucuUgulamaTipi;
+        return sunucuUgulamaTipi;
     }
 
-    public void setSunucuUgulamaTipi(String sunucuUgulamaTipit) {
-        SunucuUgulamaTipi = sunucuUgulamaTipit;
+    public void setSunucuUgulamaTipi(String sunucuUgulamaTipi) {
+        this.sunucuUgulamaTipi = sunucuUgulamaTipi;
     }
 
-    public int getSunucuTipi() {
-        return SunucuTipi;
+    public String getSunucuTipi() {
+        return sunucuTipi;
     }
 
-    public void setSunucuTipi(int sunucuTipi) {
-        SunucuTipi = sunucuTipi;
+    public void setSunucuTipi(String sunucuTipi) {
+        this.sunucuTipi = sunucuTipi;
     }
 
     public String getSunucuPortBilgisi() {
-        return SunucuPortBilgisi;
+        return sunucuPortBilgisi;
     }
 
     public void setSunucuPortBilgisi(String sunucuPortBilgisi) {
-        SunucuPortBilgisi = sunucuPortBilgisi;
+        this.sunucuPortBilgisi = sunucuPortBilgisi;
     }
 
     public String getSunucuTuru() {
-        return SunucuTuru;
+        return sunucuTuru;
     }
 
     public void setSunucuTuru(String sunucuTuru) {
-        SunucuTuru = sunucuTuru;
+        this.sunucuTuru = sunucuTuru;
     }
 }

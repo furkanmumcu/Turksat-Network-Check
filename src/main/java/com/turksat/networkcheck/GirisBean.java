@@ -10,9 +10,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class GirisBean {
-    private String KullaniciAdi;
-    private String Sifre;
-    private String Eposta;
+    private String kullaniciAdi;
+    private String sifre;
+    private String eposta;
     private String kullaniciAdiUnuttum;
 
     public String getKullaniciAdiUnuttum() {
@@ -26,27 +26,27 @@ public class GirisBean {
     public GirisBean(){}
 
     public String getKullaniciAdi() {
-        return KullaniciAdi;
+        return kullaniciAdi;
     }
 
     public void setKullaniciAdi(String kullaniciAdi) {
-        KullaniciAdi = kullaniciAdi;
+        this.kullaniciAdi = kullaniciAdi;
     }
 
     public String getSifre() {
-        return Sifre;
+        return sifre;
     }
 
     public void setSifre(String sifre) {
-        Sifre = sifre;
+        this.sifre = sifre;
     }
 
     public String getEposta() {
-        return Eposta;
+        return eposta;
     }
 
     public void setEposta(String eposta) {
-        Eposta = eposta;
+        this.eposta = eposta;
     }
 
     public void girisButonu() {  }

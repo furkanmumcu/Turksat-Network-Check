@@ -8,50 +8,50 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class SablonBean {
-    private String KullaniciEposta;
-    private String KullaniciTelNo;
-    private String KullaniciSifre;
-    private String KullaniciYeniSifre;
-    private String YeniSifreTekrar;
+    private String kullaniciEposta;
+    private String kullaniciTelNo;
+    private String kullaniciSifre;
+    private String kullaniciYeniSifre;
+    private String yeniSifreTekrar;
 
     public String getKullaniciEposta() {
-        return KullaniciEposta;
+        return kullaniciEposta;
     }
 
     public void setKullaniciEposta(String kullaniciEposta) {
-        KullaniciEposta = kullaniciEposta;
+        this.kullaniciEposta = kullaniciEposta;
     }
 
     public String getKullaniciTelNo() {
-        return KullaniciTelNo;
+        return kullaniciTelNo;
     }
 
     public void setKullaniciTelNo(String kullaniciTelNo) {
-        KullaniciTelNo = kullaniciTelNo;
+        this.kullaniciTelNo = kullaniciTelNo;
     }
 
     public String getKullaniciSifre() {
-        return KullaniciSifre;
+        return kullaniciSifre;
     }
 
     public void setKullaniciSifre(String kullaniciSifre) {
-        KullaniciSifre = kullaniciSifre;
+        this.kullaniciSifre = kullaniciSifre;
     }
 
     public String getKullaniciYeniSifre() {
-        return KullaniciYeniSifre;
+        return kullaniciYeniSifre;
     }
 
     public void setKullaniciYeniSifre(String kullaniciYeniSifre) {
-        KullaniciYeniSifre = kullaniciYeniSifre;
+        this.kullaniciYeniSifre = kullaniciYeniSifre;
     }
 
     public String getYeniSifreTekrar() {
-        return YeniSifreTekrar;
+        return yeniSifreTekrar;
     }
 
     public void setYeniSifreTekrar(String yeniSifreTekrar) {
-        YeniSifreTekrar = yeniSifreTekrar;
+        this.yeniSifreTekrar = yeniSifreTekrar;
     }
 
     public void SifreGuncelleButonu() {
