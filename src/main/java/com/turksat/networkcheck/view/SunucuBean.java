@@ -1,5 +1,8 @@
 package com.turksat.networkcheck.view;
 
+import com.turksat.networkcheck.Service.Service;
+import com.turksat.networkcheck.model.Sunucu;
+
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +109,25 @@ public class SunucuBean {
 
     public void tanimlaButonu() {
         // TODO: 4.08.2017
-        //Sunucu sunucu = new Sunucu();
+        SunucuData sunucuData = new SunucuData();
+        Sunucu sunucu = new Sunucu();
 
-        //sets
+        sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
+        sunucu.setSunucuIp(sunucuData.getSunucuIp());
+        sunucu.setSunucuPortBilgisi(sunucuData.getSunucuPortBilgisi());
+        sunucu.setKontrolPeriyodu(kontrolPeriyodu);
+        sunucu.setSunucuKullaniciAdi(sunucuKullaniciAdi);
+        sunucu.setSunucuSifre(sunucuSifre);
+        sunucu.setSunucuTipi(sunucuData.getSunucuTipi());
+        sunucu.setSunucuUgulamaTipi(sunucuData.getSunucuUgulamaTipi());
+        sunucu.setSunucuTuru(sunucuData.getSunucuTuru());
+        sunucu.setProtokol(protokol);
+        sunucu.setHataMesaj(hataMesaj);
 
-        //Service service = new Service();
-        //service.addSunucu(sunucu);
+
+
+        Service service = new Service();
+        service.addSunucu(sunucu);
     }
 
     public void sunucuDuzenleButonu(){}
