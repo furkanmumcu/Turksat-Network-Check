@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <link rel="stylesheet" href="style.css"/>
+
+    <h:form>
+        <h:panelGrid columns="3" style="width: 100%">
+            <h:graphicImage
+                    value="http://www.kablonetbasvuru.com/wp-content/uploads/2017/02/turksat_internet_logo.png">
+            </h:graphicImage>
+            <p:outputPanel>
+                <p:commandButton value="Anasayfa" style="width: 200px" action="#{sablonBean.anasayfaButonu}"/>
+                <p:commandButton value="Kullanıcı İşlemleri" style="width: 200px"
+                                 action="#{sablonBean.kullaniciButonu}"/>
+                <p:commandButton value="Sunucu İşlemleri" style="width: 200px"
+                                 action="#{sablonBean.sunucuButonu}"/>
+            </p:outputPanel>
+            <p:outputPanel>
+                <p:menuButton value="Kullanıcı İşlem" style="left: 50px;top: -120px">
+                    <p:menuitem value="Bilgi Güncelle" icon="ui-icon-refresh"
+                                onclick="PF('dlg10').show();"></p:menuitem>
+                    <p:menuitem value="Çıkış" icon="ui-icon-power"> </p:menuitem>
+                </p:menuButton>
+            </p:outputPanel>
+        </h:panelGrid>
+        <p:dialog showEffect="explode" widgetVar="dlg10" modal="true"
+                  height="400" width="550">
+             <p:tabView>
+                    <p:tab title="Bilgi Güncelle">
+                   <h:panelGrid columns="1">
+            <h:outputText value="Mevcut E-posta "/>
+            <p:inputText/>
+            <h:outputText value="Mevcut Telefon No"/>
+            <p:inputText/>
+            <p:commandButton value="Güncelle" icon="ui-icon-check"/>
+        </h:panelGrid>
+        </p:tab>
+             <p:tab title="Şifre Güncelle">
+            <p:column headerText="Şifre Değiştirme">
+                         <h:panelGrid columns="1">
+                <h:outputText value="Mevcut Şifre"/>
+                <p:password/>
+                <h:outputText value="Yeni Şifre"/>
+                <p:password/>
+                <h:outputText value="Yeni Şifre Tekrar"/>
+                <p:password/>
+                <p:commandButton value="Güncelle" icon="ui-icon-check"/>
+            </h:panelGrid>
+
+                    </p:column>
+                    </p:tab>
+                
+        </p:tabView>
+        </p:dialog>
+    </h:form>
+</ui:composition>

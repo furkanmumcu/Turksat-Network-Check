@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<link rel="stylesheet" href="style.css"/>
+<h:head>
+
+</h:head>
+<h:body>
+    <h:form>
+        <ui:include src="insert.xhtml"></ui:include>
+
+        <p:panel styleClass="guncel">
+            <p:panelGrid columns="1">
+                <f:facet name="header">
+                    E-posta ve Telefon No Bilgileri
+                </f:facet>
+                <h:outputText value="Mevcut E-posta "/>
+                <p:inputText/>
+                <h:outputText value="Mevcut Telefon No"/>
+                <p:inputText/>
+                <p:commandButton value="Güncelle"/>
+                <p:commandButton value="Şifre Değiştir" icon="ui-icon-wrench" type="button"
+                                 onclick="PF('dlg5').show();"/>
+            </p:panelGrid>
+
+        </p:panel>
+        <p:dialog header="Şifre Değiştirme" style="text-align: center" showEffect="explode" widgetVar="dlg5"
+                  modal="true" height="200" width="480">
+                 <p:panelGrid columns="2">
+            <h:outputText value="Mevcut Şifre"/>
+            <p:password/>
+            <h:outputText value="Yeni Şifre"/>
+            <p:password/>
+            <h:outputText value="Yeni Şifre Tekrar"/>
+            <p:password/>
+        </p:panelGrid>
+            <p:commandButton value="Güncelle" icon="ui-icon-check"/>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

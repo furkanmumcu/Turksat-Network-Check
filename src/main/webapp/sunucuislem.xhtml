@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="sablon.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:panelGrid columns="2" styleClass="kullanıcıara">
+                <f:facet name="header">
+                    <h:outputText value="Kullanıcı Arama"/>
+                </f:facet>
+
+                <h:outputText value="Ad"/>
+                <p:inputText value="#{kullaniciBean.ad}"/>
+
+                <h:outputText value="Soyad"/>
+                <p:inputText value="#{kullaniciBean.soyAd}"/>
+
+            </p:panelGrid>
+            <p:commandButton value="ARA" styleClass="buton2" icon="ui-icon-search" action="#{kullaniciBean.kisiAraButonu}" update="kullanici"/>
+            <p:commandButton value="" styleClass="buton" icon="ui-icon-circle-plus" type="button"
+                             onclick="PF('dlg2').show();"/>
+            <p:dataTable  id="kullanici" styleClass="tablo3" value="#{kullaniciBean.kullaniciTablo}" paginator="true" reflow="true"
+                          rows="5">
+                    <p:column headerText="Ad ">
+                        <h:outputText value="#{kullaniciData.ad}"/>
+                    </p:column>
+                 
+                    <p:column headerText="Soyad">
+                        <h:outputText value="#{kullaniciData.soyAd}"/>
+                    </p:column>
+                 
+                    <p:column headerText="Telefon">
+                       <h:outputText value="#{kullaniciData.telNo}"/>
+                    </p:column>
+                 
+                    <p:column headerText="E-posta">
+                         <h:outputText value="#{kullaniciData.eposta}"/>
+                    </p:column>
+                <p:column headerText="Rol">
+                            <h:outputText value="#{kullaniciData.rol}"/>
+                        </p:column>
+                <p:column style="width: 182px">
+                            <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
+                                             action="#{kullaniciBean.kisiDuzenleButonu}" onclick="PF('dlg8').show();"/>
+                    <p:commandButton title="Pasifleştir" icon="ui-icon-cancel" style="float: left"
+                                     action="#{kullaniciBean.kisiPasifButonu}" onclick="PF('dlg9').show();"/>
+                    <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"
+                                     action="#{kullaniciBean.kisiAktifButonu}"/>
+                        </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Yeni Kullanıcı Ekleme" showEffect="explode" widgetVar="dlg2" style="text-align: center"
+                      modal="true" height="580" width="260">
+                     <h:panelGrid columns="1">
+                <h:outputText value="Ad "/>
+                <p:inputText value="#{kullaniciData.ad}"/>
+                <h:outputText value="Soyad "/>
+                <p:inputText value="#{kullaniciData.soyAd}"/>
+                <h:outputText value="Kullanıcı Adı"/>
+                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
+                <h:outputText value="Şifre"/>
+                <p:password value="#{kullaniciData.sifre}"/>
+                <h:outputText value="Şifre Tekrar "/>
+                <p:password value="#{kullaniciData.sifreTekrar}"/>
+                <h:outputText value="Telefon Numarası "/>
+                <p:inputText value="#{kullaniciData.telNo}"/>
+                <h:outputText value="E-posta "/>
+                <p:inputText value="#{kullaniciData.eposta}"/>
+                <h:outputText value="Rol"/>
+                <h:selectOneMenu value="#{kullaniciBean.rolTanimla}">
+                    <f:selectItem itemValue="" itemLabel="Yönetici"/>
+                    <f:selectItem itemValue="" itemLabel="Kullanıcı"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiKaydetButonu}"/>
+            </p:dialog> 
+            <p:dialog header="Kullanıcı Düzenleme" showEffect="explode" widgetVar="dlg8" style="text-align: center"
+                      modal="true" height="580" width="260">
+                     <h:panelGrid columns="1">
+                <h:outputText value="Ad"/>
+                <p:inputText value="#{kullaniciData.ad}"/>
+                <h:outputText value="Soyad "/>
+                <p:inputText value="#{kullaniciData.soyAd}"/>
+                <h:outputText value="Kullanıcı Adı"/>
+                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
+                <h:outputText value="Telefon Numarası "/>
+                <p:inputText value="#{kullaniciData.telNo}"/>
+                <h:outputText value="E-posta "/>
+                <p:inputText value="#{kullaniciData.eposta}"/>
+                <h:outputText value="Rol"/>
+                <p:inputText value="#{kullaniciData.rol}"/>
+            </h:panelGrid>
+                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiDuzenleButonu}"/>
+            </p:dialog>
+            <p:dialog showEffect="explode" widgetVar="dlg9" style="text-align: center" modal="true" height="150"
+                      width="250">
+                <p:panel style="text-align: center">
+                    <h:outputText value=".... kullanıcısını pasifleştirmek istediğinize emin misiniz?"/>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Evet" />
+                        <p:commandButton value="Hayır"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form> 
+    </ui:define>
+</ui:composition>
