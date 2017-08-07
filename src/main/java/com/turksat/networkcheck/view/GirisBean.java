@@ -1,4 +1,4 @@
-package com.turksat.networkcheck;
+package com.turksat.networkcheck.view;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

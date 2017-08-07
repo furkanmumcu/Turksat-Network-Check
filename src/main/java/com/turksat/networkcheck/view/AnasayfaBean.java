@@ -1,13 +1,10 @@
-package com.turksat.networkcheck;
+package com.turksat.networkcheck.view;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by furkanmumcu on 07/08/2017.
- */
 
 @ManagedBean
 @SessionScoped
