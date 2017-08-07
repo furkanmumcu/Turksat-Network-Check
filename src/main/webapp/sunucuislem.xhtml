@@ -6,104 +6,191 @@
                 template="sablon.xhtml">
     <ui:define name="content">
         <h:form>
-            <p:panelGrid columns="2" styleClass="kullanıcıara">
+
+            <p:panelGrid styleClass="sunucuara">
                 <f:facet name="header">
-                    <h:outputText value="Kullanıcı Arama"/>
+                    <p:row>
+                        <p:column colspan="1">
+                            <h:outputText value="Sunucu Arama"/>
+                        </p:column>
+                    </p:row>
                 </f:facet>
+                <p:row>
+                    <p:column colspan="2">
+                        <h:outputText value="Sunucu Bilgisi "/>
+                        <p:inputText value="#{sunucuBean.sunucuBilgisi}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="3">
+                        <p:selectOneMenu value="#{sunucuBean.sunucuTipi}">
+                            <f:selectItem itemValue="" itemLabel="Sunucu Tipi"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{sunucuBean.sunucuTuru}">
+                            <f:selectItem itemValue="" itemLabel="Sunucu Türü"/>
 
-                <h:outputText value="Ad"/>
-                <p:inputText value="#{kullaniciBean.ad}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{sunucuBean.sunucuUygulamaTipi}">
+                            <f:selectItem itemValue="" itemLabel="Sunucu Uygulama Tipi"/>
 
-                <h:outputText value="Soyad"/>
-                <p:inputText value="#{kullaniciBean.soyAd}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="3">
+                        <p:commandButton value="ARA" style="left: 38.5%" icon="ui-icon-search" action="#{sunucuBean.sunucuaraButonu}"/>
 
+                    </p:column>
+                </p:row>
             </p:panelGrid>
-            <p:commandButton value="ARA" styleClass="buton2" icon="ui-icon-search" action="#{kullaniciBean.kisiAraButonu}" update="kullanici"/>
-            <p:commandButton value="" styleClass="buton" icon="ui-icon-circle-plus" type="button"
-                             onclick="PF('dlg2').show();"/>
-            <p:dataTable  id="kullanici" styleClass="tablo3" value="#{kullaniciBean.kullaniciTablo}" paginator="true" reflow="true"
-                          rows="5">
-                    <p:column headerText="Ad ">
-                        <h:outputText value="#{kullaniciData.ad}"/>
+            <p:commandButton title="Sunucu Ekle" styleClass="buton3" icon="ui-icon-circle-plus" type="button"
+                             onclick="PF('dlg1').show();"/>
+            <p:dialog header="Yeni Sunucu Ekleme" showEffect="explode" widgetVar="dlg1" style="text-align: center"
+                      modal="true" height="550" width="660">
+                     <p:panelGrid columns="2">
+                <h:outputText value="Sunucu Sanal Adı "/>
+                <p:inputText value="#{sunucuData.sunucuSanalAdi}"/>
+                <h:outputText value="IP Adresi "/>
+                <p:inputText value="#{sunucuData.sunucuIp}"/>
+                <h:outputText value="Port Bilgisi "/>
+                <p:inputText value="#{sunucuData.sunucuPortBilgisi}"/>
+                <h:outputText value="Kontrol Periyodu(dk) "/>
+                <p:inputText value="#{sunucuBean.kontrolPeriyodu}"/>
+                <h:outputText value="Sunucu Kullanıcı Adı "/>
+                <p:inputText value="#{sunucuBean.sunucuKullaniciAdi}"/>
+                <h:outputText value="Sunucu Şifre "/>
+                <p:password value="#{sunucuBean.sunucuSifre}"/>
+                <h:outputText value="Sunucu Tipi"/>
+                <p:selectOneMenu value="#{sunucuBean.sunucuTipi}" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel="Sunucu Tipi"/>
+
+                </p:selectOneMenu>
+                <h:outputText value="Sunucu Uygulama Tipi"/>
+                <p:selectOneMenu value="#{sunucuBean.sunucuUygulamaTipi}" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel="Sunucu Uygulama Tipi"/>
+
+                </p:selectOneMenu>
+                <h:outputText value="Sunucu Türü"/>
+                <p:selectOneMenu value="#{sunucuBean.sunucuTuru}" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel="Sunucu Türü"/>
+
+                </p:selectOneMenu>
+                <p:outputLabel for="console" value="İletişim Protokolü"/>
+                <p:outputPanel>
+                            <p:selectOneRadio id="console" value="#{sunucuBean.protokol}">
+                                <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
+                                <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
+                                <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
+                    <f:selectItem itemLabel="TPC/IP" itemValue="TPC/IP"/>
+                    <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
+                            </p:selectOneRadio>
+                </p:outputPanel>
+                <p:outputLabel for="bildirim" value="Hata Bildirim Türü"/>
+                <p:outputPanel>
+                            <p:selectManyCheckbox id="bildirim" value="#{sunucuBean.hataMesaj}">
+                                <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
+                                <f:selectItem itemLabel="SMS" itemValue="SMS"/>
+                            </p:selectManyCheckbox>
+                </p:outputPanel>
+            </p:panelGrid>
+                <p:commandButton value="TANIMLA" icon="ui-icon-check" action="#{sunucuBean.tanimlaButonu}"/>
+            </p:dialog>
+            <p:dataTable var="sunucuara" value="#{sunucuBean.sunucuTablo}" reflow="true" rows="10" paginator="true"
+                         styleClass="tablo3">
+                    <p:column headerText="Sunucular ">
+                        <h:outputText value="#{sunucuData.sunucuAdi}"/>
                     </p:column>
                  
-                    <p:column headerText="Soyad">
-                        <h:outputText value="#{kullaniciData.soyAd}"/>
+                    <p:column headerText="IP Adresi">
+                       <h:outputText value="#{sunucuData.sunucuIp}"/>
                     </p:column>
                  
-                    <p:column headerText="Telefon">
-                       <h:outputText value="#{kullaniciData.telNo}"/>
+                    <p:column headerText="Sunucu Uygulama Tipi">
+                       <h:outputText value="#{sunucuData.sunucuUgulamaTipi}"/>
                     </p:column>
                  
-                    <p:column headerText="E-posta">
-                         <h:outputText value="#{kullaniciData.eposta}"/>
+                    <p:column headerText="Sunucu Tipi">
+                        <h:outputText value="#{sunucuData.sunucuTipi}"/>
                     </p:column>
-                <p:column headerText="Rol">
-                            <h:outputText value="#{kullaniciData.rol}"/>
+                <p:column headerText="Sunucu Port Bilgisi">
+                            <h:outputText value="#{sunucuData.sunucuPortBilgisi}"/>
                         </p:column>
-                <p:column style="width: 182px">
-                            <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
-                                             action="#{kullaniciBean.kisiDuzenleButonu}" onclick="PF('dlg8').show();"/>
+                <p:column headerText="Sunucu Türü">
+                            <h:outputText value="#{sunucuData.sunucuTuru}"/>
+                        </p:column>
+                <p:column headerText="" style="width: 182px">
+                             <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
+                                              onclick="PF('dlg6').show();"/>
                     <p:commandButton title="Pasifleştir" icon="ui-icon-cancel" style="float: left"
-                                     action="#{kullaniciBean.kisiPasifButonu}" onclick="PF('dlg9').show();"/>
-                    <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"
-                                     action="#{kullaniciBean.kisiAktifButonu}"/>
+                                     onclick="PF('dlg7').show();"/>
+                    <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"/>
                         </p:column>
+
             </p:dataTable>
 
-            <p:dialog header="Yeni Kullanıcı Ekleme" showEffect="explode" widgetVar="dlg2" style="text-align: center"
-                      modal="true" height="580" width="260">
-                     <h:panelGrid columns="1">
-                <h:outputText value="Ad "/>
-                <p:inputText value="#{kullaniciData.ad}"/>
-                <h:outputText value="Soyad "/>
-                <p:inputText value="#{kullaniciData.soyAd}"/>
-                <h:outputText value="Kullanıcı Adı"/>
-                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
-                <h:outputText value="Şifre"/>
-                <p:password value="#{kullaniciData.sifre}"/>
-                <h:outputText value="Şifre Tekrar "/>
-                <p:password value="#{kullaniciData.sifreTekrar}"/>
-                <h:outputText value="Telefon Numarası "/>
-                <p:inputText value="#{kullaniciData.telNo}"/>
-                <h:outputText value="E-posta "/>
-                <p:inputText value="#{kullaniciData.eposta}"/>
-                <h:outputText value="Rol"/>
-                <h:selectOneMenu value="#{kullaniciBean.rolTanimla}">
-                    <f:selectItem itemValue="" itemLabel="Yönetici"/>
-                    <f:selectItem itemValue="" itemLabel="Kullanıcı"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
-                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiKaydetButonu}"/>
-            </p:dialog> 
-            <p:dialog header="Kullanıcı Düzenleme" showEffect="explode" widgetVar="dlg8" style="text-align: center"
-                      modal="true" height="580" width="260">
-                     <h:panelGrid columns="1">
-                <h:outputText value="Ad"/>
-                <p:inputText value="#{kullaniciData.ad}"/>
-                <h:outputText value="Soyad "/>
-                <p:inputText value="#{kullaniciData.soyAd}"/>
-                <h:outputText value="Kullanıcı Adı"/>
-                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
-                <h:outputText value="Telefon Numarası "/>
-                <p:inputText value="#{kullaniciData.telNo}"/>
-                <h:outputText value="E-posta "/>
-                <p:inputText value="#{kullaniciData.eposta}"/>
-                <h:outputText value="Rol"/>
-                <p:inputText value="#{kullaniciData.rol}"/>
-            </h:panelGrid>
-                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiDuzenleButonu}"/>
+            <p:dialog header="Sunucu Düzenle" showEffect="explode" widgetVar="dlg6" style="text-align: center"
+                      modal="true" height="550" width="660">
+                     <p:panelGrid columns="2">
+                <h:outputText value="Sunucu Sanal Adı "/>
+                <p:inputText/>
+                <h:outputText value="IP Adresi "/>
+                <p:inputText/>
+                <h:outputText value="Port Bilgisi "/>
+                <p:inputText/>
+                <h:outputText value="Kontrol Periyodu(dk) "/>
+                <p:inputText/>
+                <h:outputText value="Sunucu Kullanıcı Adı "/>
+                <p:inputText/>
+                <h:outputText value="Sunucu Şifre "/>
+                <p:password/>
+                <h:outputText value="Sunucu Tipi"/>
+                <p:selectOneMenu value="wwe" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel=""/>
+
+                </p:selectOneMenu>
+                <h:outputText value="Sunucu Uygulama Tipi"/>
+                <p:selectOneMenu value="ad" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel=""/>
+
+                </p:selectOneMenu>
+                <h:outputText value="Sunucu Türü"/>
+                <p:selectOneMenu value="zcx" style="width: 180px">
+                    <f:selectItem itemValue="" itemLabel=""/>
+
+                </p:selectOneMenu>
+                <p:outputLabel for="console" value="İletişim Protokolü"/>
+                <p:outputPanel>
+                            <p:selectManyCheckbox id="consol" value="#{sunucuBean.protokol}">
+                                <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
+                                <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
+                                <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
+                    <f:selectItem itemLabel="TPC/IP" itemValue="TPC/IP"/>
+                    <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
+                            </p:selectManyCheckbox>
+                </p:outputPanel>
+                <p:outputLabel for="console" value="Hata Bildirim Türü"/>
+                <p:outputPanel>
+                            <p:selectManyCheckbox id="bildiri" value="#{sunucuBean.hataMesaj}">
+                                <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
+                                <f:selectItem itemLabel="SMS" itemValue="SMS"/>
+                            </p:selectManyCheckbox>
+                </p:outputPanel>
+            </p:panelGrid>
+                <p:commandButton value="Güncelle" icon="ui-icon-check"/>
             </p:dialog>
-            <p:dialog showEffect="explode" widgetVar="dlg9" style="text-align: center" modal="true" height="150"
+            <p:dialog showEffect="explode" widgetVar="dlg7" style="text-align: center" modal="true" height="150"
                       width="250">
                 <p:panel style="text-align: center">
-                    <h:outputText value=".... kullanıcısını pasifleştirmek istediğinize emin misiniz?"/>
+                    <h:outputText value=".... Sunucusunu pasifleştirmek istediğinize emin misiniz?"/>
+
                     <h:panelGrid columns="2">
-                        <p:commandButton value="Evet" />
+
+                        <p:commandButton value="Evet"/>
                         <p:commandButton value="Hayır"/>
                     </h:panelGrid>
                 </p:panel>
+
             </p:dialog>
-        </h:form> 
+        </h:form>
     </ui:define>
 </ui:composition>
