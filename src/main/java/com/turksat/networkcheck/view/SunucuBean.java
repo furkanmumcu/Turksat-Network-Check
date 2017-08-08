@@ -2,6 +2,9 @@ package com.turksat.networkcheck.view;
 
 import com.turksat.networkcheck.Service.Service;
 import com.turksat.networkcheck.model.Sunucu;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -124,7 +127,7 @@ public class SunucuBean {
                 = (SunucuData) facesContext.getApplication()
                 .createValueBinding("#{sunucuData}").getValue(facesContext);
 
-
+        /*
         System.out.println(sunucuData.getSunucuSanalAdi());
         System.out.println(sunucuData.getSunucuTipi());
         System.out.println("sifre " + sunucuData.getSunucuSifre());
@@ -132,10 +135,18 @@ public class SunucuBean {
 
 
         System.out.println(sunucuData.getKontrolPeriyodu());
+        */
+
+
+        SessionFactory sessionFactory = new Configuration().configure()
+                .buildSessionFactory();
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
         Sunucu sunucu = new Sunucu();
 
-        /*
+
         sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(sunucuData.getSunucuIp());
         sunucu.setSunucuPortBilgisi(sunucuData.getSunucuPortBilgisi());
@@ -147,7 +158,10 @@ public class SunucuBean {
         sunucu.setSunucuTuru(sunucuData.getSunucuTuru());
         sunucu.setProtokol(sunucuData.getProtokol());
         sunucu.setHataMesaj(sunucuData.getHataMesaj());
-        */
+
+        session.save(sunucu);
+        session.getTransaction().commit();
+        session.close();
 
 
         //Service service = new Service();
