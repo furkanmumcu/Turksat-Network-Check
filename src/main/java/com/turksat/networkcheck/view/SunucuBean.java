@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+//import org.hibernate.service.ServiceRegistryBuilder;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -142,14 +142,14 @@ public class SunucuBean {
 
         Configuration configuration = new Configuration();
         configuration.configure();
-        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                configuration.getProperties()). buildServiceRegistry();
+        //ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+          //      configuration.getProperties()). buildServiceRegistry();
 
-        SessionFactory sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
+        //SessionFactory sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
 
         ////
 
-        //SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -164,7 +164,7 @@ public class SunucuBean {
         sunucu.setSunucuKullaniciAdi(sunucuData.getSunucuKullaniciAdi());
         sunucu.setSunucuSifre(sunucuData.getSunucuSifre());
         sunucu.setSunucuTipi(sunucuData.getSunucuTipi());
-        sunucu.setSunucuUgulamaTipi(sunucuData.getSunucuUygulamaTipi());
+        sunucu.setSunucuUygulamaTipi(sunucuData.getSunucuUygulamaTipi());
         sunucu.setSunucuTuru(sunucuData.getSunucuTuru());
         sunucu.setProtokol(sunucuData.getProtokol());
         sunucu.setHataMesaj(sunucuData.getHataMesaj());

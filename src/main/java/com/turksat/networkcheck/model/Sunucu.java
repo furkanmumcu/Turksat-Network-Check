@@ -10,7 +10,7 @@ public class Sunucu {
     private String sunucuSanalAdi;
     private String sunucuKullaniciAdi;
     private String sunucuIp;
-    private String sunucuUgulamaTipi;
+    private String sunucuUygulamaTipi;
     private String sunucuTipi;
     private String sunucuPortBilgisi;
     private String sunucuTuru;
@@ -24,8 +24,9 @@ public class Sunucu {
     private List<Log> hatalar = new ArrayList<Log>();
 
 
+    //@Id
+    //@Basic(optional = false)
     @Id
-    @Basic(optional = false)
     @Column(name="sunucuSanalAdi", unique = true, nullable = false)
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
@@ -34,7 +35,7 @@ public class Sunucu {
         this.sunucuSanalAdi = sunucuSanalAdi;
     }
 
-    @Column(name="sunucuKulkaniciAdi", unique = true, nullable = false)
+    @Column(name="sunucuKullaniciAdi", unique = true, nullable = false)
     public String getSunucuKullaniciAdi() {
         return sunucuKullaniciAdi;
     }
@@ -52,10 +53,10 @@ public class Sunucu {
 
     @Column(name="sunucuUygulamaTipi", unique = true, nullable = false)
     public String getSunucuUygulamaTipi() {
-        return sunucuUgulamaTipi;
+        return sunucuUygulamaTipi;
     }
-    public void setSunucuUgulamaTipi(String sunucuUgulamaTipit) {
-        sunucuUgulamaTipi = sunucuUgulamaTipit;
+    public void setSunucuUygulamaTipi(String sunucuUgulamaTipit) {
+        sunucuUygulamaTipi = sunucuUgulamaTipit;
     }
 
     @Column(name="sunucuTipi", unique = true, nullable = false)
@@ -99,14 +100,14 @@ public class Sunucu {
         this.kontrolPeriyodu = kontrolPeriyodu;
     }
 
-
+    /*
     public List<Sunucu> getSunucuTablo() {
         return sunucuTablo;
     }
     public void setSunucuTablo(List<Sunucu> sunucuTablo) {
         this.sunucuTablo = sunucuTablo;
     }
-
+    */
     @Column(name="hataMesaji", unique = true, nullable = false)
     public String getHataMesaj() {
         return hataMesaj;
@@ -131,7 +132,7 @@ public class Sunucu {
         this.sunucuId = sunucuId;
     }
 
-
+    /*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sunucu")
     public List<Log> getHatalar() {
         return hatalar;
@@ -139,7 +140,7 @@ public class Sunucu {
     public void setHatalar(List<Log> hatalar) {
         this.hatalar = hatalar;
     }
-
+    */
     @Override
     public String toString() {
         StringBuffer strBuff = new StringBuffer();
