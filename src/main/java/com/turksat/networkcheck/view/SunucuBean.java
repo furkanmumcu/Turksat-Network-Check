@@ -5,6 +5,8 @@ import com.turksat.networkcheck.model.Sunucu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -138,8 +140,16 @@ public class SunucuBean {
         */
 
 
-        SessionFactory sessionFactory = new Configuration().configure()
-                .buildSessionFactory();
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+                configuration.getProperties()). buildServiceRegistry();
+
+        SessionFactory sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
+
+        ////
+
+        //SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
