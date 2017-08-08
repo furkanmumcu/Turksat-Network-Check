@@ -169,6 +169,7 @@ public class SunucuBean {
         sunucu.setProtokol(sunucuData.getProtokol());
         sunucu.setHataMesaj(sunucuData.getHataMesaj());
 
+
         session.save(sunucu);
         session.getTransaction().commit();
         session.close();

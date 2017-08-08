@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name="sunucu")
 public class Sunucu {
@@ -27,7 +29,7 @@ public class Sunucu {
     //@Id
     //@Basic(optional = false)
     @Id
-    @Column(name="sunucuSanalAdi", unique = true, nullable = false)
+    @Column(name="sunucuSanalAdi", unique = false, nullable = false)
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
     }
@@ -35,7 +37,7 @@ public class Sunucu {
         this.sunucuSanalAdi = sunucuSanalAdi;
     }
 
-    @Column(name="sunucuKullaniciAdi", unique = true, nullable = false)
+    @Column(name="sunucuKullaniciAdi", unique = false, nullable = false)
     public String getSunucuKullaniciAdi() {
         return sunucuKullaniciAdi;
     }
@@ -43,7 +45,7 @@ public class Sunucu {
         this.sunucuKullaniciAdi = sunucuKullaniciAdi;
     }
 
-    @Column(name="sunucuIp", unique = true, nullable = false)
+    @Column(name="sunucuIp", unique = false, nullable = false)
     public String getSunucuIp() {
         return sunucuIp;
     }
@@ -51,7 +53,7 @@ public class Sunucu {
         this.sunucuIp = sunucuIp;
     }
 
-    @Column(name="sunucuUygulamaTipi", unique = true, nullable = false)
+    @Column(name="sunucuUygulamaTipi", unique = false, nullable = false)
     public String getSunucuUygulamaTipi() {
         return sunucuUygulamaTipi;
     }
@@ -59,7 +61,7 @@ public class Sunucu {
         sunucuUygulamaTipi = sunucuUgulamaTipit;
     }
 
-    @Column(name="sunucuTipi", unique = true, nullable = false)
+    @Column(name="sunucuTipi", unique = false, nullable = false)
     public String getSunucuTipi() {
         return sunucuTipi;
     }
@@ -67,7 +69,7 @@ public class Sunucu {
         this.sunucuTipi = sunucuTipi;
     }
 
-    @Column(name="sunucuPortBilgisi", unique = true, nullable = false)
+    @Column(name="sunucuPortBilgisi", unique = false, nullable = false)
     public String getSunucuPortBilgisi() {
         return sunucuPortBilgisi;
     }
@@ -75,7 +77,7 @@ public class Sunucu {
         this.sunucuPortBilgisi = sunucuPortBilgisi;
     }
 
-    @Column(name="sunucuTuru", unique = true, nullable = false)
+    @Column(name="sunucuTuru", unique = false, nullable = false)
     public String getSunucuTuru() {
         return sunucuTuru;
     }
@@ -84,7 +86,7 @@ public class Sunucu {
     }
 
 
-    @Column(name="sunucuSifre", unique = true, nullable = false)
+    @Column(name="sunucuSifre", unique = false, nullable = false)
     public String getSunucuSifre() {
         return sunucuSifre;
     }
@@ -92,7 +94,7 @@ public class Sunucu {
         this.sunucuSifre = sunucuSifre;
     }
 
-    @Column(name="kontrolPeriyodu", unique = true, nullable = false)
+    @Column(name="kontrolPeriyodu", unique = false, nullable = false)
     public int getKontrolPeriyodu() {
         return kontrolPeriyodu;
     }
@@ -108,7 +110,7 @@ public class Sunucu {
         this.sunucuTablo = sunucuTablo;
     }
     */
-    @Column(name="hataMesaji", unique = true, nullable = false)
+    @Column(name="hataMesaji", unique = false, nullable = false)
     public String getHataMesaj() {
         return hataMesaj;
     }
@@ -116,7 +118,7 @@ public class Sunucu {
         this.hataMesaj = hataMesaj;
     }
 
-    @Column(name="sunucuProtokolu", unique = true, nullable = false)
+    @Column(name="sunucuProtokolu", unique = false, nullable = false)
     public String getProtokol() {
         return protokol;
     }
@@ -124,7 +126,7 @@ public class Sunucu {
         this.protokol = protokol;
     }
 
-    @Column(name="sunucuid", unique = true, nullable = false)
+    @Column(name="sunucuid", unique = false, nullable = false)
     public int getSunucuId() {
         return sunucuId;
     }
