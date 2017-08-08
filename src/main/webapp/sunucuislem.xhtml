@@ -95,10 +95,10 @@
                     <f:selectItem itemLabel="SMS" itemValue="SMS"/>
                 </p:selectOneMenu>
 
-
             </p:panelGrid>
                 <p:commandButton value="TANIMLA" icon="ui-icon-check" action="#{sunucuBean.tanimlaButonu}"/>
             </p:dialog>
+
             <p:dataTable var="sunucuara" value="#{sunucuBean.sunucuTablo}" reflow="true" rows="10" paginator="true"
                          styleClass="tablo3">
                     <p:column headerText="Sunucular ">
@@ -110,7 +110,7 @@
                     </p:column>
                  
                     <p:column headerText="Sunucu Uygulama Tipi">
-                       <h:outputText value="#{sunucuData.sunucuUgulamaTipi}"/>
+                       <h:outputText value="#{sunucuData.sunucuUygulamaTipi}"/>
                     </p:column>
                  
                     <p:column headerText="Sunucu Tipi">
@@ -129,7 +129,6 @@
                                      onclick="PF('dlg7').show();"/>
                     <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"/>
                         </p:column>
-
             </p:dataTable>
 
             <p:dialog header="Sunucu Düzenle" showEffect="explode" widgetVar="dlg6" style="text-align: center"

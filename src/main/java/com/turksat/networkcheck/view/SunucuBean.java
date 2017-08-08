@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.primefaces.context.RequestContext;
 //import org.hibernate.service.ServiceRegistryBuilder;
 
 import javax.faces.bean.ManagedBean;
@@ -129,33 +130,22 @@ public class SunucuBean {
                 = (SunucuData) facesContext.getApplication()
                 .createValueBinding("#{sunucuData}").getValue(facesContext);
 
-        /*
+        /* debug outs
         System.out.println(sunucuData.getSunucuSanalAdi());
         System.out.println(sunucuData.getSunucuTipi());
         System.out.println("sifre " + sunucuData.getSunucuSifre());
         System.out.println(sunucuData.getHataMesaj());
-
-
         System.out.println(sunucuData.getKontrolPeriyodu());
         */
 
-
         Configuration configuration = new Configuration();
         configuration.configure();
-        //ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-          //      configuration.getProperties()). buildServiceRegistry();
-
-        //SessionFactory sessionFactory =  configuration.buildSessionFactory(serviceRegistry);
-
-        ////
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Sunucu sunucu = new Sunucu();
-
 
         sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(sunucuData.getSunucuIp());
@@ -169,14 +159,15 @@ public class SunucuBean {
         sunucu.setProtokol(sunucuData.getProtokol());
         sunucu.setHataMesaj(sunucuData.getHataMesaj());
 
-
         session.save(sunucu);
         session.getTransaction().commit();
         session.close();
 
 
-        //Service service = new Service();
-        //service.addSunucu(sunucu);
+        //close the popup
+        //RequestContext requestContext = RequestContext.getCurrentInstance();
+        //requestContext.execute("PF('dlg1').hide()");
+        //last step redirect to same page
 
 
     }
