@@ -4,6 +4,8 @@ import com.turksat.networkcheck.Service.Service;
 import com.turksat.networkcheck.model.Sunucu;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,10 @@ public class SunucuBean {
     private String sunucuTuru;
     private String sunucuUygulamaTipi;
     private String sunucuSifre;
+
+
+    //@ManagedProperty(value = "#{sunucuDataBean}")
+    private SunucuData sunucuData1;
 
     private String[] protokol;
     private String[] hataMesaj;
@@ -105,13 +111,34 @@ public class SunucuBean {
         this.sunucuKullaniciAdi = sunucuKullaniciAdi;
     }
 
-    public void sunucuaraButonu()  {    }
+    public void sunucuaraButonu()  {
+        System.out.println(sunucuBilgisi);
+    }
 
     public void tanimlaButonu() {
         // TODO: 4.08.2017
-        SunucuData sunucuData = new SunucuData();
-        Sunucu sunucu = new Sunucu();
+        System.out.println("Hello, World");
 
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SunucuData sunucuData
+                = (SunucuData) facesContext.getApplication()
+                .createValueBinding("#{sunucuData}").getValue(facesContext);
+
+        System.out.println(sunucuData.getSunucuSanalAdi());
+        System.out.println(sunucuData.getSunucuTipi());
+
+        System.out.println(protokol);
+
+        //@ManagedProperty(value = "#")
+        //SunucuData sunucuData = new SunucuData();
+        //Sunucu sunucu = new Sunucu();
+
+        //System.out.println(sunucuData1.getSunucuSanalAdi());
+        //System.out.println(protokol);
+        //System.out.println(hataMesaj.toString());
+
+
+        /*
         sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(sunucuData.getSunucuIp());
         sunucu.setSunucuPortBilgisi(sunucuData.getSunucuPortBilgisi());
@@ -128,6 +155,8 @@ public class SunucuBean {
 
         Service service = new Service();
         service.addSunucu(sunucu);
+
+        */
     }
 
     public void sunucuDuzenleButonu(){}

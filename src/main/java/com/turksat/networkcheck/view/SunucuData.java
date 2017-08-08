@@ -6,16 +6,31 @@ import javax.faces.bean.ManagedBean;
  * Created by furkanmumcu on 07/08/2017.
  */
 
-@ManagedBean
+@ManagedBean(name = "sunucuData") // dene
 
 public class SunucuData {
     private String sunucuSanalAdi;
-    private String sunucuAdi;
     private String sunucuIp;
-    private String sunucuUgulamaTipi;
-    private String sunucuTipi;
     private String sunucuPortBilgisi;
+    private int kontrolPeriyodu; // new
+    private String sunucuKullaniciAdi; // new
+    private String sunucuSifre; // new
+    private String sunucuTipi;
+    private String sunucuUygulamaTipi;
     private String sunucuTuru;
+    private String protokol; //new
+    private String[] hataMesaj; //new
+
+
+    private String sunucuAdi;
+
+    public String getProtokol() {
+        return protokol;
+    }
+
+    public void setProtokol(String protokol) {
+        this.protokol = protokol;
+    }
 
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
@@ -41,12 +56,12 @@ public class SunucuData {
         this.sunucuIp = sunucuIp;
     }
 
-    public String getSunucuUgulamaTipi() {
-        return sunucuUgulamaTipi;
+    public String getSunucuUygulamaTipi() {
+        return sunucuUygulamaTipi;
     }
 
-    public void setSunucuUgulamaTipi(String sunucuUgulamaTipi) {
-        this.sunucuUgulamaTipi = sunucuUgulamaTipi;
+    public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
+        this.sunucuUygulamaTipi = sunucuUygulamaTipi;
     }
 
     public String getSunucuTipi() {
@@ -71,5 +86,11 @@ public class SunucuData {
 
     public void setSunucuTuru(String sunucuTuru) {
         this.sunucuTuru = sunucuTuru;
+    }
+
+
+    //new
+    public void tanimlaButonu(){
+
     }
 }

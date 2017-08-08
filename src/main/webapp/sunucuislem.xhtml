@@ -61,20 +61,25 @@
                 <h:outputText value="Sunucu Şifre "/>
                 <p:password value="#{sunucuBean.sunucuSifre}"/>
                 <h:outputText value="Sunucu Tipi"/>
-                <p:selectOneMenu value="#{sunucuBean.sunucuTipi}" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel="Sunucu Tipi"/>
+                <p:selectOneMenu value="#{sunucuData.sunucuTipi}" style="width: 180px">
+                    <f:selectItem itemValue="Web Suncusu" itemLabel="Web Sunucusu"/>
+                    <f:selectItem itemValue="Veri Tabani Sunucusu" itemLabel="Veri Tabani Sunucusu"/>
 
                 </p:selectOneMenu>
                 <h:outputText value="Sunucu Uygulama Tipi"/>
-                <p:selectOneMenu value="#{sunucuBean.sunucuUygulamaTipi}" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel="Sunucu Uygulama Tipi"/>
+                <p:selectOneMenu value="#{sunucuData.sunucuUygulamaTipi}" style="width: 180px">
+                    <f:selectItem itemValue="Tomcat" itemLabel="Tomcat"/>
+                    <f:selectItem itemValue="AS" itemLabel="AS"/>
+                    <f:selectItem itemValue="Wildfly" itemLabel="Wildfly"/>
 
                 </p:selectOneMenu>
+
                 <h:outputText value="Sunucu Türü"/>
-                <p:selectOneMenu value="#{sunucuBean.sunucuTuru}" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel="Sunucu Türü"/>
-
+                <p:selectOneMenu value="#{sunucuData.sunucuTuru}" style="width: 180px">
+                    <f:selectItem itemValue="Belgenet" itemLabel="Belgenet"/>
+                    <f:selectItem itemValue="Dis sunucu/servisler" itemLabel="Dis sunucu/servisler"/>
                 </p:selectOneMenu>
+
                 <p:outputLabel for="console" value="İletişim Protokolü"/>
                 <p:outputPanel>
                             <p:selectOneRadio id="console" value="#{sunucuBean.protokol}">
