@@ -55,11 +55,11 @@
                 <h:outputText value="Port Bilgisi "/>
                 <p:inputText value="#{sunucuData.sunucuPortBilgisi}"/>
                 <h:outputText value="Kontrol Periyodu(dk) "/>
-                <p:inputText value="#{sunucuBean.kontrolPeriyodu}"/>
+                <p:inputText value="#{sunucuData.kontrolPeriyodu}"/>
                 <h:outputText value="Sunucu Kullanıcı Adı "/>
-                <p:inputText value="#{sunucuBean.sunucuKullaniciAdi}"/>
+                <p:inputText value="#{sunucuData.sunucuKullaniciAdi}"/>
                 <h:outputText value="Sunucu Şifre "/>
-                <p:password value="#{sunucuBean.sunucuSifre}"/>
+                <p:password value="#{sunucuData.sunucuSifre}"/>
                 <h:outputText value="Sunucu Tipi"/>
                 <p:selectOneMenu value="#{sunucuData.sunucuTipi}" style="width: 180px">
                     <f:selectItem itemValue="Web Suncusu" itemLabel="Web Sunucusu"/>
@@ -80,23 +80,22 @@
                     <f:selectItem itemValue="Dis sunucu/servisler" itemLabel="Dis sunucu/servisler"/>
                 </p:selectOneMenu>
 
-                <p:outputLabel for="console" value="İletişim Protokolü"/>
-                <p:outputPanel>
-                            <p:selectOneRadio id="console" value="#{sunucuBean.protokol}">
-                                <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
-                                <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
-                                <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
+                <h:outputText value="Iletisim Protokolu"/>
+                <p:selectOneMenu value="#{sunucuData.protokol}" style="width: 180px">
+                    <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
+                    <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
+                    <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
                     <f:selectItem itemLabel="TPC/IP" itemValue="TPC/IP"/>
                     <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
-                            </p:selectOneRadio>
-                </p:outputPanel>
-                <p:outputLabel for="bildirim" value="Hata Bildirim Türü"/>
-                <p:outputPanel>
-                            <p:selectManyCheckbox id="bildirim" value="#{sunucuBean.hataMesaj}">
-                                <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
-                                <f:selectItem itemLabel="SMS" itemValue="SMS"/>
-                            </p:selectManyCheckbox>
-                </p:outputPanel>
+                </p:selectOneMenu>
+
+                <h:outputText value="Hata Bildirim Turu"/>
+                <p:selectOneMenu value="#{sunucuData.hataMesaj}" style="width: 180px">
+                    <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
+                    <f:selectItem itemLabel="SMS" itemValue="SMS"/>
+                </p:selectOneMenu>
+
+
             </p:panelGrid>
                 <p:commandButton value="TANIMLA" icon="ui-icon-check" action="#{sunucuBean.tanimlaButonu}"/>
             </p:dialog>
@@ -163,7 +162,7 @@
                     <f:selectItem itemValue="" itemLabel=""/>
 
                 </p:selectOneMenu>
-                <p:outputLabel for="console" value="İletişim Protokolü"/>
+                <p:outputLabel  value="İletişim Protokolü"/>
                 <p:outputPanel>
                             <p:selectManyCheckbox id="consol" value="#{sunucuBean.protokol}">
                                 <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
@@ -173,7 +172,7 @@
                     <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
                             </p:selectManyCheckbox>
                 </p:outputPanel>
-                <p:outputLabel for="console" value="Hata Bildirim Türü"/>
+                <p:outputLabel value="Hata Bildirim Türü"/>
                 <p:outputPanel>
                             <p:selectManyCheckbox id="bildiri" value="#{sunucuBean.hataMesaj}">
                                 <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>

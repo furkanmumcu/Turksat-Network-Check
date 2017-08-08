@@ -16,8 +16,8 @@ public class Sunucu {
     private String sunucuTuru;
     private String sunucuSifre;
 
-    private String[] protokol;
-    private String[] hataMesaj;
+    private String protokol;
+    private String hataMesaj;
     private List<Sunucu> sunucuTablo =new ArrayList<Sunucu> (  );
     private int kontrolPeriyodu;
     private int sunucuId;
@@ -108,18 +108,18 @@ public class Sunucu {
     }
 
     @Column(name="hataMesaji", unique = true, nullable = false)
-    public String[] getHataMesaj() {
+    public String getHataMesaj() {
         return hataMesaj;
     }
-    public void setHataMesaj(String[] hataMesaj) {
+    public void setHataMesaj(String hataMesaj) {
         this.hataMesaj = hataMesaj;
     }
 
     @Column(name="sunucuProtokolu", unique = true, nullable = false)
-    public String[] getProtokol() {
+    public String getProtokol() {
         return protokol;
     }
-    public void setProtokol(String[] protokol) {
+    public void setProtokol(String protokol) {
         this.protokol = protokol;
     }
 

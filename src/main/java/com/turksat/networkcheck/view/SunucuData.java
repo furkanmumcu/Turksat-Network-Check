@@ -19,10 +19,42 @@ public class SunucuData {
     private String sunucuUygulamaTipi;
     private String sunucuTuru;
     private String protokol; //new
-    private String[] hataMesaj; //new
+    private String hataMesaj; //new
 
 
     private String sunucuAdi;
+
+    public int getKontrolPeriyodu() {
+        return kontrolPeriyodu;
+    }
+
+    public void setKontrolPeriyodu(int kontrolPeriyodu) {
+        this.kontrolPeriyodu = kontrolPeriyodu;
+    }
+
+    public String getSunucuKullaniciAdi() {
+        return sunucuKullaniciAdi;
+    }
+
+    public void setSunucuKullaniciAdi(String sunucuKullaniciAdi) {
+        this.sunucuKullaniciAdi = sunucuKullaniciAdi;
+    }
+
+    public String getSunucuSifre() {
+        return sunucuSifre;
+    }
+
+    public void setSunucuSifre(String sunucuSifre) {
+        this.sunucuSifre = sunucuSifre;
+    }
+
+    public String getHataMesaj() {
+        return hataMesaj;
+    }
+
+    public void setHataMesaj(String hataMesaj) {
+        this.hataMesaj = hataMesaj;
+    }
 
     public String getProtokol() {
         return protokol;
