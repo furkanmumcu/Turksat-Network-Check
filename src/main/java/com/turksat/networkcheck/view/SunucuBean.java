@@ -122,11 +122,8 @@ public class SunucuBean implements Serializable{
     }
 
     public void sunucuaraButonu()  {
-        System.out.println(sunucuBilgisi);
-
-
+        /*
         SunucuData sunucu1 = new SunucuData();
-
         sunucu1.setSunucuSanalAdi("ewerwer");
         sunucu1.setSunucuIp("erwfs");
         sunucu1.setSunucuPortBilgisi("fdsfsdfsf");
@@ -138,9 +135,9 @@ public class SunucuBean implements Serializable{
         sunucu1.setSunucuTuru("fsfesfdf");
         sunucu1.setProtokol("fedfefds");
         sunucu1.setHataMesaj("fsdfesdfesfd");
-
+        //sunucuTablo.add(sunucu1);
+        */
         sunucuTablo.removeAll(sunucuTablo);
-        sunucuTablo.add(sunucu1);
 
         // TODO: 09/08/2017 serverdan tabloyu doldur/ filtreye gore
 
@@ -151,29 +148,32 @@ public class SunucuBean implements Serializable{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        //Sunucu sunucu1 = (Sunucu) session.get(Sunucu.class,"9aug1");
-        //System.out.println(sunucu1.getSunucuSanalAdi());
-
-        //List<Sunucu> list = session.createCriteria(Sunucu.class).list();
-
-        /*
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Sunucu> criteria = builder.createQuery(Sunucu.class);
-        Root<Sunucu> sunucuRoot = criteria.from(Sunucu.class);
-        criteria.select(sunucuRoot);
-        List<Sunucu> sunucuList = session.createQuery(criteria).getResultList();
-        */
 
         System.out.println(sunucuBilgisi);
         System.out.println(sunucuTipi);
         System.out.println(sunucuTuru);
         System.out.println(sunucuUygulamaTipi);
+        System.out.println(sunucuBilgisi.isEmpty());
 
-        String hql = "FROM Sunucu";
-        Query query = session.createQuery(hql);
+
+        String hql;
+        Query query;
+        if(sunucuBilgisi.isEmpty()&&sunucuTipi.isEmpty()&&sunucuUygulamaTipi.isEmpty()&&sunucuTuru.isEmpty()){
+            hql = "FROM Sunucu";
+            query = session.createQuery(hql);
+
+        }
+        else {
+            hql = "FROM Sunucu S where S.sunucuTipi = :tip AND S.sunucuTuru = :tur AND S.sunucuUygulamaTipi = :utip AND S.sunucuPortBilgisi = :port";
+            query = session.createQuery(hql);
+            query.setParameter("tip",sunucuTipi);
+            query.setParameter("tur", sunucuTuru);
+            query.setParameter("utip", sunucuUygulamaTipi);
+            query.setParameter("port", sunucuBilgisi);
+        }
         List<Sunucu> sunucuList = query.list();
 
-        System.out.println(sunucuList.size());
+        System.out.println("sunuculist uzunluk: " + sunucuList.size());
 
         for(int i = 0; i<sunucuList.size(); i++){
             SunucuData sunucu = new SunucuData();
@@ -194,16 +194,6 @@ public class SunucuBean implements Serializable{
 
             sunucuTablo.add(sunucu);
         }
-
-
-
-
-        //String hql = "FROM Sunucu";
-        //Query query = session.createQuery(hql);
-        //List<Sunucu> results = query.list();
-
-        //System.out.println(results.size());
-        //System.out.println(results.get(0).getSunucuSanalAdi());
 
 
 

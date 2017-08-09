@@ -17,7 +17,7 @@
                 </f:facet>
                 <p:row>
                     <p:column colspan="2">
-                        <h:outputText value="Sunucu Bilgisi "/>
+                        <h:outputText value="Sunucu Port Bilgisi "/>
                         <p:inputText value="#{sunucuBean.sunucuBilgisi}"/>
                     </p:column>
                 </p:row>
@@ -25,13 +25,20 @@
                     <p:column colspan="3">
                         <p:selectOneMenu value="#{sunucuBean.sunucuTipi}">
                             <f:selectItem itemValue="" itemLabel="Sunucu Tipi"/>
+                            <f:selectItem itemValue="Web Suncusu" itemLabel="Web Sunucusu"/>
+                            <f:selectItem itemValue="Veri Tabani Sunucusu" itemLabel="Veri Tabani Sunucusu"/>
                         </p:selectOneMenu>
                         <p:selectOneMenu value="#{sunucuBean.sunucuTuru}">
                             <f:selectItem itemValue="" itemLabel="Sunucu Türü"/>
+                            <f:selectItem itemValue="Belgenet" itemLabel="Belgenet"/>
+                            <f:selectItem itemValue="Dis sunucu/servisler" itemLabel="Dis sunucu/servisler"/>
 
                         </p:selectOneMenu>
                         <p:selectOneMenu value="#{sunucuBean.sunucuUygulamaTipi}">
                             <f:selectItem itemValue="" itemLabel="Sunucu Uygulama Tipi"/>
+                            <f:selectItem itemValue="Tomcat" itemLabel="Tomcat"/>
+                            <f:selectItem itemValue="AS" itemLabel="AS"/>
+                            <f:selectItem itemValue="Wildfly" itemLabel="Wildfly"/>
 
                         </p:selectOneMenu>
                     </p:column>
@@ -123,7 +130,8 @@
                             <h:outputText value="#{sunucuara.sunucuTuru}"/>
                         </p:column>
                 <p:column headerText="" style="width: 182px">
-                             <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
+
+                    <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
                                               onclick="PF('dlg6').show();"/>
                     <p:commandButton title="Pasifleştir" icon="ui-icon-cancel" style="float: left"
                                      onclick="PF('dlg7').show();"/>
