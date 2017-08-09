@@ -5,13 +5,20 @@ import com.turksat.networkcheck.model.Sunucu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.primefaces.context.RequestContext;
 //import org.hibernate.service.ServiceRegistryBuilder;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +26,13 @@ import java.util.List;
  * Created by furkanmumcu on 07/08/2017.
  */
 @ManagedBean
-public class SunucuBean {
+@SessionScoped
+public class SunucuBean implements Serializable{
     private String sunucuBilgisi;
     private String sunucuTipi;
     private String sunucuTuru;
     private String sunucuUygulamaTipi;
     private String sunucuSifre;
-
-
-    //@ManagedProperty(value = "#{sunucuDataBean}")
-    private SunucuData sunucuData1;
 
     private String[] protokol;
     private String[] hataMesaj;
@@ -119,6 +123,95 @@ public class SunucuBean {
 
     public void sunucuaraButonu()  {
         System.out.println(sunucuBilgisi);
+
+
+        SunucuData sunucu1 = new SunucuData();
+
+        sunucu1.setSunucuSanalAdi("ewerwer");
+        sunucu1.setSunucuIp("erwfs");
+        sunucu1.setSunucuPortBilgisi("fdsfsdfsf");
+        sunucu1.setKontrolPeriyodu(10);
+        sunucu1.setSunucuKullaniciAdi("dasd");
+        sunucu1.setSunucuSifre("dfsdfefd");
+        sunucu1.setSunucuTipi("fsdfsdf");
+        sunucu1.setSunucuUygulamaTipi("dsfefdsfe");
+        sunucu1.setSunucuTuru("fsfesfdf");
+        sunucu1.setProtokol("fedfefds");
+        sunucu1.setHataMesaj("fsdfesdfesfd");
+
+        sunucuTablo.removeAll(sunucuTablo);
+        sunucuTablo.add(sunucu1);
+
+        // TODO: 09/08/2017 serverdan tabloyu doldur/ filtreye gore
+
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        //Sunucu sunucu1 = (Sunucu) session.get(Sunucu.class,"9aug1");
+        //System.out.println(sunucu1.getSunucuSanalAdi());
+
+        //List<Sunucu> list = session.createCriteria(Sunucu.class).list();
+
+        /*
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Sunucu> criteria = builder.createQuery(Sunucu.class);
+        Root<Sunucu> sunucuRoot = criteria.from(Sunucu.class);
+        criteria.select(sunucuRoot);
+        List<Sunucu> sunucuList = session.createQuery(criteria).getResultList();
+        */
+
+        System.out.println(sunucuBilgisi);
+        System.out.println(sunucuTipi);
+        System.out.println(sunucuTuru);
+        System.out.println(sunucuUygulamaTipi);
+
+        String hql = "FROM Sunucu";
+        Query query = session.createQuery(hql);
+        List<Sunucu> sunucuList = query.list();
+
+        System.out.println(sunucuList.size());
+
+        for(int i = 0; i<sunucuList.size(); i++){
+            SunucuData sunucu = new SunucuData();
+
+            sunucu.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
+            sunucu.setSunucuIp(sunucuList.get(i).getSunucuIp());
+            sunucu.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
+            sunucu.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
+            sunucu.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
+            sunucu.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
+            sunucu.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
+            sunucu.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
+            sunucu.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
+            sunucu.setProtokol(sunucuList.get(i).getProtokol());
+            sunucu.setHataMesaj(sunucuList.get(i).getHataMesaj());
+
+            //System.out.println(sunucuList.get(i).getSunucuSanalAdi());
+
+            sunucuTablo.add(sunucu);
+        }
+
+
+
+
+        //String hql = "FROM Sunucu";
+        //Query query = session.createQuery(hql);
+        //List<Sunucu> results = query.list();
+
+        //System.out.println(results.size());
+        //System.out.println(results.get(0).getSunucuSanalAdi());
+
+
+
+        /////////////////////
+        System.out.println("sunucu tablo uzunluk " + sunucuTablo.size());
+
+        refresh();
+
     }
 
     public void tanimlaButonu() {
@@ -164,10 +257,12 @@ public class SunucuBean {
         session.close();
 
 
+
         //close the popup
         //RequestContext requestContext = RequestContext.getCurrentInstance();
         //requestContext.execute("PF('dlg1').hide()");
         //last step redirect to same page
+        //refresh();
 
 
     }
@@ -177,5 +272,13 @@ public class SunucuBean {
     public void sunucuAktifButonu(){}
 
     public void sunucuPasifButonu(){}
+
+    public void refresh(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("sunucuislem.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

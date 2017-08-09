@@ -102,25 +102,25 @@
             <p:dataTable var="sunucuara" value="#{sunucuBean.sunucuTablo}" reflow="true" rows="10" paginator="true"
                          styleClass="tablo3">
                     <p:column headerText="Sunucular ">
-                        <h:outputText value="#{sunucuData.sunucuAdi}"/>
+                        <h:outputText value="#{sunucuara.sunucuSanalAdi}"/>
                     </p:column>
                  
                     <p:column headerText="IP Adresi">
-                       <h:outputText value="#{sunucuData.sunucuIp}"/>
+                       <h:outputText value="#{sunucuara.sunucuIp}"/>
                     </p:column>
                  
                     <p:column headerText="Sunucu Uygulama Tipi">
-                       <h:outputText value="#{sunucuData.sunucuUygulamaTipi}"/>
+                       <h:outputText value="#{sunucuara.sunucuUygulamaTipi}"/>
                     </p:column>
                  
                     <p:column headerText="Sunucu Tipi">
-                        <h:outputText value="#{sunucuData.sunucuTipi}"/>
+                        <h:outputText value="#{sunucuara.sunucuTipi}"/>
                     </p:column>
                 <p:column headerText="Sunucu Port Bilgisi">
-                            <h:outputText value="#{sunucuData.sunucuPortBilgisi}"/>
+                            <h:outputText value="#{sunucuara.sunucuPortBilgisi}"/>
                         </p:column>
                 <p:column headerText="Sunucu Türü">
-                            <h:outputText value="#{sunucuData.sunucuTuru}"/>
+                            <h:outputText value="#{sunucuara.sunucuTuru}"/>
                         </p:column>
                 <p:column headerText="" style="width: 182px">
                              <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"

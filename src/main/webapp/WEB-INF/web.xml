@@ -16,7 +16,7 @@
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>faces/anasayfa.xhtml</welcome-file>
+		<welcome-file>anasayfa.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->
