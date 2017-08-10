@@ -223,6 +223,9 @@ public class SunucuBean implements Serializable{
                 = (SunucuData) facesContext.getApplication()
                 .createValueBinding("#{sunucuData}").getValue(facesContext);
 
+        System.out.println(sunucuData.getSunucuSanalAdi());
+        System.out.println(sunucuData.getProtokol());
+
         /* debug outs
         System.out.println(sunucuData.getSunucuSanalAdi());
         System.out.println(sunucuData.getSunucuTipi());
@@ -291,20 +294,91 @@ public class SunucuBean implements Serializable{
     }
 
     public void guncelleButonu(){
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        SunucuData sunucuData
-                = (SunucuData) facesContext.getApplication()
-                .createValueBinding("#{sunucuData}").getValue(facesContext);
+        SunucuDataDuzenle sunucuDataDuzenle
+                = (SunucuDataDuzenle) facesContext.getApplication()
+                .createValueBinding("#{sunucuDataDuzenle}").getValue(facesContext);
         System.out.println("guncellebutonu row bilgisi");
         System.out.println(getSelectedSunucuData().getSunucuSanalAdi());
         System.out.println(getSelectedSunucuData().getSunucuIp());
         System.out.println(getSelectedSunucuData().getSunucuPortBilgisi());
 
         System.out.println("guncellebutonu dinamik bean bilgisi");
-        System.out.println(sunucuData.getSunucuSanalAdi());
-        System.out.println(sunucuData.getSunucuTuru());
+        System.out.println(sunucuDataDuzenle.getSunucuSanalAdi());
+        System.out.println(sunucuDataDuzenle.getSunucuTuru());
 
 
+
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        //query ile id sini bul
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Sunucu sunucu = new Sunucu();
+
+        if(!sunucuDataDuzenle.getSunucuSanalAdi().isEmpty())
+            sunucu.setSunucuSanalAdi(sunucuDataDuzenle.getSunucuSanalAdi());
+        else
+            sunucu.setSunucuSanalAdi(selectedSunucuData.getSunucuSanalAdi());
+
+        if(!sunucuDataDuzenle.getSunucuIp().isEmpty())
+            sunucu.setSunucuIp(sunucuDataDuzenle.getSunucuIp());
+        else
+            sunucu.setSunucuIp(selectedSunucuData.getSunucuIp());
+
+        if(!sunucuDataDuzenle.getSunucuPortBilgisi().isEmpty())
+            sunucu.setSunucuPortBilgisi(sunucuDataDuzenle.getSunucuPortBilgisi());
+        else
+            sunucu.setSunucuPortBilgisi(selectedSunucuData.getSunucuPortBilgisi());
+
+        if(sunucuDataDuzenle.getKontrolPeriyodu()!=0)
+            sunucu.setKontrolPeriyodu(sunucuDataDuzenle.getKontrolPeriyodu());
+        else
+            sunucu.setKontrolPeriyodu(selectedSunucuData.getKontrolPeriyodu());
+
+        if(!sunucuDataDuzenle.getSunucuKullaniciAdi().isEmpty())
+            sunucu.setSunucuKullaniciAdi(sunucuDataDuzenle.getSunucuKullaniciAdi());
+        else
+            sunucu.setSunucuKullaniciAdi(selectedSunucuData.getSunucuKullaniciAdi());
+
+        if(!sunucuDataDuzenle.getSunucuSifre().isEmpty())
+            sunucu.setSunucuSifre(sunucuDataDuzenle.getSunucuSifre());
+        else
+            sunucu.setSunucuSifre(selectedSunucuData.getSunucuSifre());
+
+        if(!sunucuDataDuzenle.getSunucuTipi().isEmpty())
+            sunucu.setSunucuTipi(sunucuDataDuzenle.getSunucuTipi());
+        else
+            sunucu.setSunucuTipi(selectedSunucuData.getSunucuTipi());
+
+        if(!sunucuDataDuzenle.getSunucuUygulamaTipi().isEmpty())
+            sunucu.setSunucuUygulamaTipi(sunucuDataDuzenle.getSunucuUygulamaTipi());
+        else
+            sunucu.setSunucuUygulamaTipi(selectedSunucuData.getSunucuUygulamaTipi());
+
+        if(!sunucuDataDuzenle.getSunucuTuru().isEmpty())
+            sunucu.setSunucuTuru(sunucuDataDuzenle.getSunucuTuru());
+        else
+            sunucu.setSunucuTuru(selectedSunucuData.getSunucuTuru());
+
+        if(!sunucuDataDuzenle.getProtokol().isEmpty())
+            sunucu.setProtokol(sunucuDataDuzenle.getProtokol());
+        else
+            sunucu.setProtokol(selectedSunucuData.getProtokol());
+
+        if(!sunucuDataDuzenle.getHataMesaj().isEmpty())
+            sunucu.setHataMesaj(sunucuDataDuzenle.getHataMesaj());
+        else
+            sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
+
+        session.update(sunucu);
+        session.getTransaction().commit();
+        session.close();
 
     }
 

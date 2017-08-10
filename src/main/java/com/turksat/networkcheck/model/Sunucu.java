@@ -29,7 +29,7 @@ public class Sunucu {
     //@Id
     //@Basic(optional = false)
     @Id
-    @Column(name="sunucuSanalAdi", unique = false, nullable = false)
+    @Column(name="sunucuSanalAdi", unique = true, nullable = false)
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
     }

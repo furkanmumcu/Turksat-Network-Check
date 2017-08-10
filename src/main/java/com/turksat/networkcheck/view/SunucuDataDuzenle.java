@@ -7,9 +7,9 @@ import javax.faces.bean.SessionScoped;
  * Created by furkanmumcu on 07/08/2017.
  */
 
-@ManagedBean(name = "sunucuData") // dene
+@ManagedBean(name = "sunucuDataDuzenle") // dene
 @SessionScoped
-public class SunucuData {
+public class SunucuDataDuzenle {
     private String sunucuSanalAdi;
     private String sunucuIp;
     private String sunucuPortBilgisi;
