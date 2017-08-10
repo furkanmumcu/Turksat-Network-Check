@@ -148,56 +148,59 @@
 
             <p:dialog header="Sunucu Düzenle" showEffect="explode" widgetVar="dlg6" style="text-align: center"
                       modal="true" height="550" width="660">
-                <p:outputPanel id="duzenledetail" style="text-align:center;">    
                 <p:panelGrid  columns="2">
-                <h:outputText value="Sunucu Sanal Adı "/>
-                <p:inputText/>
-                <h:outputText value="IP Adresi "/>
-                <p:inputText/>
-                <h:outputText value="Port Bilgisi "/>
-                <p:inputText/>
-                <h:outputText value="Kontrol Periyodu(dk) "/>
-                <p:inputText/>
-                <h:outputText value="Sunucu Kullanıcı Adı "/>
-                <p:inputText/>
-                <h:outputText value="Sunucu Şifre "/>
-                <p:password/>
-                <h:outputText value="Sunucu Tipi"/>
-                <p:selectOneMenu value="wwe" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel=""/>
 
-                </p:selectOneMenu>
-                <h:outputText value="Sunucu Uygulama Tipi"/>
-                <p:selectOneMenu value="ad" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel=""/>
+                    <h:outputText value="Sunucu Sanal Adı "/>
+                    <p:inputText value="#{sunucuData.sunucuSanalAdi}"/>
+                    <h:outputText value="IP Adresi "/>
+                    <p:inputText value="#{sunucuData.sunucuIp}"/>
+                    <h:outputText value="Port Bilgisi "/>
+                    <p:inputText value="#{sunucuData.sunucuPortBilgisi}"/>
+                    <h:outputText value="Kontrol Periyodu(dk) "/>
+                    <p:inputText value="#{sunucuData.kontrolPeriyodu}"/>
+                    <h:outputText value="Sunucu Kullanıcı Adı "/>
+                    <p:inputText value="#{sunucuData.sunucuKullaniciAdi}"/>
+                    <h:outputText value="Sunucu Şifre "/>
+                    <p:password value="#{sunucuData.sunucuSifre}"/>
+                    <h:outputText value="Sunucu Tipi"/>
+                    <p:selectOneMenu value="#{sunucuData.sunucuTipi}" style="width: 180px">
+                        <f:selectItem itemValue="Web Suncusu" itemLabel="Web Sunucusu"/>
+                        <f:selectItem itemValue="Veri Tabani Sunucusu" itemLabel="Veri Tabani Sunucusu"/>
 
-                </p:selectOneMenu>
-                <h:outputText value="Sunucu Türü"/>
-                <p:selectOneMenu value="zcx" style="width: 180px">
-                    <f:selectItem itemValue="" itemLabel=""/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Sunucu Uygulama Tipi"/>
+                    <p:selectOneMenu value="#{sunucuData.sunucuUygulamaTipi}" style="width: 180px">
+                        <f:selectItem itemValue="Tomcat" itemLabel="Tomcat"/>
+                        <f:selectItem itemValue="AS" itemLabel="AS"/>
+                        <f:selectItem itemValue="Wildfly" itemLabel="Wildfly"/>
 
-                </p:selectOneMenu>
-                <p:outputLabel  value="İletişim Protokolü"/>
-                <p:outputPanel>
-                            <p:selectManyCheckbox id="consol" value="#{sunucuBean.protokol}">
-                                <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
-                                <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
-                                <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
-                    <f:selectItem itemLabel="TPC/IP" itemValue="TPC/IP"/>
-                    <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
-                            </p:selectManyCheckbox>
-                </p:outputPanel>
-                <p:outputLabel value="Hata Bildirim Türü"/>
-                <p:outputPanel>
-                            <p:selectManyCheckbox id="bildiri" value="#{sunucuBean.hataMesaj}">
-                                <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
-                                <f:selectItem itemLabel="SMS" itemValue="SMS"/>
-                            </p:selectManyCheckbox>
-                </p:outputPanel>
-            </p:panelGrid>
-                </p:outputPanel>
-                <p:commandButton value="Güncelle" icon="ui-icon-check"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Sunucu Türü"/>
+                    <p:selectOneMenu value="#{sunucuData.sunucuTuru}" style="width: 180px">
+                        <f:selectItem itemValue="Belgenet" itemLabel="Belgenet"/>
+                        <f:selectItem itemValue="Dis sunucu/servisler" itemLabel="Dis sunucu/servisler"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Iletisim Protokolu"/>
+                    <p:selectOneMenu value="#{sunucuData.protokol}" style="width: 180px">
+                        <f:selectItem itemLabel="HTTP" itemValue="HTTP"/>
+                        <f:selectItem itemLabel="HTTPS" itemValue="HTTPS"/>
+                        <f:selectItem itemLabel="SOAP" itemValue="SOAP"/>
+                        <f:selectItem itemLabel="TPC/IP" itemValue="TPC/IP"/>
+                        <f:selectItem itemLabel="JDBC" itemValue="JDBC"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Hata Bildirim Turu"/>
+                    <p:selectOneMenu value="#{sunucuData.hataMesaj}" style="width: 180px">
+                        <f:selectItem itemLabel="E-posta" itemValue="E-posta"/>
+                        <f:selectItem itemLabel="SMS" itemValue="SMS"/>
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+                <p:commandButton value="Güncelle" icon="ui-icon-check" action="#{sunucuBean.guncelleButonu}"/>
             </p:dialog>
+
             <p:dialog showEffect="explode" widgetVar="dlg7" style="text-align: center" modal="true" height="150"
                       width="250">
                 <p:panel style="text-align: center">

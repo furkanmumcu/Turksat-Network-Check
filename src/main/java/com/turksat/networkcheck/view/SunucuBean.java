@@ -267,13 +267,46 @@ public class SunucuBean implements Serializable{
     }
 
     public void sunucuDuzenleButonu(){
-        System.out.println("dsdsadas");
+        System.out.println("duzenlebutonu");
         System.out.println(getSelectedSunucuData().getSunucuSanalAdi());
+        System.out.println(getSelectedSunucuData().getSunucuIp());
+        System.out.println(getSelectedSunucuData().getSunucuPortBilgisi());
+        System.out.println("protokol "+ getSelectedSunucuData().getProtokol());
+
 
         // TODO: 10/08/2017 sunucuyu db de bul, guncelle
+        /*
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query;
+        String hql = "FROM Sunucu S where S.sunucuSanalAdi = :ad AND S.sunucuPortBilgisi = :port AND S.sunucuIp = :ip";
+        query = session.createQuery(hql);
+        query.setParameter("ad",sunucuTipi);
+        query.setParameter("port", sunucuTuru);
+        query.setParameter("ip", sunucuUygulamaTipi);
+        */
+
     }
 
-    public void guncelleButonu(){}
+    public void guncelleButonu(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SunucuData sunucuData
+                = (SunucuData) facesContext.getApplication()
+                .createValueBinding("#{sunucuData}").getValue(facesContext);
+        System.out.println("guncellebutonu row bilgisi");
+        System.out.println(getSelectedSunucuData().getSunucuSanalAdi());
+        System.out.println(getSelectedSunucuData().getSunucuIp());
+        System.out.println(getSelectedSunucuData().getSunucuPortBilgisi());
+
+        System.out.println("guncellebutonu dinamik bean bilgisi");
+        System.out.println(sunucuData.getSunucuSanalAdi());
+        System.out.println(sunucuData.getSunucuTuru());
+
+
+
+    }
 
     public void sunucuAktifButonu(){}
 
