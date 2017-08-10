@@ -32,7 +32,7 @@ public class SunucuBean implements Serializable{
     private String sunucuTipi;
     private String sunucuTuru;
     private String sunucuUygulamaTipi;
-    private String sunucuSifre;
+    private String sunucuSifre; // kullanilmiyor
 
     private String[] protokol;
     private String[] hataMesaj;
@@ -40,6 +40,16 @@ public class SunucuBean implements Serializable{
     private List<SunucuData> sunucuTablo=new ArrayList<SunucuData>(  );
     private int kontrolPeriyodu;
     private String sunucuKullaniciAdi;
+
+    private SunucuData selectedSunucuData;
+
+    public SunucuData getSelectedSunucuData() {
+        return selectedSunucuData;
+    }
+
+    public void setSelectedSunucuData(SunucuData selectedSunucu) {
+        this.selectedSunucuData = selectedSunucu;
+    }
 
     public String getSunucuBilgisi() {
         return sunucuBilgisi;
@@ -254,10 +264,16 @@ public class SunucuBean implements Serializable{
         //last step redirect to same page
         //refresh();
 
-
     }
 
-    public void sunucuDuzenleButonu(){}
+    public void sunucuDuzenleButonu(){
+        System.out.println("dsdsadas");
+        System.out.println(getSelectedSunucuData().getSunucuSanalAdi());
+
+        // TODO: 10/08/2017 sunucuyu db de bul, guncelle
+    }
+
+    public void guncelleButonu(){}
 
     public void sunucuAktifButonu(){}
 

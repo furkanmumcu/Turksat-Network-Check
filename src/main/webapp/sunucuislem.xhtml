@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="sablon.xhtml">
     <ui:define name="content">
-        <h:form>
+        <h:form id="form">
 
             <p:panelGrid styleClass="sunucuara">
                 <f:facet name="header">
@@ -130,6 +130,13 @@
                             <h:outputText value="#{sunucuara.sunucuTuru}"/>
                         </p:column>
                 <p:column headerText="" style="width: 182px">
+                    <!--This is a comment. Comments are not displayed in the browser-->
+                    <p:commandButton oncomplete="PF('dlg6').show();"
+                                     title="Düzenle222323" icon="ui-icon-pencil" style="float: left"
+                                     action="#{sunucuBean.sunucuDuzenleButonu}"
+                                     >
+                        <f:setPropertyActionListener value="#{sunucuara}" target="#{sunucuBean.selectedSunucuData}" />
+                    </p:commandButton>
 
                     <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
                                               onclick="PF('dlg6').show();"/>
@@ -141,7 +148,8 @@
 
             <p:dialog header="Sunucu Düzenle" showEffect="explode" widgetVar="dlg6" style="text-align: center"
                       modal="true" height="550" width="660">
-                     <p:panelGrid columns="2">
+                <p:outputPanel id="duzenledetail" style="text-align:center;">    
+                <p:panelGrid  columns="2">
                 <h:outputText value="Sunucu Sanal Adı "/>
                 <p:inputText/>
                 <h:outputText value="IP Adresi "/>
@@ -187,6 +195,7 @@
                             </p:selectManyCheckbox>
                 </p:outputPanel>
             </p:panelGrid>
+                </p:outputPanel>
                 <p:commandButton value="Güncelle" icon="ui-icon-check"/>
             </p:dialog>
             <p:dialog showEffect="explode" widgetVar="dlg7" style="text-align: center" modal="true" height="150"
