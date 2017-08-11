@@ -1,26 +1,21 @@
 package com.turksat.networkcheck.view;
 
-import com.turksat.networkcheck.Service.Service;
 import com.turksat.networkcheck.model.Sunucu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import org.hibernate.service.ServiceRegistry;
 import org.primefaces.context.RequestContext;
-//import org.hibernate.service.ServiceRegistryBuilder;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+@SuppressWarnings("Duplicates")
 
 /**
  * Created by furkanmumcu on 07/08/2017.
@@ -42,6 +37,18 @@ public class SunucuBean implements Serializable{
     private String sunucuKullaniciAdi;
 
     private SunucuData selectedSunucuData;
+
+    private String currentHQL;
+
+    private int[] emptyCheckPasser;
+
+    public String getCurrentHQL() {
+        return currentHQL;
+    }
+
+    public void setCurrentHQL(String currentHQL) {
+        this.currentHQL = currentHQL;
+    }
 
     public SunucuData getSelectedSunucuData() {
         return selectedSunucuData;
@@ -147,7 +154,7 @@ public class SunucuBean implements Serializable{
         System.out.println(sunucuUygulamaTipi);
         System.out.println(sunucuBilgisi.isEmpty());
 
-        int[] emptyCheck = {0,0,0,0};
+        int [] emptyCheck = {0,0,0,0};
 
         if(!sunucuTipi.isEmpty())
             emptyCheck[0]=1;
@@ -162,7 +169,7 @@ public class SunucuBean implements Serializable{
             emptyCheck[3]=1;
 
         String[] emptyCheckNames = {"S.sunucuTipi = :tip","S.sunucuTuru = :tur","S.sunucuUygulamaTipi = :utip","S.sunucuPortBilgisi = :port"};
-
+        emptyCheckPasser = emptyCheck;
 
         String hql = "FROM Sunucu";
         Query query;
@@ -202,7 +209,7 @@ public class SunucuBean implements Serializable{
         List<Sunucu> sunucuList = query.list();
 
         System.out.println("sunuculist uzunluk: " + sunucuList.size());
-
+        setCurrentHQL(hql);
 
 
         for(int i = 0; i<sunucuList.size(); i++){
@@ -227,8 +234,6 @@ public class SunucuBean implements Serializable{
             session.close(); //???
         }
 
-
-
         /////////////////////
         System.out.println("sunucu tablo uzunluk " + sunucuTablo.size());
 
@@ -237,7 +242,6 @@ public class SunucuBean implements Serializable{
     }
 
     public void tanimlaButonu() {
-        // TODO: 4.08.2017
         System.out.println("Hello, World");
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -276,10 +280,11 @@ public class SunucuBean implements Serializable{
 
 
         //close the popup
-        //RequestContext requestContext = RequestContext.getCurrentInstance();
-        //requestContext.execute("PF('dlg1').hide()");
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('dlg1').hide()");
         //last step redirect to same page
-        //refresh();
+        fillTable();
+        refresh();
 
     }
 
@@ -379,11 +384,19 @@ public class SunucuBean implements Serializable{
         session.getTransaction().commit();
         session.close();
 
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('dlg6').hide()");
+        fillTable();
+        refresh();
     }
 
-    public void sunucuAktifButonu(){}
+    public void sunucuAktifButonu(){
 
-    public void sunucuPasifButonu(){}
+    }
+
+    public void sunucuPasifButonu(){
+
+    }
 
     public void refresh(){
         try {
@@ -391,6 +404,52 @@ public class SunucuBean implements Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void fillTable(){
+        sunucuTablo.removeAll(sunucuTablo);
+
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = getCurrentHQL();
+        Query query = session.createQuery(hql);
+
+        if(emptyCheckPasser[0] == 1)
+            query.setParameter("tip",sunucuTipi);
+
+        if(emptyCheckPasser[1] == 1)
+            query.setParameter("tur", sunucuTuru);
+
+        if(emptyCheckPasser[2] == 1)
+            query.setParameter("utip", sunucuUygulamaTipi);
+
+        if(emptyCheckPasser[3] == 1)
+            query.setParameter("port", sunucuBilgisi);
+
+        List<Sunucu> sunucuList = query.list();
+
+        for(int i = 0; i<sunucuList.size(); i++){
+            SunucuData sunucuData = new SunucuData();
+            sunucuData.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
+            sunucuData.setSunucuIp(sunucuList.get(i).getSunucuIp());
+            sunucuData.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
+            sunucuData.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
+            sunucuData.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
+            sunucuData.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
+            sunucuData.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
+            sunucuData.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
+            sunucuData.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
+            sunucuData.setProtokol(sunucuList.get(i).getProtokol());
+            sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
+            sunucuTablo.add(sunucuData);
+            session.close();
+        }
+
     }
 
 }
