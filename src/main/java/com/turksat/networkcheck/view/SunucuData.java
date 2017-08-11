@@ -22,8 +22,17 @@ public class SunucuData {
     private String protokol; //new
     private String hataMesaj; //new
 
+    private String id;
 
     private String sunucuAdi;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getKontrolPeriyodu() {
         return kontrolPeriyodu;

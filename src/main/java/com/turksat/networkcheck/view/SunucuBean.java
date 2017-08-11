@@ -7,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.primefaces.context.RequestContext;
 
+import java.util.UUID;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -227,6 +229,7 @@ public class SunucuBean implements Serializable{
             sunucuData.setProtokol(sunucuList.get(i).getProtokol());
             sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
 
+            sunucuData.setId(sunucuList.get(i).getSunucuId());
             //System.out.println(sunucuList.get(i).getSunucuSanalAdi());
 
             sunucuTablo.add(sunucuData);
@@ -261,6 +264,9 @@ public class SunucuBean implements Serializable{
 
         Sunucu sunucu = new Sunucu();
 
+        UUID uuid = UUID.randomUUID();
+        sunucu.setSunucuId(uuid.toString());
+
         sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(sunucuData.getSunucuIp());
         sunucu.setSunucuPortBilgisi(sunucuData.getSunucuPortBilgisi());
@@ -294,6 +300,27 @@ public class SunucuBean implements Serializable{
         System.out.println(getSelectedSunucuData().getSunucuIp());
         System.out.println(getSelectedSunucuData().getSunucuPortBilgisi());
         System.out.println("protokol "+ getSelectedSunucuData().getProtokol());
+        System.out.println("id "+ getSelectedSunucuData().getId());
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SunucuDataDuzenle sunucuDataDuzenle
+                = (SunucuDataDuzenle) facesContext.getApplication()
+                .createValueBinding("#{sunucuDataDuzenle}").getValue(facesContext);
+
+        sunucuDataDuzenle.setSunucuSanalAdi(selectedSunucuData.getSunucuSanalAdi());
+        sunucuDataDuzenle.setSunucuIp(selectedSunucuData.getSunucuIp());
+        sunucuDataDuzenle.setSunucuPortBilgisi(selectedSunucuData.getSunucuPortBilgisi());
+        sunucuDataDuzenle.setKontrolPeriyodu(selectedSunucuData.getKontrolPeriyodu());
+        sunucuDataDuzenle.setSunucuKullaniciAdi(selectedSunucuData.getSunucuKullaniciAdi());
+        sunucuDataDuzenle.setSunucuSifre(selectedSunucuData.getSunucuSifre());
+        sunucuDataDuzenle.setSunucuTipi(selectedSunucuData.getSunucuTipi());
+        sunucuDataDuzenle.setSunucuUygulamaTipi(selectedSunucuData.getSunucuUygulamaTipi());
+        sunucuDataDuzenle.setSunucuTuru(selectedSunucuData.getSunucuTuru());
+        sunucuDataDuzenle.setProtokol(selectedSunucuData.getProtokol());
+        sunucuDataDuzenle.setHataMesaj(selectedSunucuData.getHataMesaj());
+
+        //RequestContext requestContext = RequestContext.getCurrentInstance();
+        //requestContext.execute("PF('dlg6').show()");
 
     }
 
@@ -303,6 +330,7 @@ public class SunucuBean implements Serializable{
         SunucuDataDuzenle sunucuDataDuzenle
                 = (SunucuDataDuzenle) facesContext.getApplication()
                 .createValueBinding("#{sunucuDataDuzenle}").getValue(facesContext);
+
         System.out.println("guncellebutonu row bilgisi");
         System.out.println(getSelectedSunucuData().getSunucuSanalAdi());
         System.out.println(getSelectedSunucuData().getSunucuIp());
@@ -311,8 +339,6 @@ public class SunucuBean implements Serializable{
         System.out.println("guncellebutonu dinamik bean bilgisi");
         System.out.println(sunucuDataDuzenle.getSunucuSanalAdi());
         System.out.println(sunucuDataDuzenle.getSunucuTuru());
-
-
 
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -324,6 +350,7 @@ public class SunucuBean implements Serializable{
         session.beginTransaction();
 
         Sunucu sunucu = new Sunucu();
+        sunucu.setSunucuId(selectedSunucuData.getId());
 
         if(!sunucuDataDuzenle.getSunucuSanalAdi().isEmpty())
             sunucu.setSunucuSanalAdi(sunucuDataDuzenle.getSunucuSanalAdi());
@@ -446,6 +473,7 @@ public class SunucuBean implements Serializable{
             sunucuData.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
             sunucuData.setProtokol(sunucuList.get(i).getProtokol());
             sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
+            sunucuData.setId(sunucuList.get(i).getSunucuId());
             sunucuTablo.add(sunucuData);
             session.close();
         }

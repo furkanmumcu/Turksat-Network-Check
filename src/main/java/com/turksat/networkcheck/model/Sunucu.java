@@ -22,13 +22,13 @@ public class Sunucu {
     private String hataMesaj;
     private List<Sunucu> sunucuTablo =new ArrayList<Sunucu> (  );
     private int kontrolPeriyodu;
-    private int sunucuId;
+    private String sunucuId;
     private List<Log> hatalar = new ArrayList<Log>();
 
 
     //@Id
     //@Basic(optional = false)
-    @Id
+    //@Id
     @Column(name="sunucuSanalAdi", unique = true, nullable = false)
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
@@ -126,11 +126,12 @@ public class Sunucu {
         this.protokol = protokol;
     }
 
+    @Id
     @Column(name="sunucuid", unique = false, nullable = false)
-    public int getSunucuId() {
+    public String getSunucuId() {
         return sunucuId;
     }
-    public void setSunucuId(int sunucuId) {
+    public void setSunucuId(String sunucuId) {
         this.sunucuId = sunucuId;
     }
 

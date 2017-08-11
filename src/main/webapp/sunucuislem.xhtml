@@ -131,7 +131,7 @@
                         </p:column>
                 <p:column headerText="" style="width: 182px">
                     <!--This is a comment. Comments are not displayed in the browser-->
-                    <p:commandButton oncomplete="PF('dlg6').show();"
+                    <p:commandButton oncomplete="PF('dlg6').show();" update="@(.dlg6cls)"
                                      title="Düzenle222323" icon="ui-icon-pencil" style="float: left"
                                      action="#{sunucuBean.sunucuDuzenleButonu}"
                                      >
@@ -147,10 +147,10 @@
             </p:dataTable>
 
             <p:dialog header="Sunucu Düzenle" showEffect="explode" widgetVar="dlg6" style="text-align: center"
-                      modal="true" height="550" width="660">
+                      modal="true" height="550" width="660" id="dlg6id" styleClass="dlg6cls">
                 <p:panelGrid  columns="2">
 
-                    <h:outputText value="Sunucu Sanal Adı "/>
+                    <h:outputText value="Sunucu Sanal Adi"/>
                     <p:inputText value="#{sunucuDataDuzenle.sunucuSanalAdi}"/>
                     <h:outputText value="IP Adresi "/>
                     <p:inputText value="#{sunucuDataDuzenle.sunucuIp}"/>
