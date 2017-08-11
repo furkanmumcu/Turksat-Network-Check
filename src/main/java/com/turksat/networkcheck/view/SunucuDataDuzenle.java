@@ -23,8 +23,6 @@ public class SunucuDataDuzenle {
     private String hataMesaj; //new
 
 
-    private String sunucuAdi;
-
     public int getKontrolPeriyodu() {
         return kontrolPeriyodu;
     }
@@ -73,14 +71,6 @@ public class SunucuDataDuzenle {
         this.sunucuSanalAdi = sunucuSanalAdi;
     }
 
-    public String getSunucuAdi() {
-        return sunucuAdi;
-    }
-
-    public void setSunucuAdi(String sunucuAdi) {
-        this.sunucuAdi = sunucuAdi;
-    }
-
     public String getSunucuIp() {
         return sunucuIp;
     }
@@ -121,12 +111,4 @@ public class SunucuDataDuzenle {
         this.sunucuTuru = sunucuTuru;
     }
 
-
-    //new
-    public void tanimlaButonu(){
-        System.out.println(sunucuSanalAdi);
-        System.out.println(protokol);
-
-
-    }
 }

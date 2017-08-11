@@ -132,24 +132,7 @@ public class SunucuBean implements Serializable{
     }
 
     public void sunucuaraButonu()  {
-        /*
-        SunucuData sunucu1 = new SunucuData();
-        sunucu1.setSunucuSanalAdi("ewerwer");
-        sunucu1.setSunucuIp("erwfs");
-        sunucu1.setSunucuPortBilgisi("fdsfsdfsf");
-        sunucu1.setKontrolPeriyodu(10);
-        sunucu1.setSunucuKullaniciAdi("dasd");
-        sunucu1.setSunucuSifre("dfsdfefd");
-        sunucu1.setSunucuTipi("fsdfsdf");
-        sunucu1.setSunucuUygulamaTipi("dsfefdsfe");
-        sunucu1.setSunucuTuru("fsfesfdf");
-        sunucu1.setProtokol("fedfefds");
-        sunucu1.setHataMesaj("fsdfesdfesfd");
-        //sunucuTablo.add(sunucu1);
-        */
         sunucuTablo.removeAll(sunucuTablo);
-
-        // TODO: 09/08/2017 serverdan tabloyu doldur/ filtreye gore
 
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -158,51 +141,90 @@ public class SunucuBean implements Serializable{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-
         System.out.println(sunucuBilgisi);
         System.out.println(sunucuTipi);
         System.out.println(sunucuTuru);
         System.out.println(sunucuUygulamaTipi);
         System.out.println(sunucuBilgisi.isEmpty());
 
+        int[] emptyCheck = {0,0,0,0};
 
-        String hql;
+        if(!sunucuTipi.isEmpty())
+            emptyCheck[0]=1;
+
+        if(!sunucuTuru.isEmpty())
+            emptyCheck[1]=1;
+
+        if(!sunucuUygulamaTipi.isEmpty())
+            emptyCheck[2]=1;
+
+        if(!sunucuBilgisi.isEmpty())
+            emptyCheck[3]=1;
+
+        String[] emptyCheckNames = {"S.sunucuTipi = :tip","S.sunucuTuru = :tur","S.sunucuUygulamaTipi = :utip","S.sunucuPortBilgisi = :port"};
+
+
+        String hql = "FROM Sunucu";
         Query query;
+        boolean isfirst = true;
         if(sunucuBilgisi.isEmpty()&&sunucuTipi.isEmpty()&&sunucuUygulamaTipi.isEmpty()&&sunucuTuru.isEmpty()){
             hql = "FROM Sunucu";
             query = session.createQuery(hql);
 
         }
         else {
-            hql = "FROM Sunucu S where S.sunucuTipi = :tip AND S.sunucuTuru = :tur AND S.sunucuUygulamaTipi = :utip AND S.sunucuPortBilgisi = :port";
+            System.out.println("girdim");
+            hql = hql + " S where ";
+            for(int i =0; i<4; i++){
+                if(emptyCheck[i] == 1 && !isfirst){
+                    hql = hql + " AND " + emptyCheckNames[i];
+                }
+                if(emptyCheck[i] == 1 && isfirst){
+                    hql = hql + emptyCheckNames[i];
+                    isfirst = false;
+                }
+            }
+            //hql = "FROM Sunucu S where S.sunucuTipi = :tip AND S.sunucuTuru = :tur AND S.sunucuUygulamaTipi = :utip AND S.sunucuPortBilgisi = :port";
+            System.out.println(hql);
             query = session.createQuery(hql);
-            query.setParameter("tip",sunucuTipi);
-            query.setParameter("tur", sunucuTuru);
-            query.setParameter("utip", sunucuUygulamaTipi);
-            query.setParameter("port", sunucuBilgisi);
+            if(emptyCheck[0] == 1)
+                query.setParameter("tip",sunucuTipi);
+
+            if(emptyCheck[1] == 1)
+                query.setParameter("tur", sunucuTuru);
+
+            if(emptyCheck[2] == 1)
+                query.setParameter("utip", sunucuUygulamaTipi);
+
+            if(emptyCheck[3] == 1)
+                query.setParameter("port", sunucuBilgisi);
         }
         List<Sunucu> sunucuList = query.list();
 
         System.out.println("sunuculist uzunluk: " + sunucuList.size());
 
-        for(int i = 0; i<sunucuList.size(); i++){
-            SunucuData sunucu = new SunucuData();
 
-            sunucu.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
-            sunucu.setSunucuIp(sunucuList.get(i).getSunucuIp());
-            sunucu.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
-            sunucu.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
-            sunucu.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
-            sunucu.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
-            sunucu.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
-            sunucu.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
-            sunucu.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
-            sunucu.setProtokol(sunucuList.get(i).getProtokol());
-            sunucu.setHataMesaj(sunucuList.get(i).getHataMesaj());
+
+        for(int i = 0; i<sunucuList.size(); i++){
+            SunucuData sunucuData = new SunucuData();
+
+            sunucuData.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
+            sunucuData.setSunucuIp(sunucuList.get(i).getSunucuIp());
+            sunucuData.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
+            sunucuData.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
+            sunucuData.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
+            sunucuData.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
+            sunucuData.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
+            sunucuData.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
+            sunucuData.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
+            sunucuData.setProtokol(sunucuList.get(i).getProtokol());
+            sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
 
             //System.out.println(sunucuList.get(i).getSunucuSanalAdi());
 
-            sunucuTablo.add(sunucu);
+            sunucuTablo.add(sunucuData);
+
+            session.close(); //???
         }
 
 
@@ -225,14 +247,6 @@ public class SunucuBean implements Serializable{
 
         System.out.println(sunucuData.getSunucuSanalAdi());
         System.out.println(sunucuData.getProtokol());
-
-        /* debug outs
-        System.out.println(sunucuData.getSunucuSanalAdi());
-        System.out.println(sunucuData.getSunucuTipi());
-        System.out.println("sifre " + sunucuData.getSunucuSifre());
-        System.out.println(sunucuData.getHataMesaj());
-        System.out.println(sunucuData.getKontrolPeriyodu());
-        */
 
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -275,21 +289,6 @@ public class SunucuBean implements Serializable{
         System.out.println(getSelectedSunucuData().getSunucuIp());
         System.out.println(getSelectedSunucuData().getSunucuPortBilgisi());
         System.out.println("protokol "+ getSelectedSunucuData().getProtokol());
-
-
-        // TODO: 10/08/2017 sunucuyu db de bul, guncelle
-        /*
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query;
-        String hql = "FROM Sunucu S where S.sunucuSanalAdi = :ad AND S.sunucuPortBilgisi = :port AND S.sunucuIp = :ip";
-        query = session.createQuery(hql);
-        query.setParameter("ad",sunucuTipi);
-        query.setParameter("port", sunucuTuru);
-        query.setParameter("ip", sunucuUygulamaTipi);
-        */
 
     }
 
