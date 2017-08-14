@@ -24,6 +24,7 @@ public class Sunucu {
     private int kontrolPeriyodu;
     private String sunucuId;
     private List<Log> hatalar = new ArrayList<Log>();
+    private boolean aktifPasif;
 
 
     //@Id
@@ -134,6 +135,14 @@ public class Sunucu {
     public void setSunucuId(String sunucuId) {
         this.sunucuId = sunucuId;
     }
+
+
+    @Column(name = "aktifpasif", unique = false, nullable = false)
+    public boolean getAktifPasif() {return aktifPasif;}
+    public void setAktifPasif(boolean aktifPasif) {
+        this.aktifPasif = aktifPasif;
+    }
+
 
     /*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sunucu")

@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Created by furkanmumcu on 07/08/2017.
  */
+
 @ManagedBean
 @SessionScoped
 public class SunucuBean implements Serializable{
@@ -40,7 +41,7 @@ public class SunucuBean implements Serializable{
 
     private SunucuData selectedSunucuData;
 
-    private String currentHQL;
+    private String currentHQL = "";
 
     private int[] emptyCheckPasser;
 
@@ -230,21 +231,22 @@ public class SunucuBean implements Serializable{
             sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
 
             sunucuData.setId(sunucuList.get(i).getSunucuId());
+            sunucuData.setAktifPasif(sunucuList.get(i).getAktifPasif());
             //System.out.println(sunucuList.get(i).getSunucuSanalAdi());
 
             sunucuTablo.add(sunucuData);
 
-            session.close(); //???
+            session.close();
         }
 
         /////////////////////
         System.out.println("sunucu tablo uzunluk " + sunucuTablo.size());
-
         refresh();
 
     }
 
     public void tanimlaButonu() {
+
         System.out.println("Hello, World");
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -266,6 +268,7 @@ public class SunucuBean implements Serializable{
 
         UUID uuid = UUID.randomUUID();
         sunucu.setSunucuId(uuid.toString());
+        sunucu.setAktifPasif(true);
 
         sunucu.setSunucuSanalAdi(sunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(sunucuData.getSunucuIp());
@@ -283,12 +286,18 @@ public class SunucuBean implements Serializable{
         session.getTransaction().commit();
         session.close();
 
-
+        //clear the form
+        sunucuData.setSunucuSanalAdi("");
+        sunucuData.setSunucuIp("");
+        sunucuData.setSunucuPortBilgisi("");
+        sunucuData.setKontrolPeriyodu(0);
+        sunucuData.setSunucuKullaniciAdi("");
+        sunucuData.setSunucuSifre("");
 
         //close the popup
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("PF('dlg1').hide()");
-        //last step redirect to same page
+        //refresh
         fillTable();
         refresh();
 
@@ -319,9 +328,6 @@ public class SunucuBean implements Serializable{
         sunucuDataDuzenle.setProtokol(selectedSunucuData.getProtokol());
         sunucuDataDuzenle.setHataMesaj(selectedSunucuData.getHataMesaj());
 
-        //RequestContext requestContext = RequestContext.getCurrentInstance();
-        //requestContext.execute("PF('dlg6').show()");
-
     }
 
     public void guncelleButonu(){
@@ -343,14 +349,13 @@ public class SunucuBean implements Serializable{
         Configuration configuration = new Configuration();
         configuration.configure();
 
-        //query ile id sini bul
-
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Sunucu sunucu = new Sunucu();
         sunucu.setSunucuId(selectedSunucuData.getId());
+        sunucu.setAktifPasif(selectedSunucuData.isAktifPasif());
 
         if(!sunucuDataDuzenle.getSunucuSanalAdi().isEmpty())
             sunucu.setSunucuSanalAdi(sunucuDataDuzenle.getSunucuSanalAdi());
@@ -418,12 +423,57 @@ public class SunucuBean implements Serializable{
     }
 
     public void sunucuAktifButonu(){
+        System.out.println("AKTIF butonu");
+        /////////////////////////////////////////////////////
 
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Sunucu sunucu = new Sunucu();
+        sunucu.setAktifPasif(true);
+        fillSunucuExceptAktifPasif(sunucu);
+
+        session.update(sunucu);
+        session.getTransaction().commit();
+        session.close();
+
+        fillTable();
+        refresh();
     }
 
     public void sunucuPasifButonu(){
+        System.out.println("pasif butonu");
+    }
+
+    public void sunucuPasifButonuEvet(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Sunucu sunucu = new Sunucu();
+        sunucu.setAktifPasif(false);
+        fillSunucuExceptAktifPasif(sunucu);
+
+        session.update(sunucu);
+        session.getTransaction().commit();
+        session.close();
+
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('dlg7').hide()");
+        fillTable();
+
+        refresh();
+
 
     }
+
+    public void sunucuPasifButonuHayir(){
+        //just close dialog
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('dlg7').hide()");
+    }
+
 
     public void refresh(){
         try {
@@ -434,50 +484,67 @@ public class SunucuBean implements Serializable{
     }
 
     public void fillTable(){
-        sunucuTablo.removeAll(sunucuTablo);
+        if(!currentHQL.isEmpty()) { //check again
+            sunucuTablo.removeAll(sunucuTablo);
 
-        Configuration configuration = new Configuration();
-        configuration.configure();
+            Configuration configuration = new Configuration();
+            configuration.configure();
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
 
-        String hql = getCurrentHQL();
-        Query query = session.createQuery(hql);
+            String hql = getCurrentHQL();
+            Query query = session.createQuery(hql);
 
-        if(emptyCheckPasser[0] == 1)
-            query.setParameter("tip",sunucuTipi);
+            if (emptyCheckPasser[0] == 1)
+                query.setParameter("tip", sunucuTipi);
 
-        if(emptyCheckPasser[1] == 1)
-            query.setParameter("tur", sunucuTuru);
+            if (emptyCheckPasser[1] == 1)
+                query.setParameter("tur", sunucuTuru);
 
-        if(emptyCheckPasser[2] == 1)
-            query.setParameter("utip", sunucuUygulamaTipi);
+            if (emptyCheckPasser[2] == 1)
+                query.setParameter("utip", sunucuUygulamaTipi);
 
-        if(emptyCheckPasser[3] == 1)
-            query.setParameter("port", sunucuBilgisi);
+            if (emptyCheckPasser[3] == 1)
+                query.setParameter("port", sunucuBilgisi);
 
-        List<Sunucu> sunucuList = query.list();
+            List<Sunucu> sunucuList = query.list();
 
-        for(int i = 0; i<sunucuList.size(); i++){
-            SunucuData sunucuData = new SunucuData();
-            sunucuData.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
-            sunucuData.setSunucuIp(sunucuList.get(i).getSunucuIp());
-            sunucuData.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
-            sunucuData.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
-            sunucuData.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
-            sunucuData.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
-            sunucuData.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
-            sunucuData.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
-            sunucuData.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
-            sunucuData.setProtokol(sunucuList.get(i).getProtokol());
-            sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
-            sunucuData.setId(sunucuList.get(i).getSunucuId());
-            sunucuTablo.add(sunucuData);
-            session.close();
+            for (int i = 0; i < sunucuList.size(); i++) {
+                SunucuData sunucuData = new SunucuData();
+                sunucuData.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
+                sunucuData.setSunucuIp(sunucuList.get(i).getSunucuIp());
+                sunucuData.setSunucuPortBilgisi(sunucuList.get(i).getSunucuPortBilgisi());
+                sunucuData.setKontrolPeriyodu(sunucuList.get(i).getKontrolPeriyodu());
+                sunucuData.setSunucuKullaniciAdi(sunucuList.get(i).getSunucuKullaniciAdi());
+                sunucuData.setSunucuSifre(sunucuList.get(i).getSunucuSifre());
+                sunucuData.setSunucuTipi(sunucuList.get(i).getSunucuTipi());
+                sunucuData.setSunucuUygulamaTipi(sunucuList.get(i).getSunucuUygulamaTipi());
+                sunucuData.setSunucuTuru(sunucuList.get(i).getSunucuTuru());
+                sunucuData.setProtokol(sunucuList.get(i).getProtokol());
+                sunucuData.setHataMesaj(sunucuList.get(i).getHataMesaj());
+                sunucuData.setId(sunucuList.get(i).getSunucuId());
+                sunucuData.setAktifPasif(sunucuList.get(i).getAktifPasif());
+                sunucuTablo.add(sunucuData);
+                session.close();
+            }
         }
+    }
 
+    public void fillSunucuExceptAktifPasif(Sunucu sunucu){
+        sunucu.setSunucuId(selectedSunucuData.getId());
+        sunucu.setSunucuSanalAdi(selectedSunucuData.getSunucuSanalAdi());
+        sunucu.setSunucuIp(selectedSunucuData.getSunucuIp());
+        sunucu.setSunucuPortBilgisi(selectedSunucuData.getSunucuPortBilgisi());
+        sunucu.setKontrolPeriyodu(selectedSunucuData.getKontrolPeriyodu());
+        sunucu.setSunucuKullaniciAdi(selectedSunucuData.getSunucuKullaniciAdi());
+        sunucu.setSunucuSifre(selectedSunucuData.getSunucuSifre());
+        sunucu.setSunucuTipi(selectedSunucuData.getSunucuTipi());
+        sunucu.setSunucuUygulamaTipi(selectedSunucuData.getSunucuUygulamaTipi());
+        sunucu.setSunucuTuru(selectedSunucuData.getSunucuTuru());
+        sunucu.setProtokol(selectedSunucuData.getProtokol());
+        sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
     }
 
 }

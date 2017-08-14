@@ -132,17 +132,23 @@
                 <p:column headerText="" style="width: 182px">
                     <!--This is a comment. Comments are not displayed in the browser-->
                     <p:commandButton oncomplete="PF('dlg6').show();" update="@(.dlg6cls)"
-                                     title="Düzenle222323" icon="ui-icon-pencil" style="float: left"
+                                     title="Düzenle" icon="ui-icon-pencil" style="float: left"
                                      action="#{sunucuBean.sunucuDuzenleButonu}"
                                      >
                         <f:setPropertyActionListener value="#{sunucuara}" target="#{sunucuBean.selectedSunucuData}" />
                     </p:commandButton>
 
-                    <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
-                                              onclick="PF('dlg6').show();"/>
                     <p:commandButton title="Pasifleştir" icon="ui-icon-cancel" style="float: left"
-                                     onclick="PF('dlg7').show();"/>
-                    <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"/>
+                                     onclick="PF('dlg7').show();"
+                                     action="#{sunucuBean.sunucuPasifButonu}">
+                        <f:setPropertyActionListener value="#{sunucuara}" target="#{sunucuBean.selectedSunucuData}" />
+                    </p:commandButton>
+
+                    <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"
+                                     action="#{sunucuBean.sunucuAktifButonu}">
+                        <f:setPropertyActionListener value="#{sunucuara}" target="#{sunucuBean.selectedSunucuData}" />
+                    </p:commandButton>
+
                         </p:column>
             </p:dataTable>
 
@@ -204,12 +210,12 @@
             <p:dialog showEffect="explode" widgetVar="dlg7" style="text-align: center" modal="true" height="150"
                       width="250">
                 <p:panel style="text-align: center">
-                    <h:outputText value=".... Sunucusunu pasifleştirmek istediğinize emin misiniz?"/>
+                    <h:outputText value="Sunucuyu pasifleştirmek istediğinize emin misiniz?"/>
 
                     <h:panelGrid columns="2">
 
-                        <p:commandButton value="Evet"/>
-                        <p:commandButton value="Hayır"/>
+                        <p:commandButton value="Evet" action="#{sunucuBean.sunucuPasifButonuEvet}"/>
+                        <p:commandButton value="Hayır" action="#{sunucuBean.sunucuPasifButonuHayir}"/>
                     </h:panelGrid>
                 </p:panel>
 

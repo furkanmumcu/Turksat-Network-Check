@@ -26,6 +26,16 @@ public class SunucuData {
 
     private String sunucuAdi;
 
+    private boolean aktifPasif;
+
+    public boolean isAktifPasif() {
+        return aktifPasif;
+    }
+
+    public void setAktifPasif(boolean aktifPasif) {
+        this.aktifPasif = aktifPasif;
+    }
+
     public String getId() {
         return id;
     }
