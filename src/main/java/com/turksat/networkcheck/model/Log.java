@@ -37,7 +37,7 @@ public class Log {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sunucuid", nullable = true) //check
+    @JoinColumn(name = "sunucuid", nullable = false)
     public Sunucu getSunucu(){return sunucu;}
     public void setSunucu(Sunucu sunucu){this.sunucu=sunucu;}
 
