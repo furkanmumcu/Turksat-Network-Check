@@ -2,6 +2,7 @@ package com.turksat.networkcheck.DAO;
 
 import com.turksat.networkcheck.model.Sunucu;
 import com.turksat.networkcheck.model.Kullanici;
+import com.turksat.networkcheck.model.Log;
 import org.hibernate.SessionFactory;
 
 public class DAO implements IDAO {
@@ -22,6 +23,7 @@ public class DAO implements IDAO {
     public void addSunucu(Sunucu sunucu) {
         getSessionFactory().getCurrentSession().save(sunucu);
     }
+    public void addLog(Log log){getSessionFactory().getCurrentSession().save(log);}
 
     @Override
     public void updateKullanici(Kullanici kullanici) {
@@ -30,6 +32,7 @@ public class DAO implements IDAO {
     public void updateSunucu(Sunucu sunucu) {
         getSessionFactory().getCurrentSession().update(sunucu);
     }
+    public void updateLog(Log log){getSessionFactory().getCurrentSession().update(log);}
 
 
 

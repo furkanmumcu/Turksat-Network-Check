@@ -22,6 +22,7 @@
 
         <!-- Annotated entity classes -->
         <mapping class="com.turksat.networkcheck.model.Sunucu"/>
+        <mapping class="com.turksat.networkcheck.model.Log"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package com.turksat.networkcheck.view;
 
 import com.turksat.networkcheck.model.Sunucu;
+import com.turksat.networkcheck.model.Log;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -444,6 +445,26 @@ public class SunucuBean implements Serializable{
 
     public void sunucuPasifButonu(){
         System.out.println("pasif butonu");
+        System.out.println("id " + selectedSunucuData.getId());
+        ////////////////////
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Sunucu sunucu = new Sunucu();
+        sunucu.setAktifPasif(false);
+        fillSunucuExceptAktifPasif(sunucu);
+
+        Log log = new Log();
+        log.setDurum("dasdas");
+        log.setZaman("Dasda");
+        log.setSunucuId(selectedSunucuData.getId());
+        log.setSunucu(sunucu);
+
+        session.save(log);
+        session.getTransaction().commit();
+        session.close();
     }
 
     public void sunucuPasifButonuEvet(){

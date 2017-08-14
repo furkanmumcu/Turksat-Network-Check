@@ -1,6 +1,7 @@
 package com.turksat.networkcheck.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name="sunucu")
-public class Sunucu {
+public class Sunucu implements Serializable{
     private String sunucuSanalAdi;
     private String sunucuKullaniciAdi;
     private String sunucuIp;
@@ -23,8 +24,9 @@ public class Sunucu {
     private List<Sunucu> sunucuTablo =new ArrayList<Sunucu> (  );
     private int kontrolPeriyodu;
     private String sunucuId;
-    private List<Log> hatalar = new ArrayList<Log>();
+    private List<Log> loglar = new ArrayList<Log>();
     private boolean aktifPasif;
+
 
 
     //@Id
@@ -111,6 +113,7 @@ public class Sunucu {
         this.sunucuTablo = sunucuTablo;
     }
     */
+
     @Column(name="hataMesaji", unique = false, nullable = false)
     public String getHataMesaj() {
         return hataMesaj;
@@ -144,15 +147,16 @@ public class Sunucu {
     }
 
 
-    /*
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sunucu")
-    public List<Log> getHatalar() {
-        return hatalar;
+    public List<Log> getLoglar() {
+        return loglar;
     }
-    public void setHatalar(List<Log> hatalar) {
-        this.hatalar = hatalar;
+
+    public void setLoglar(List<Log> durumlar) {
+        this.loglar = loglar;
     }
-    */
+
     @Override
     public String toString() {
         StringBuffer strBuff = new StringBuffer();
