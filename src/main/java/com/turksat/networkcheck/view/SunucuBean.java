@@ -1,5 +1,6 @@
 package com.turksat.networkcheck.view;
 
+import com.turksat.networkcheck.CheckSystem.NetworkCheck;
 import com.turksat.networkcheck.model.Sunucu;
 import com.turksat.networkcheck.model.Log;
 import org.hibernate.Session;
@@ -148,10 +149,11 @@ public class SunucuBean implements Serializable{
     }
 
     @PostConstruct
-    public void deneme(){
+    public void onStart(){
         System.out.println("CONSTRUCTIONNNNN");
 
         //db yi kontrol edip networkcheckleri initilaze et
+        //checkSunucu();
     }
 
     public void sunucuaraButonu()  {
@@ -298,6 +300,10 @@ public class SunucuBean implements Serializable{
         session.save(sunucu);
         session.getTransaction().commit();
         session.close();
+
+        //Add to networkCheck system
+        //NetworkCheck networkCheck = new NetworkCheck(uuid.toString());
+        //networkCheck.check();
 
         //clear the form
         sunucuData.setSunucuSanalAdi("");
@@ -459,10 +465,16 @@ public class SunucuBean implements Serializable{
         System.out.println("pasif butonu");
         System.out.println("id " + selectedSunucuData.getId());
         ////////////////////
+        NetworkCheck networkCheck = new NetworkCheck(selectedSunucuData.getId());
+        networkCheck.check();
 
+        //String ahql = "FROM Sunucu";
+        /*
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
+        //Query query = session.createQuery(ahql);
 
         Sunucu sunucu = new Sunucu();
         sunucu.setAktifPasif(false);
@@ -476,12 +488,11 @@ public class SunucuBean implements Serializable{
         log.setSunucu(sunucu);
         log.setDate(new Date());
         log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-        */
-
 
         //session.save(log);
         session.getTransaction().commit();
         session.close();
+        */
     }
 
     public void sunucuPasifButonuEvet(){
@@ -567,6 +578,7 @@ public class SunucuBean implements Serializable{
                 sunucuTablo.add(sunucuData);
                 session.close();
             }
+            session.close();//?
         }
     }
 
@@ -585,8 +597,25 @@ public class SunucuBean implements Serializable{
         sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
     }
 
-    public void checkSunucu(Sunucu sunucu){
+    public void checkSunucu(){
+        //onStart
+        //gets all servers, creates networkCheck system for them
+        Configuration configuration = new Configuration();
+        configuration.configure();
 
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "FROM Sunucu";
+        Query query = session.createQuery(hql);
+
+        List<Sunucu> sunucuList = query.list();
+
+        for (int i = 0; i < sunucuList.size(); i++) {
+            NetworkCheck networkCheck = new NetworkCheck(sunucuList.get(i).getSunucuId());
+            networkCheck.check();
+        }
     }
 
 

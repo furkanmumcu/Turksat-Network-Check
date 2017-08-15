@@ -13,7 +13,6 @@ import java.util.Timer;
 @Table(name="log")
 public class Log {
     private String durum;
-    private String zaman;
     private String sunucuId;
     private Sunucu sunucu;
     private Date date;
@@ -27,14 +26,6 @@ public class Log {
     }
     public void setDurum(String durum) {
         this.durum = durum;
-    }
-
-    @Column(name="zaman", unique = true, nullable = false)
-    public String getZaman() {
-        return zaman;
-    }
-    public void setZaman(String zaman) {
-        this.zaman = zaman;
     }
 
     @Column(name= "sunucuid", unique = true, nullable = false, insertable = false, updatable = false)
@@ -73,11 +64,12 @@ public class Log {
 
     @Override
     public String toString() {
-        StringBuffer strBuff = new StringBuffer();
-        strBuff.append("Durum : ").append(getDurum());
-        strBuff.append(", Zaman : ").append(getZaman());
-        strBuff.append(", SunucununId : ").append(getSunucuId());
-
-        return strBuff.toString();
+        return "Log{" +
+                "durum='" + durum + '\'' +
+                ", sunucuId='" + sunucuId + '\'' +
+                ", sunucu=" + sunucu +
+                ", date=" + date +
+                ", time='" + time + '\'' +
+                '}';
     }
 }

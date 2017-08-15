@@ -131,7 +131,7 @@ public class Sunucu implements Serializable{
     }
 
     @Id
-    @Column(name="sunucuid", unique = false, nullable = false)
+    @Column(name="sunucuid", unique = true, nullable = false)
     public String getSunucuId() {
         return sunucuId;
     }
