@@ -8,8 +8,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.primefaces.context.RequestContext;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -140,6 +145,13 @@ public class SunucuBean implements Serializable{
 
     public void setSunucuKullaniciAdi(String sunucuKullaniciAdi) {
         this.sunucuKullaniciAdi = sunucuKullaniciAdi;
+    }
+
+    @PostConstruct
+    public void deneme(){
+        System.out.println("CONSTRUCTIONNNNN");
+
+        //db yi kontrol edip networkcheckleri initilaze et
     }
 
     public void sunucuaraButonu()  {
@@ -456,13 +468,18 @@ public class SunucuBean implements Serializable{
         sunucu.setAktifPasif(false);
         fillSunucuExceptAktifPasif(sunucu);
 
+        /* // log ekleme
         Log log = new Log();
         log.setDurum("dasdas");
         log.setZaman("Dasda");
         log.setSunucuId(selectedSunucuData.getId());
         log.setSunucu(sunucu);
+        log.setDate(new Date());
+        log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
+        */
 
-        session.save(log);
+
+        //session.save(log);
         session.getTransaction().commit();
         session.close();
     }
@@ -567,5 +584,10 @@ public class SunucuBean implements Serializable{
         sunucu.setProtokol(selectedSunucuData.getProtokol());
         sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
     }
+
+    public void checkSunucu(Sunucu sunucu){
+
+    }
+
 
 }

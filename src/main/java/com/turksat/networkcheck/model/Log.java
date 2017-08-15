@@ -1,6 +1,12 @@
 package com.turksat.networkcheck.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Timer;
 
 
 @Entity
@@ -10,6 +16,9 @@ public class Log {
     private String zaman;
     private String sunucuId;
     private Sunucu sunucu;
+    private Date date;
+    private String time;
+
 
     @Id
     @Column(name="durum", unique = true, nullable = false)
@@ -40,6 +49,27 @@ public class Log {
     @JoinColumn(name = "sunucuid", nullable = false)
     public Sunucu getSunucu(){return sunucu;}
     public void setSunucu(Sunucu sunucu){this.sunucu=sunucu;}
+
+    @Column(name = "time", unique = false, nullable = false)
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    //@Temporal(TemporalType.TIMESTAMP)
+    @Type(type = "timestamp")
+    @Column(name = "date", unique = true, nullable = false, length = 10)
+    public Date getDate() {
+        return this.date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
 
     @Override
     public String toString() {
