@@ -358,6 +358,7 @@ public class NetworkCheck {
         log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
         log.setSunucuId(sunucuId);
         log.setSunucu(sunucu);
+        log.setError(false);
 
         logSession.save(log);
         logSession.getTransaction().commit();
@@ -378,6 +379,7 @@ public class NetworkCheck {
         log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
         log.setSunucuId(sunucuId);
         log.setSunucu(sunucu);
+        log.setError(true);
 
         logSession.save(log);
         logSession.getTransaction().commit();

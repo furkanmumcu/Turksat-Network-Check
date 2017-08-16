@@ -8,23 +8,33 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class AnaData {
-    private String sunucuAdi;
+    private String sunucuSanalAdi;
     private String sunucuIp;
-    private String sunucuUygulamaTipi;
+    private String sunucuPortBilgisi;
+    private int kontrolPeriyodu; // new
+    private String sunucuKullaniciAdi; // new
+    private String sunucuSifre; // new
     private String sunucuTipi;
-    private String sunucuPort;
+    private String sunucuUygulamaTipi;
     private String sunucuTuru;
+    private String protokol; //new
+    private String hataMesaj; //new
+    private String id;
+    private boolean aktifPasif;
+
+
     private String ulasim;
     private String sonUlasim;
     private String sonDurumZamani;
     private String sonDurum;
 
-    public String getSunucuAdi() {
-        return sunucuAdi;
+
+    public String getSunucuSanalAdi() {
+        return sunucuSanalAdi;
     }
 
-    public void setSunucuAdi(String sunucuAdi) {
-        this.sunucuAdi = sunucuAdi;
+    public void setSunucuSanalAdi(String sunucuSanalAdi) {
+        this.sunucuSanalAdi = sunucuSanalAdi;
     }
 
     public String getSunucuIp() {
@@ -35,12 +45,36 @@ public class AnaData {
         this.sunucuIp = sunucuIp;
     }
 
-    public String getSunucuUygulamaTipi() {
-        return sunucuUygulamaTipi;
+    public String getSunucuPortBilgisi() {
+        return sunucuPortBilgisi;
     }
 
-    public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
-        this.sunucuUygulamaTipi = sunucuUygulamaTipi;
+    public void setSunucuPortBilgisi(String sunucuPortBilgisi) {
+        this.sunucuPortBilgisi = sunucuPortBilgisi;
+    }
+
+    public int getKontrolPeriyodu() {
+        return kontrolPeriyodu;
+    }
+
+    public void setKontrolPeriyodu(int kontrolPeriyodu) {
+        this.kontrolPeriyodu = kontrolPeriyodu;
+    }
+
+    public String getSunucuKullaniciAdi() {
+        return sunucuKullaniciAdi;
+    }
+
+    public void setSunucuKullaniciAdi(String sunucuKullaniciAdi) {
+        this.sunucuKullaniciAdi = sunucuKullaniciAdi;
+    }
+
+    public String getSunucuSifre() {
+        return sunucuSifre;
+    }
+
+    public void setSunucuSifre(String sunucuSifre) {
+        this.sunucuSifre = sunucuSifre;
     }
 
     public String getSunucuTipi() {
@@ -51,12 +85,12 @@ public class AnaData {
         this.sunucuTipi = sunucuTipi;
     }
 
-    public String getSunucuPort() {
-        return sunucuPort;
+    public String getSunucuUygulamaTipi() {
+        return sunucuUygulamaTipi;
     }
 
-    public void setSunucuPort(String sunucuPort) {
-        this.sunucuPort = sunucuPort;
+    public void setSunucuUygulamaTipi(String sunucuUygulamaTipi) {
+        this.sunucuUygulamaTipi = sunucuUygulamaTipi;
     }
 
     public String getSunucuTuru() {
@@ -65,6 +99,38 @@ public class AnaData {
 
     public void setSunucuTuru(String sunucuTuru) {
         this.sunucuTuru = sunucuTuru;
+    }
+
+    public String getProtokol() {
+        return protokol;
+    }
+
+    public void setProtokol(String protokol) {
+        this.protokol = protokol;
+    }
+
+    public String getHataMesaj() {
+        return hataMesaj;
+    }
+
+    public void setHataMesaj(String hataMesaj) {
+        this.hataMesaj = hataMesaj;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isAktifPasif() {
+        return aktifPasif;
+    }
+
+    public void setAktifPasif(boolean aktifPasif) {
+        this.aktifPasif = aktifPasif;
     }
 
     public String getUlasim() {

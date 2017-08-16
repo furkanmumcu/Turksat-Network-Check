@@ -24,8 +24,6 @@ public class SunucuData {
 
     private String id;
 
-    private String sunucuAdi;
-
     private boolean aktifPasif;
 
     public boolean isAktifPasif() {
@@ -90,14 +88,6 @@ public class SunucuData {
 
     public void setSunucuSanalAdi(String sunucuSanalAdi) {
         this.sunucuSanalAdi = sunucuSanalAdi;
-    }
-
-    public String getSunucuAdi() {
-        return sunucuAdi;
-    }
-
-    public void setSunucuAdi(String sunucuAdi) {
-        this.sunucuAdi = sunucuAdi;
     }
 
     public String getSunucuIp() {

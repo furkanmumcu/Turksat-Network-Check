@@ -3,6 +3,7 @@ package com.turksat.networkcheck.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,12 +12,13 @@ import java.util.Timer;
 
 @Entity
 @Table(name="log")
-public class Log {
+public class Log implements Serializable{
     private String durum;
     private String sunucuId;
     private Sunucu sunucu;
     private Date date;
     private String time;
+    private boolean isError;
 
 
     @Id
@@ -36,7 +38,7 @@ public class Log {
         this.sunucuId = sunucuId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "sunucuid", nullable = false)
     public Sunucu getSunucu(){return sunucu;}
     public void setSunucu(Sunucu sunucu){this.sunucu=sunucu;}
@@ -59,6 +61,15 @@ public class Log {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Column(name = "iserror", unique = false, nullable = true)
+    public boolean isError() {
+        return isError;
+    }
+
+    public void setError(boolean error) {
+        isError = error;
     }
 
 
