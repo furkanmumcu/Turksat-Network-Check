@@ -241,7 +241,7 @@ public class NetworkCheck {
 
                     }
 
-                    if("SQL".equals(sunucu.getProtokol())){
+                    if("JDBC".equals(sunucu.getProtokol())){
                         Connection c = null;
                         try {
                             Class.forName("org.postgresql.Driver");
@@ -253,7 +253,7 @@ public class NetworkCheck {
 
                             c = DriverManager
                                     .getConnection("jdbc:postgresql://"+ sunucu.getSunucuIp() + ":" + sunucu.getSunucuPortBilgisi()
-                                            + "/" + dbName, sunucu.getSunucuKullaniciAdi(),sunucu.getSunucuSifre());
+                                            + "/", sunucu.getSunucuKullaniciAdi(),sunucu.getSunucuSifre());
                             System.out.println("Server is up");
                             c.close();
 
