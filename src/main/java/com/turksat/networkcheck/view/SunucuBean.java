@@ -250,9 +250,8 @@ public class SunucuBean implements Serializable{
             //System.out.println(sunucuList.get(i).getSunucuSanalAdi());
 
             sunucuTablo.add(sunucuData);
-
-            session.close();
         }
+        session.close();
 
         /////////////////////
         System.out.println("sunucu tablo uzunluk " + sunucuTablo.size());
@@ -465,8 +464,8 @@ public class SunucuBean implements Serializable{
         System.out.println("pasif butonu");
         System.out.println("id " + selectedSunucuData.getId());
         ////////////////////
-        NetworkCheck networkCheck = new NetworkCheck(selectedSunucuData.getId());
-        networkCheck.check();
+        //NetworkCheck networkCheck = new NetworkCheck(selectedSunucuData.getId());
+        //networkCheck.check();
 
         //String ahql = "FROM Sunucu";
         /*
@@ -576,9 +575,8 @@ public class SunucuBean implements Serializable{
                 sunucuData.setId(sunucuList.get(i).getSunucuId());
                 sunucuData.setAktifPasif(sunucuList.get(i).getAktifPasif());
                 sunucuTablo.add(sunucuData);
-                session.close();
             }
-            session.close();//?
+            session.close();
         }
     }
 
@@ -616,6 +614,7 @@ public class SunucuBean implements Serializable{
             NetworkCheck networkCheck = new NetworkCheck(sunucuList.get(i).getSunucuId());
             networkCheck.check();
         }
+        session.close();
     }
 
 

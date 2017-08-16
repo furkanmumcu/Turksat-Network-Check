@@ -326,9 +326,10 @@ public class NetworkCheck {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
-        System.out.println(sw.toString());
+        //System.out.println(sw.toString());
+        String lines[] = sw.toString().split("\\r?\\n");
+        System.out.println(lines[0]);
         return sw.toString();
-
     }
 
     private void notifyUser(){
@@ -372,7 +373,7 @@ public class NetworkCheck {
         logSession.beginTransaction();
 
         Log log = new Log();
-        log.setDurum("error: " + errorMsg(e));
+        log.setDurum("ERROR: " + errorMsg(e));
         log.setDate(new Date());
         log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
         log.setSunucuId(sunucuId);
