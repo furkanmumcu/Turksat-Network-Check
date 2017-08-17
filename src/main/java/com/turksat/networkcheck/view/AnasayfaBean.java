@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
+
 
 @ManagedBean
 @SessionScoped
@@ -24,16 +27,54 @@ public class AnasayfaBean {
     private String selectMenu2;
     private String selectMenu3;
 
-    private List<LogDetay> loglar=new ArrayList<LogDetay>(  );
+    private List<LogDetay> gunlukLoglar=new ArrayList<LogDetay>(  );
+    private List<LogDetay> haftalikLoglar=new ArrayList<LogDetay>(  );
+    private List<LogDetay> aylikLoglar=new ArrayList<LogDetay>(  );
+    private List<LogDetay> yillikLoglar=new ArrayList<LogDetay>(  );
+
     private List<AnaData> tablo=new ArrayList<AnaData> (  );
-    public List<LogDetay> getLoglar() {
-        return loglar;
+
+    private AnaData selectedAnaData;
+
+    public List<LogDetay> getGunlukLoglar() {
+        return gunlukLoglar;
     }
 
-    public void setLoglar(List<LogDetay> loglar) {
-        this.loglar = loglar;
+    public void setGunlukLoglar(List<LogDetay> gunlukLoglar) {
+        this.gunlukLoglar = gunlukLoglar;
     }
 
+    public List<LogDetay> getHaftalikLoglar() {
+        return haftalikLoglar;
+    }
+
+    public void setHaftalikLoglar(List<LogDetay> haftalikLoglar) {
+        this.haftalikLoglar = haftalikLoglar;
+    }
+
+    public List<LogDetay> getAylikLoglar() {
+        return aylikLoglar;
+    }
+
+    public void setAylikLoglar(List<LogDetay> aylikLoglar) {
+        this.aylikLoglar = aylikLoglar;
+    }
+
+    public List<LogDetay> getYillikLoglar() {
+        return yillikLoglar;
+    }
+
+    public void setYillikLoglar(List<LogDetay> yillikLoglar) {
+        this.yillikLoglar = yillikLoglar;
+    }
+
+    public AnaData getSelectedAnaData() {
+        return selectedAnaData;
+    }
+
+    public void setSelectedAnaData(AnaData selectedAnaData) {
+        this.selectedAnaData = selectedAnaData;
+    }
 
     public List<AnaData> getTablo() {
         return tablo;
@@ -149,30 +190,93 @@ public class AnasayfaBean {
         }
 
         session.close();
-
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-
-
-        /*
-        //String id = "c5f871cd-0dd9-4f61-b7f9-0f5818bd2d6c";
-        String id = "6dfe10fd-8bc2-41d2-8697-73e2fe73d13e";
-        System.out.println(sonUlasmaZamani(id));
-        System.out.println(sonDurumZamanu(id));
-        System.out.println(sonDurum(id));
-        System.out.println(ulasilabilirlik(id,"Yillik"));
-        */
-
-
+        sessionFactory.close();
     }
 
     public void logButonu() {
+        System.out.println("LOG");
+        System.out.println(selectedAnaData.getSunucuSanalAdi());
+        System.out.println(selectedAnaData.getId());
+
+        //
+        yillikLoglar.removeAll(yillikLoglar);
+        gunlukLoglar.removeAll(gunlukLoglar);
+        aylikLoglar.removeAll(aylikLoglar);
+        haftalikLoglar.removeAll(haftalikLoglar);
+
+        String id = selectedAnaData.getId();
+        Date gunluk = new Date(System.currentTimeMillis()-24*60*60*1000);
+        Date haftalik = new Date(System.currentTimeMillis()-7*24*60*60*1000);
+        Date aylik = new Date(System.currentTimeMillis()-(30L*24*60*60*1000));
+        Date yillik = new Date(System.currentTimeMillis()-(365L*24*60*60*1000));
+
+        List<Log> gunlukLoglarL = historicLogs(id,gunluk);
+        List<Log> haftalikLoglarL = historicLogs(id,haftalik);
+        List<Log> aylikLoglarL = historicLogs(id,aylik);
+        List<Log> yillikLoglarL = historicLogs(id,yillik);
+
+        if(!gunlukLoglarL.isEmpty()){
+            for(int i =0; i<gunlukLoglarL.size(); i++){
+                LogDetay logDetay = new LogDetay();
+                logDetay.setHata(gunlukLoglarL.get(i).getDurum());
+
+                String date = gunlukLoglarL.get(i).getDate().toString();
+                String[] parts = date.split(" ");
+                String time = gunlukLoglarL.get(i).getTime();
+                System.out.println(time);
+
+                logDetay.setHatazaman(parts[0] + " " + time);
+                gunlukLoglar.add(logDetay);
+            }
+        }
+
+        if(!aylikLoglarL.isEmpty()){
+            for(int i =0; i<aylikLoglarL.size(); i++){
+                LogDetay logDetay = new LogDetay();
+                logDetay.setHata(aylikLoglarL.get(i).getDurum());
+
+                String date = aylikLoglarL.get(i).getDate().toString();
+                String[] parts = date.split(" ");
+                String time = aylikLoglarL.get(i).getTime();
+
+                logDetay.setHatazaman(parts[0] + " " + time);
+                aylikLoglar.add(logDetay);
+            }
+        }
+
+        if(!haftalikLoglarL.isEmpty()){
+            for(int i =0; i<haftalikLoglarL.size(); i++){
+                LogDetay logDetay = new LogDetay();
+                logDetay.setHata(haftalikLoglarL.get(i).getDurum());
+
+                String date = haftalikLoglarL.get(i).getDate().toString();
+                String[] parts = date.split(" ");
+                String time = haftalikLoglarL.get(i).getTime();
+
+                logDetay.setHatazaman(parts[0] + " " + time);
+                haftalikLoglar.add(logDetay);
+            }
+        }
+
+        if(!yillikLoglarL.isEmpty()){
+            for(int i =0; i<yillikLoglarL.size(); i++){
+                LogDetay logDetay = new LogDetay();
+                logDetay.setHata(yillikLoglarL.get(i).getDurum());
+
+                String date = yillikLoglarL.get(i).getDate().toString();
+                String[] parts = date.split(" ");
+                String time = yillikLoglarL.get(i).getTime();
+
+                logDetay.setHatazaman(parts[0] + " " + time);
+                yillikLoglar.add(logDetay);
+            }
+        }
+
+
     }
 
     public void anlikButonu() {
+        System.out.println("ANLIK");
     }
 
     public String sonUlasmaZamani (String id){
@@ -190,6 +294,7 @@ public class AnasayfaBean {
         List<Log> logList = bquery.list();
 
         session.close();
+        sessionFactory.close();
 
         if(!logList.isEmpty()) {
             return logList.get(0).getTime();
@@ -213,6 +318,7 @@ public class AnasayfaBean {
         List<Log> logList = bquery.list();
 
         session.close();
+        sessionFactory.close();
 
         if(!logList.isEmpty()) {
             return logList.get(0).getTime();
@@ -236,6 +342,7 @@ public class AnasayfaBean {
         List<Log> logList = bquery.list();
 
         session.close();
+        sessionFactory.close();
 
         if(!logList.isEmpty()) {
             return logList.get(0).isError();
@@ -262,13 +369,17 @@ public class AnasayfaBean {
             aquery.setParameter("past",new Date(System.currentTimeMillis()-24*60*60*1000));
         }
         if(param.equals("Aylik")){
-            aquery.setParameter("past",new Date(System.currentTimeMillis()-7*24*60*60*1000));
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-(30L*24*60*60*1000)));
         }
         if(param.equals("Yillik")){
-            aquery.setParameter("past",new Date(System.currentTimeMillis()-365*24*60*60*1000));
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-(365L*24*60*60*1000)));
+        }
+        if(param.equals("Haftalik")){
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-7*24*60*60*1000));
         }
         List<Log> logList = aquery.list();
         session.close();
+        sessionFactory.close();
 
         int allLogs = logList.size();
         int goodLogs = 0;
@@ -288,6 +399,28 @@ public class AnasayfaBean {
             return 0;
         }
 
+    }
+
+    public List<Log> historicLogs(String id, Date past){
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String ahql = "From Log L where L.sunucuId = :id AND L.error = :error AND L.date between :past AND :today";
+        Query aquery = session.createQuery(ahql);
+        aquery.setParameter("error",true);
+        aquery.setParameter("id",id);
+        aquery.setParameter("today",new Date());
+        aquery.setParameter("past",past);
+
+        List<Log> logList = aquery.list();
+        session.close();
+        sessionFactory.close();
+
+        return logList;
     }
 
 }

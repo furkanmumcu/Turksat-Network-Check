@@ -52,11 +52,16 @@
                     <p:column headerText="Ulaşılabilirlik" style="width: 120px">
                                 <h:outputText value="#{anatablovar.ulasim}" style="float: left"/>
                             </p:column>
+
                     <p:column headerText="Loglar" style="width: 50px;text-align: center">
-                              <p:commandButton title="Detay" icon="ui-icon-search" type="button" action="#{anasayfaBean.logButonu}"
-                                               onclick="PF('dlg3').show();"/>
+                         <p:commandButton oncomplete="PF('dlg3').show();" update="@(.dlg3cls)"
+                                    title="Detay" icon="ui-icon-search"  action="#{anasayfaBean.logButonu}"
+                                               >
+                        <f:setPropertyActionListener value="#{anatablovar}" target="#{anasayfaBean.selectedAnaData}" />
+                    </p:commandButton>
 
                             </p:column>
+
                     <p:column headerText="Son Ulaşma Zamanı">
                                  <h:outputText value="#{anatablovar.sonUlasim}" style="float: left"/>
                             </p:column>
@@ -66,55 +71,57 @@
                     <p:column headerText="Son Durum Zamanı">
                                  <h:outputText value="#{anatablovar.sonDurumZamani}" style="float: left"/>
                             </p:column>
+
                     <p:column headerText="" style="text-align: center;width: 77px">
                                  <p:commandButton value="Anlık İzle" action="#{anasayfaBean.anlikButonu}"/>
                             </p:column>
                 </p:dataTable>
             </h:panelGrid>
+
             <p:dialog header="Log Detay" showEffect="explode" widgetVar="dlg3" style="text-align: center" modal="true"
-                      height="500" width="750">
+                      height="500" width="750" styleClass="dlg3cls">
                     <p:tabView style="height: 470px">
                         <p:tab title="Günlük">
-                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                <p:dataTable var="hatalog1" value="#{anasayfaBean.gunlukLoglar}">
                         <p:column headerText="Hatalar">
-                            <h:outputText value="#{logDetay.hata}"/>
+                            <h:outputText value="#{hatalog1.hata}"/>
                         </p:column>
                      
                         <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
-                            <h:outputText value="#{logDetay.hatazaman}"/>
+                            <h:outputText value="#{hatalog1.hatazaman}"/>
                         </p:column>
                 </p:dataTable>
                         </p:tab>
                         <p:tab title="1 Haftalık">
-                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                <p:dataTable var="hatalog2" value="#{anasayfaBean.haftalikLoglar}">
                         <p:column headerText="Hatalar">
-                            <h:outputText value="#{logDetay.hata}"/>
+                            <h:outputText value="#{hatalog2.hata}"/>
                         </p:column>
                      
                         <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
-                            <h:outputText value="#{logDetay.hatazaman}"/>
+                            <h:outputText value="#{hatalog2.hatazaman}"/>
                         </p:column>
                 </p:dataTable>
                         </p:tab>
                         <p:tab title="1 Aylık">
-                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                <p:dataTable var="hatalog3" value="#{anasayfaBean.aylikLoglar}">
                         <p:column headerText="Hatalar">
-                            <h:outputText value="#{logDetay.hata}"/>
+                            <h:outputText value="#{hatalog3.hata}"/>
                         </p:column>
                      
                         <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
-                            <h:outputText value="#{logDetay.hatazaman}"/>
+                            <h:outputText value="#{hatalog3.hatazaman}"/>
                         </p:column>
                 </p:dataTable>
                         </p:tab>
                         <p:tab title="1 Yıllık">
-                <p:dataTable var="hatalog" value="#{anasayfaBean.loglar}">
+                <p:dataTable var="hatalog4" value="#{anasayfaBean.yillikLoglar}">
                         <p:column headerText="Hatalar">
-                            <h:outputText value="#{logDetay.hata}"/>
+                            <h:outputText value="#{hatalog4.hata}"/>
                         </p:column>
                      
                         <p:column headerText="Hata Zamanı (gg/aa/yyyy ss:dd)">
-                            <h:outputText value="#{logDetay.hatazaman}"/>
+                            <h:outputText value="#{hatalog4.hatazaman}"/>
                         </p:column>
                 </p:dataTable>
                         </p:tab>
