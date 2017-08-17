@@ -199,43 +199,11 @@ public class NetworkCheck {
                                 System.out.println("Server is up... " + "connCheck: " + connCheck);
 
                                 //log olustur
-                                Configuration logConfiguration = new Configuration();
-                                logConfiguration.configure();
-
-                                SessionFactory logSessionFactory = new Configuration().configure().buildSessionFactory();
-                                Session logSession = logSessionFactory.openSession();
-                                logSession.beginTransaction();
-
-                                Log log = new Log();
-                                log.setDurum("server is up");
-                                log.setDate(new Date());
-                                log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                                log.setSunucuId(sunucuId);
-                                log.setSunucu(sunucu);
-
-                                logSession.save(log);
-                                logSession.getTransaction().commit();
-                                logSession.close();
+                                logOlustur();
 
                             } catch (Exception e) {
                                 //errorMsg(e);
-                                Configuration logConfiguration = new Configuration();
-                                logConfiguration.configure();
-
-                                SessionFactory logSessionFactory = new Configuration().configure().buildSessionFactory();
-                                Session logSession = logSessionFactory.openSession();
-                                logSession.beginTransaction();
-
-                                Log log = new Log();
-                                log.setDurum("error: " + errorMsg(e));
-                                log.setDate(new Date());
-                                log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                                log.setSunucuId(sunucuId);
-                                log.setSunucu(sunucu);
-
-                                logSession.save(log);
-                                logSession.getTransaction().commit();
-                                logSession.close();
+                                logOlustur(e);
                             }
 
                         }

@@ -10,6 +10,8 @@ import org.hibernate.query.Query;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,8 +110,10 @@ public class AnasayfaBean {
         List<Sunucu> sunucuList = query.list();
 
 
-        //tablouu doldur
+        //tabloyu doldur
         for(int i=0; i<sunucuList.size(); i++){
+
+
             AnaData anaData = new AnaData();
 
             anaData.setSunucuSanalAdi(sunucuList.get(i).getSunucuSanalAdi());
@@ -126,39 +130,22 @@ public class AnasayfaBean {
             anaData.setId(sunucuList.get(i).getSunucuId());
             anaData.setAktifPasif(sunucuList.get(i).getAktifPasif());
 
-            //sunuculist.get(i) nin ulasilabilirligini hesapla
-            String ahql = "From Log L where L.sunucuId = :id AND L.date between :past AND :today";
-            Query aquery = session.createQuery(ahql);
-            aquery.setParameter("id",sunucuList.get(i).getSunucuId());
-            aquery.setParameter("today",new Date());
+            float result = ulasilabilirlik(sunucuList.get(i).getSunucuId(),selectMenu1);
+            anaData.setUlasim(Float.toString(result));
 
-            if(selectMenu1.equals("Gunluk")){
-                aquery.setParameter("past",new Date(System.currentTimeMillis()-24*60*60*1000));
-            }
-            if(selectMenu1.equals("Aylik")){
-                aquery.setParameter("past",new Date(System.currentTimeMillis()-7*24*60*60*1000));
-            }
-            if(selectMenu1.equals("Yillik")){
-                aquery.setParameter("past",new Date(System.currentTimeMillis()-365*24*60*60*1000));
-            }
-            List<Log> logList = aquery.list();
-            int allLogs = logList.size();
-            int goodLogs = 0;
-            for (int j =0; j<logList.size(); j++){
-                if (!logList.get(j).isError()){
-                    goodLogs++;
+            String sonUlasimZamani = sonUlasmaZamani(sunucuList.get(i).getSunucuId());
+            anaData.setSonUlasim(sonUlasimZamani);
+            anaData.setSonDurumZamani(sonDurumZamani(sunucuList.get(i).getSunucuId()));
+
+            boolean flag = sonDurum(sunucuList.get(i).getSunucuId());
+            if(!sonUlasimZamani.isEmpty()) {
+                if (flag) {
+                    anaData.setSonDurum("down");
+                } else {
+                    anaData.setSonDurum("up");
                 }
             }
-            float result = 0;
-            if(allLogs !=0)
-                 result = (float)goodLogs/allLogs;
-
-            if(allLogs !=0)
-                anaData.setUlasim(Float.toString(result));
-
-            System.out.println(Float.toString(result));
             tablo.add(anaData);
-
         }
 
         session.close();
@@ -169,42 +156,17 @@ public class AnasayfaBean {
         /////////////////////////////////
         /////////////////////////////////
 
+
         /*
-        System.out.println("DENEME");
-
-        Configuration configuration = new Configuration();
-        configuration.configure();
-
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        String ahql = "From Log L where L.sunucuId = :id AND L.date between :past AND :today";
-        Query aquery = session.createQuery(ahql);
-        aquery.setParameter("id","3075cc7a-76dd-4784-95fc-a8f79f159a4f");
-        aquery.setParameter("today",new Date());
-
-        if(selectMenu1.equals("Gunluk")){
-            aquery.setParameter("past",new Date(System.currentTimeMillis()-24*60*60*1000));
-            System.out.println("girdim");
-        }
-        if(selectMenu1.equals("Aylik")){
-            aquery.setParameter("past",new Date(System.currentTimeMillis()-7*24*60*60*1000));
-        }
-        if(selectMenu1.equals("Yillik")){
-            aquery.setParameter("past",new Date(System.currentTimeMillis()-365*24*60*60*1000));
-        }
-        List<Log> logList = aquery.list();
-        int allLogs = logList.size();
-        int goodLogs = 0;
-        for (int j =0; j<logList.size(); j++){
-            if (!logList.get(j).isError()){
-                goodLogs++;
-            }
-        }
-        System.out.println(logList.size());
-        System.out.println(allLogs);
-        System.out.println(goodLogs);
+        //String id = "c5f871cd-0dd9-4f61-b7f9-0f5818bd2d6c";
+        String id = "6dfe10fd-8bc2-41d2-8697-73e2fe73d13e";
+        System.out.println(sonUlasmaZamani(id));
+        System.out.println(sonDurumZamanu(id));
+        System.out.println(sonDurum(id));
+        System.out.println(ulasilabilirlik(id,"Yillik"));
         */
+
+
     }
 
     public void logButonu() {
@@ -213,7 +175,119 @@ public class AnasayfaBean {
     public void anlikButonu() {
     }
 
+    public String sonUlasmaZamani (String id){
+        Configuration configuration = new Configuration();
+        configuration.configure();
 
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
+        String bhql = "FROM Log L where L.sunucuId = :id AND L.error = :error order by date desc , time desc ";
+        Query bquery = session.createQuery(bhql);
+        bquery.setParameter("error",false);
+        bquery.setParameter("id",id);
+        List<Log> logList = bquery.list();
+
+        session.close();
+
+        if(!logList.isEmpty()) {
+            return logList.get(0).getTime();
+        }
+        else {
+            return "";
+        }
+    }
+
+    public String sonDurumZamani (String id){
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String bhql = "FROM Log L where L.sunucuId = :id order by date desc , time desc ";
+        Query bquery = session.createQuery(bhql);
+        bquery.setParameter("id",id);
+        List<Log> logList = bquery.list();
+
+        session.close();
+
+        if(!logList.isEmpty()) {
+            return logList.get(0).getTime();
+        }
+        else {
+            return "";
+        }
+    }
+
+    public boolean sonDurum (String id){
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String bhql = "FROM Log L where L.sunucuId = :id order by date desc , time desc ";
+        Query bquery = session.createQuery(bhql);
+        bquery.setParameter("id",id);
+        List<Log> logList = bquery.list();
+
+        session.close();
+
+        if(!logList.isEmpty()) {
+            return logList.get(0).isError();
+        }
+        else {
+            return false;
+        }
+    }
+
+    public float ulasilabilirlik (String id, String param){
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String ahql = "From Log L where L.sunucuId = :id AND L.date between :past AND :today";
+        Query aquery = session.createQuery(ahql);
+        aquery.setParameter("id",id);
+        aquery.setParameter("today",new Date());
+
+        if(param.equals("Gunluk")){
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-24*60*60*1000));
+        }
+        if(param.equals("Aylik")){
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-7*24*60*60*1000));
+        }
+        if(param.equals("Yillik")){
+            aquery.setParameter("past",new Date(System.currentTimeMillis()-365*24*60*60*1000));
+        }
+        List<Log> logList = aquery.list();
+        session.close();
+
+        int allLogs = logList.size();
+        int goodLogs = 0;
+        for (int j =0; j<logList.size(); j++){
+            if (!logList.get(j).isError()){
+                goodLogs++;
+            }
+        }
+        float result = 0;
+        if(allLogs !=0)
+            result = (float)goodLogs/allLogs;
+
+        if(allLogs !=0) {
+            return result;
+        }
+        else {
+            return 0;
+        }
+
+    }
 
 }
