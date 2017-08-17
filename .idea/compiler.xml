@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="primefaces" />
+        <module name="turksatnetwork" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="primefaces" target="1.8" />
+      <module name="turksatnetwork" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

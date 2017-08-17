@@ -21,29 +21,34 @@
             <p:commandButton value="ARA" styleClass="buton2" icon="ui-icon-search" action="#{kullaniciBean.kisiAraButonu}" update="kullanici"/>
             <p:commandButton value="" styleClass="buton" icon="ui-icon-circle-plus" type="button"
                              onclick="PF('dlg2').show();"/>
-            <p:dataTable  id="kullanici" styleClass="tablo3" value="#{kullaniciBean.kullaniciTablo}" paginator="true" reflow="true"
-                          rows="5">
+
+            <p:dataTable  var="kullanicitable" id="kullanici" styleClass="tablo3" value="#{kullaniciBean.kullaniciTablo}" paginator="true" reflow="true"
+                          rows="5"   tableStyle="table-layout:auto !important;">
                     <p:column headerText="Ad ">
-                        <h:outputText value="#{kullaniciData.ad}"/>
+                        <h:outputText value="#{kullanicitable.ad}"/>
                     </p:column>
                  
                     <p:column headerText="Soyad">
-                        <h:outputText value="#{kullaniciData.soyAd}"/>
+                        <h:outputText value="#{kullanicitable.soyAd}"/>
                     </p:column>
                  
                     <p:column headerText="Telefon">
-                       <h:outputText value="#{kullaniciData.telNo}"/>
+                       <h:outputText value="#{kullanicitable.telNo}"/>
                     </p:column>
                  
                     <p:column headerText="E-posta">
-                         <h:outputText value="#{kullaniciData.eposta}"/>
+                         <h:outputText value="#{kullanicitable.eposta}"/>
                     </p:column>
                 <p:column headerText="Rol">
-                            <h:outputText value="#{kullaniciData.rol}"/>
+                            <h:outputText value="#{kullanicitable.rol}"/>
                         </p:column>
                 <p:column style="width: 182px">
-                            <p:commandButton title="Düzenle" icon="ui-icon-pencil" style="float: left" type="button"
-                                             action="#{kullaniciBean.kisiDuzenleButonu}" onclick="PF('dlg8').show();"/>
+                             <p:commandButton oncomplete="PF('dlg6').show();" update="@(.dlg6cls)"
+                                              title="Düzenle" icon="ui-icon-pencil" style="float: left"
+                                              action="#{kullaniciBean.kullaniciDuzenleButonu}"
+                >
+                    <f:setPropertyActionListener value="#{kullanicitable}" target="#{kullaniciBean.selectedKullaniciData}" />
+                </p:commandButton>
                     <p:commandButton title="Pasifleştir" icon="ui-icon-cancel" style="float: left"
                                      action="#{kullaniciBean.kisiPasifButonu}" onclick="PF('dlg9').show();"/>
                     <p:commandButton title="Aktifleştir" icon="ui-icon-check" style="float: left"
@@ -51,48 +56,56 @@
                         </p:column>
             </p:dataTable>
 
-            <p:dialog header="Yeni Kullanıcı Ekleme" showEffect="explode" widgetVar="dlg2" style="text-align: center"
-                      modal="true" height="580" width="260">
-                     <h:panelGrid columns="1">
-                <h:outputText value="Ad "/>
-                <p:inputText value="#{kullaniciData.ad}"/>
-                <h:outputText value="Soyad "/>
-                <p:inputText value="#{kullaniciData.soyAd}"/>
-                <h:outputText value="Kullanıcı Adı"/>
-                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
-                <h:outputText value="Şifre"/>
-                <p:password value="#{kullaniciData.sifre}"/>
-                <h:outputText value="Şifre Tekrar "/>
-                <p:password value="#{kullaniciData.sifreTekrar}"/>
-                <h:outputText value="Telefon Numarası "/>
-                <p:inputText value="#{kullaniciData.telNo}"/>
-                <h:outputText value="E-posta "/>
-                <p:inputText value="#{kullaniciData.eposta}"/>
-                <h:outputText value="Rol"/>
-                <h:selectOneMenu value="#{kullaniciBean.rolTanimla}">
-                    <f:selectItem itemValue="" itemLabel="Yönetici"/>
-                    <f:selectItem itemValue="" itemLabel="Kullanıcı"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
-                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiKaydetButonu}"/>
-            </p:dialog> 
+            <h:form>
+                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                <p:dialog header="Yeni Kullanıcı Ekleme" showEffect="explode" widgetVar="dlg2" resizable="false" style="text-align: center"
+                          modal="true" height="580" width="260">
+                        
+                    <h:panelGrid styleClass="abc" id="panelkaydet" columns="1">
+
+                        <h:outputText value="Ad "/>
+                        <p:inputText value="#{kullaniciData.ad}"/>
+                        <h:outputText value="Soyad "/>
+                        <p:inputText value="#{kullaniciData.soyAd}"/>
+                        <h:outputText value="Kullanıcı Adı"/>
+                        <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
+                        <h:outputText value="Şifre"/>
+                        <p:password value="#{kullaniciData.sifre}"/>
+                        <h:outputText value="Şifre Tekrar "/>
+                        <p:password value="#{kullaniciData.sifreTekrar}"/>
+                        <h:outputText value="Telefon Numarası "/>
+                        <p:inputText value="#{kullaniciData.telNo}"/>
+                        <h:outputText value="E-posta "/>
+                        <p:inputText value="#{kullaniciData.eposta}"/>
+                        <h:outputText value="Rol"/>
+                        <h:selectOneMenu value="#{kullaniciData.rol}">
+                            <f:selectItem itemValue="Yonetici" itemLabel="Yönetici"/>
+                            <f:selectItem itemValue="Kullanici" itemLabel="Kullanıcı"/>
+                        </h:selectOneMenu>
+
+                    </h:panelGrid>
+                    <p:commandButton value="KAYDET" icon="ui-icon-check" actionListener="#{kullaniciBean.kisiKaydetButonu}" process="@form" />
+                </p:dialog> 
+
+            </h:form>
+
             <p:dialog header="Kullanıcı Düzenleme" showEffect="explode" widgetVar="dlg8" style="text-align: center"
                       modal="true" height="580" width="260">
                      <h:panelGrid columns="1">
                 <h:outputText value="Ad"/>
-                <p:inputText value="#{kullaniciData.ad}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.ad}" />
                 <h:outputText value="Soyad "/>
-                <p:inputText value="#{kullaniciData.soyAd}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.soyAd}"/>
                 <h:outputText value="Kullanıcı Adı"/>
-                <p:inputText value="#{kullaniciData.kullaniciAdi}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.kullaniciAdi}"/>
                 <h:outputText value="Telefon Numarası "/>
-                <p:inputText value="#{kullaniciData.telNo}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.telNo}"/>
                 <h:outputText value="E-posta "/>
-                <p:inputText value="#{kullaniciData.eposta}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.eposta}"/>
                 <h:outputText value="Rol"/>
-                <p:inputText value="#{kullaniciData.rol}"/>
+                <p:inputText value="#{kullaniciDataDuzenleme.rol}"/>
             </h:panelGrid>
-                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiDuzenleButonu}"/>
+                <p:commandButton value="KAYDET" icon="ui-icon-check" action="#{kullaniciBean.kisiGuncelleButonu}"/>
             </p:dialog>
             <p:dialog showEffect="explode" widgetVar="dlg9" style="text-align: center" modal="true" height="150"
                       width="250">

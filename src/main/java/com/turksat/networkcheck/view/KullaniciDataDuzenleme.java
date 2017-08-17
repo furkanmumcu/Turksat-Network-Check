@@ -3,13 +3,12 @@ package com.turksat.networkcheck.view;
 import javax.faces.bean.ManagedBean;
 
 
-@ManagedBean(name = "kullaniciData")
-public class KullaniciData {
+@ManagedBean(name = "kullaniciDataDuzenleme")
+public class KullaniciDataDuzenleme {
+
     private String ad;
     private String soyAd;
     private String kullaniciAdi;
-    private String sifre;
-    private String sifreTekrar;
     private String telNo;
     private String eposta;
     private String rol;
@@ -38,21 +37,6 @@ public class KullaniciData {
         this.ad = ad;
     }
 
-    public String getSifre() {
-        return sifre;
-    }
-
-    public void setSifre(String sifre) {
-        this.sifre = sifre;
-    }
-
-    public String getSifreTekrar() {
-        return sifreTekrar;
-    }
-
-    public void setSifreTekrar(String sifreTekrar) {
-        this.sifreTekrar = sifreTekrar;
-    }
 
     public String getTelNo() {
         return telNo;
