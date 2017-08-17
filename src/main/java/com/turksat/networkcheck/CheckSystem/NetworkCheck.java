@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class NetworkCheck {
 
-
+//
     private String serverType;
     private int duration;
     private String serverName;
