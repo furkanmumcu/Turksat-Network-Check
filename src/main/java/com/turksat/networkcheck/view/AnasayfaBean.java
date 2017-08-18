@@ -172,7 +172,11 @@ public class AnasayfaBean {
             anaData.setAktifPasif(sunucuList.get(i).getAktifPasif());
 
             float result = ulasilabilirlik(sunucuList.get(i).getSunucuId(),selectMenu1);
-            anaData.setUlasim(Float.toString(result));
+            float result2 = result * 100;
+            int result3 = Math.round(result2);
+
+            anaData.setUlasim("%" + Integer.toString(result3));
+            //anaData.setUlasim(Float.toString(result));
 
             String sonUlasimZamani = sonUlasmaZamani(sunucuList.get(i).getSunucuId());
             anaData.setSonUlasim(sonUlasimZamani);
