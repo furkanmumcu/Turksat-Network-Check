@@ -456,6 +456,7 @@ public class NetworkCheck {
         logSession.getTransaction().commit();
         logSession.close();
         logSessionFactory.close();
+
     }
 
 }
