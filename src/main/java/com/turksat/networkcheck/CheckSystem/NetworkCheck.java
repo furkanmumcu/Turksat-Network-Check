@@ -187,6 +187,7 @@ public class NetworkCheck {
 
                     sunucu = sunucuList.get(0);
                     session.close();
+                    sessionFactory.close();
                     if(sunucu.getAktifPasif()) {
                         if ("TPC/IP".equals(sunucu.getProtokol())) {
                             System.out.println("GIRDIM");
