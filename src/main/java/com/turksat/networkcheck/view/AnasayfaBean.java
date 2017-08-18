@@ -283,6 +283,10 @@ public class AnasayfaBean {
         System.out.println("ANLIK");
     }
 
+    public void refreshButonu(){
+        System.out.println("REFRESH");
+    }
+
     public String sonUlasmaZamani (String id){
         Configuration configuration = new Configuration();
         configuration.configure();

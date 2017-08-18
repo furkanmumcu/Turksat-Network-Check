@@ -28,6 +28,9 @@
                     <p:commandButton value="Uygula" update="anatablo" icon="ui-icon-check" action="#{anasayfaBean.uygulaButonu}" />
                 </p:panelGrid>
 
+                <p:commandButton title="refresh"  icon="ui-icon-refresh" styleClass="button3"
+                                 action="#{anasayfaBean.refreshButonu}" />
+
                 <p:dataTable var="anatablovar" id="anatablo" value="#{anasayfaBean.tablo}" reflow="true" rows="5" styleClass="tablo" paginator="true">
                         <p:column headerText="Sunucular ">
                             <h:outputText value="#{anatablovar.sunucuSanalAdi}" style="float: left"/>
