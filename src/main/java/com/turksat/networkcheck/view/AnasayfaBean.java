@@ -1,5 +1,6 @@
 package com.turksat.networkcheck.view;
 
+import com.turksat.networkcheck.CheckSystem.NetworkCheck;
 import com.turksat.networkcheck.model.Log;
 import com.turksat.networkcheck.model.Sunucu;
 import org.hibernate.Session;
@@ -11,6 +12,8 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -281,10 +284,21 @@ public class AnasayfaBean {
 
     public void anlikButonu() {
         System.out.println("ANLIK");
+
+        //one time server check
+        System.out.println(selectedAnaData.getId());
+        NetworkCheck networkCheck = new NetworkCheck(selectedAnaData.getId());
+        networkCheck.oneTimeCheck();
+
+        uygulaButonu();
+        refresh();
+
     }
 
     public void refreshButonu(){
         System.out.println("REFRESH");
+        uygulaButonu();
+        refresh();
     }
 
     public String sonUlasmaZamani (String id){
@@ -429,6 +443,14 @@ public class AnasayfaBean {
         sessionFactory.close();
 
         return logList;
+    }
+
+    public void refresh(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("anasayfa.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -76,7 +76,10 @@
                             </p:column>
 
                     <p:column headerText="" style="text-align: center;width: 77px">
-                                 <p:commandButton value="Anlık İzle" action="#{anasayfaBean.anlikButonu}"/>
+                          <p:commandButton value="Anlık İzle" action="#{anasayfaBean.anlikButonu}"
+                                    >
+                                <f:setPropertyActionListener value="#{anatablovar}" target="#{anasayfaBean.selectedAnaData}" />
+                    </p:commandButton>
                             </p:column>
                 </p:dataTable>
             </h:panelGrid>
