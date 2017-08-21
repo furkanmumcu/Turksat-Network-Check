@@ -1,6 +1,7 @@
 package com.turksat.networkcheck.CheckSystem;
 
 
+import com.turksat.networkcheck.model.Kullanici;
 import com.turksat.networkcheck.model.Log;
 import com.turksat.networkcheck.model.Sunucu;
 import org.hibernate.Session;
@@ -161,15 +162,6 @@ public class NetworkCheck {
         Thread t = new Thread()
         {
             public void run() {
-                //find sunucu
-
-
-                //System.out.println(sunucu.getKontrolPeriyodu());
-                //System.out.println(sunucu.getSunucuSanalAdi());
-                //System.out.println(sunucu.getProtokol());
-                //System.out.println(sunucu.getAktifPasif());
-                //System.out.println("HTTP" == sunucu.getProtokol()); // false
-                //System.out.println("TCP/IP".equals(sunucu.getProtokol()));
 
                 while(true) {
                     String hql = "From Sunucu S where S.sunucuId = :id";
@@ -205,6 +197,7 @@ public class NetworkCheck {
                             } catch (Exception e) {
                                 //errorMsg(e);
                                 logOlustur(e);
+                                //notifyUser(sunucu.getSunucuIp());
                             }
 
                         }
@@ -325,6 +318,7 @@ public class NetworkCheck {
             } catch (Exception e) {
                 //errorMsg(e);
                 logOlustur(e);
+                //notifyUser(sunucu.getSunucuIp());
             }
 
         }
@@ -402,16 +396,34 @@ public class NetworkCheck {
         return sw.toString();
     }
 
-    private void notifyUser(){
-        if(mailAddress!=null){
-            SendMail sendMail = new SendMail();
-            sendMail.send(mailAddress,"server is down","info");
+    private void notifyUser(String info){
+        //admin kullanicilarin mail adresini bul
+        Configuration configuration = new Configuration();
+        configuration.configure();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "From Kullanici K where K.rol =:rol";
+
+        Query query = session.createQuery(hql);
+        query.setParameter("rol", "Yonetici");
+        List<Kullanici> kullaniciList = query.list();
+
+        for(int i = 0; i<kullaniciList.size(); i++){
+            if(kullaniciList.get(i).getEposta()!=null){
+                SendMail sendMail = new SendMail();
+                String msg = "The server " + info + " is down";
+                sendMail.send(kullaniciList.get(i).getEposta(),"server is down",msg);
+            }
+
+            if(kullaniciList.get(i).getTelNo()!=null){
+                //SendSMS sendSMS = new SendSMS();
+                //sendSMS.send(pnumber,"server is down");
+            }
         }
 
-        if(pnumber!=null){
-            //SendSMS sendSMS = new SendSMS();
-            //sendSMS.send(pnumber,"server is down");
-        }
     }
 
     private void logOlustur(){
