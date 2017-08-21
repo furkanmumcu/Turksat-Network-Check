@@ -7,15 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +26,9 @@ public class AnasayfaBean {
     private String selectMenu2;
     private String selectMenu3;
 
+    private String sunucuTuru;
+    private String sunucuTipi;
+
     private List<LogDetay> gunlukLoglar=new ArrayList<LogDetay>(  );
     private List<LogDetay> haftalikLoglar=new ArrayList<LogDetay>(  );
     private List<LogDetay> aylikLoglar=new ArrayList<LogDetay>(  );
@@ -38,6 +37,22 @@ public class AnasayfaBean {
     private List<AnaData> tablo=new ArrayList<AnaData> (  );
 
     private AnaData selectedAnaData;
+
+    public String getSunucuTuru() {
+        return sunucuTuru;
+    }
+
+    public void setSunucuTuru(String sunucuTuru) {
+        this.sunucuTuru = sunucuTuru;
+    }
+
+    public String getSunucuTipi() {
+        return sunucuTipi;
+    }
+
+    public void setSunucuTipi(String sunucuTipi) {
+        this.sunucuTipi = sunucuTipi;
+    }
 
     public List<LogDetay> getGunlukLoglar() {
         return gunlukLoglar;
@@ -137,11 +152,7 @@ public class AnasayfaBean {
         System.out.println(logs.get(0).getDurum());
         */
 
-
-
         tablo.removeAll(tablo);
-        //filtrele iki ozellik
-        String hql = "From Sunucu";
 
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -150,7 +161,48 @@ public class AnasayfaBean {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery(hql);
+        String hql = "From Sunucu";
+
+        int [] emptyCheck = {0,0};
+
+        if(!sunucuTipi.isEmpty())
+            emptyCheck[0]=1;
+
+        if(!sunucuTuru.isEmpty())
+            emptyCheck[1]=1;
+
+        String[] emptyCheckNames = {"S.sunucuTipi = :tip","S.sunucuTuru = :tur"};
+
+        Query query;
+        boolean isfirst = true;
+        if(sunucuTuru.isEmpty()&&sunucuTipi.isEmpty()){
+            hql = "FROM Sunucu";
+            query = session.createQuery(hql);
+
+        }
+        else {
+            System.out.println("girdim");
+            hql = hql + " S where ";
+            for(int i =0; i<2; i++){
+                if(emptyCheck[i] == 1 && !isfirst){
+                    hql = hql + " AND " + emptyCheckNames[i];
+                }
+                if(emptyCheck[i] == 1 && isfirst){
+                    hql = hql + emptyCheckNames[i];
+                    isfirst = false;
+                }
+            }
+            System.out.println(hql);
+            System.out.println("tip" + sunucuTipi);
+            System.out.println("tur" + selectMenu2);
+            query = session.createQuery(hql);
+            if(emptyCheck[0] == 1)
+                query.setParameter("tip",sunucuTipi);
+
+            if(emptyCheck[1] == 1)
+                query.setParameter("tur", sunucuTuru);
+        }
+
         List<Sunucu> sunucuList = query.list();
 
 
@@ -431,7 +483,7 @@ public class AnasayfaBean {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String ahql = "From Log L where L.sunucuId = :id AND L.error = :error AND L.date between :past AND :today";
+        String ahql = "From Log L where L.sunucuId = :id AND L.error = :error AND L.date between :past AND :today order by date desc , time desc";
         Query aquery = session.createQuery(ahql);
         aquery.setParameter("error",true);
         aquery.setParameter("id",id);

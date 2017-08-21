@@ -15,15 +15,16 @@
                         <f:selectItem itemValue="Yillik" itemLabel="Yıllık"/>
                     </p:selectOneMenu>
 
-                    <p:selectOneMenu value="#{anasayfaBean.selectMenu2}">
-                        <f:selectItem itemValue="Tüm Sunucular" itemLabel="Tüm Sunucular"/>
-                        <f:selectItem itemValue="Belgenet Sunucuları" itemLabel="BelgeNet Sunucuları"/>
-                        <f:selectItem itemValue="Dış Sunucular" itemLabel="Dış Sunucular"/>
+                    <p:selectOneMenu value="#{anasayfaBean.sunucuTuru}">
+                        <f:selectItem itemValue="" itemLabel="Sunucu Türü"/>
+                        <f:selectItem itemValue="Belgenet" itemLabel="Belgenet"/>
+                        <f:selectItem itemValue="Dis sunucu/servisler" itemLabel="Dis sunucu/servisler"/>
                     </p:selectOneMenu>
 
-                    <p:selectOneMenu value="#{anasayfaBean.selectMenu3}">
-                        <f:selectItem itemValue="Web Sunucuları" itemLabel="Web Sunucuları"/>
-                        <f:selectItem itemValue="DB Sunucuları" itemLabel="DB Sunucuları"/>
+                    <p:selectOneMenu value="#{anasayfaBean.sunucuTipi}">
+                        <f:selectItem itemValue="" itemLabel="Sunucu Tipi"/>
+                        <f:selectItem itemValue="Web Suncusu" itemLabel="Web Sunucusu"/>
+                        <f:selectItem itemValue="Veri Tabani Sunucusu" itemLabel="Veri Tabani Sunucusu"/>
                     </p:selectOneMenu>
                     <p:commandButton value="Uygula" update="anatablo" icon="ui-icon-check" action="#{anasayfaBean.uygulaButonu}" />
                 </p:panelGrid>
