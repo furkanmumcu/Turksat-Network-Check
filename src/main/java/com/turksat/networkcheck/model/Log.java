@@ -1,5 +1,7 @@
 package com.turksat.networkcheck.model;
 
+import com.sun.tools.javac.api.ClientCodeWrapper;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -19,9 +21,20 @@ public class Log implements Serializable{
     private Date date;
     private String time;
     private boolean isError;
-
+    private int logid;
 
     @Id
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
+    @Column(name = "logid", unique = true, nullable = false)
+    public int getLogid() {
+        return logid;
+    }
+
+    public void setLogid(int logid) {
+        this.logid = logid;
+    }
+
     @Column(name="durum", unique = true, nullable = false)
     public String getDurum() {
         return durum;

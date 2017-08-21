@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.Set;
 
 @Entity
 @Table(name="sunucu")
@@ -21,17 +20,11 @@ public class Sunucu implements Serializable{
 
     private String protokol;
     private String hataMesaj;
-    private List<Sunucu> sunucuTablo =new ArrayList<Sunucu> (  );
     private int kontrolPeriyodu;
     private String sunucuId;
-    private List<Log> loglar = new ArrayList<Log>();
+    private Set<Log> loglar; //= new ArrayList<Log>();
     private boolean aktifPasif;
 
-
-
-    //@Id
-    //@Basic(optional = false)
-    //@Id
     @Column(name="sunucuSanalAdi", unique = true, nullable = false)
     public String getSunucuSanalAdi() {
         return sunucuSanalAdi;
@@ -105,15 +98,6 @@ public class Sunucu implements Serializable{
         this.kontrolPeriyodu = kontrolPeriyodu;
     }
 
-    /*
-    public List<Sunucu> getSunucuTablo() {
-        return sunucuTablo;
-    }
-    public void setSunucuTablo(List<Sunucu> sunucuTablo) {
-        this.sunucuTablo = sunucuTablo;
-    }
-    */
-
     @Column(name="hataMesaji", unique = false, nullable = false)
     public String getHataMesaj() {
         return hataMesaj;
@@ -148,12 +132,12 @@ public class Sunucu implements Serializable{
 
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sunucu")
-    public List<Log> getLoglar() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sunucu", cascade = CascadeType.PERSIST)
+    public Set<Log> getLoglar() {
         return loglar;
     }
 
-    public void setLoglar(List<Log> durumlar) {
+    public void setLoglar(Set<Log> durumlar) {
         this.loglar = loglar;
     }
 
