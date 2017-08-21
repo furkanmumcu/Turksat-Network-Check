@@ -21,21 +21,21 @@
         </locale-config>
     </application>
     <navigation-rule>
-        <from-view-id>/anasayfa.xhtml</from-view-id>
+        <from-view-id>/secured/anasayfa.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>anasayfa?faces-redirect=true</from-outcome>
-            <to-view-id>/anasayfa.xhtml</to-view-id>
+            <to-view-id>/secured/anasayfa.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>kulislem?faces-redirect=true</from-outcome>
-            <to-view-id>/kullaniciislem.xhtml</to-view-id>
+            <to-view-id>/secured/kullaniciislem.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>sunucu?faces-redirect=true</from-outcome>
-            <to-view-id>/sunucuislem.xhtml</to-view-id>
+            <to-view-id>/secured/sunucuislem.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

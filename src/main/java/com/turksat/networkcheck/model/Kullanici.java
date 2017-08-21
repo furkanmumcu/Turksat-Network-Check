@@ -1,10 +1,11 @@
 package com.turksat.networkcheck.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="kullanici")
-public class Kullanici {
+public class Kullanici implements Serializable {
     private String kullaniciAdi;
     private String soyAd;
     private String ad;
@@ -13,6 +14,8 @@ public class Kullanici {
     private String telNo;
     private String eposta;
     private String rol;
+
+    private static final long serialVersionUID = -1;
 
     @Id
     @Basic(optional = false)

@@ -17,8 +17,6 @@ import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
 
-
-
 @ManagedBean
 @SessionScoped
 public class GirisBean implements Serializable {
@@ -27,11 +25,12 @@ public class GirisBean implements Serializable {
     private String eposta;
     private String kullaniciAdiUnuttum;
     private boolean loggedIn = false;
+    private Kullanici cuurentKullanici;
 
 
-
-
-    //private static final String[] kullanici = {"hilmist:1234","furkan:4321"};
+    public Kullanici getCuurentKullanici() {
+        return cuurentKullanici;
+    }
 
     public String getKullaniciAdiUnuttum() {
         return kullaniciAdiUnuttum;
@@ -80,6 +79,8 @@ public class GirisBean implements Serializable {
 
     public void girisButonu() {
 
+        // TODO: 21/08/2017  giris yapan kullanici bulunup currentKullanici ya esitlenecek
+
         Configuration configuration = new Configuration();
         configuration.configure();
 
@@ -122,7 +123,7 @@ public class GirisBean implements Serializable {
         }
         if (loggedIn){
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("anasayfa.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("secured/anasayfa.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

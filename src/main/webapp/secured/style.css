@@ -1,0 +1,150 @@
+h1{
+    position: absolute;
+
+    left: 580px;
+
+
+
+}
+
+.centered {
+    position: absolute;
+    top: 45%;
+
+    left: 35%;
+    margin:auto;
+    text-align: center;
+}
+.butoncenter{
+    position: absolute;
+    top:100px;
+    left: 55%;
+    margin:auto;
+    text-align: center;
+
+}
+.combo{
+    position: absolute;
+    top:44%;
+    margin:auto;
+    text-align: center;
+    left: 25%;
+}
+.combo2{
+    position: absolute;
+    top:-30px;
+    margin:auto;
+
+    left: 120px;
+}
+.combo3{
+    position: absolute;
+    top:-30px;
+    margin:auto;
+
+    left: 150px;
+}
+.uygulabutonu{
+    position: absolute;
+    top:-40px;
+    margin:auto;
+
+}
+.tablo{
+    text-align: left;
+    position: absolute;
+    top: 430px;
+    left: 50px;
+    margin:auto;
+    right: 50px;
+}
+.link{
+    position: absolute;
+    top: 100px;
+    left: 450px;
+    margin:auto;
+
+
+}
+.kullanıcıara{
+
+    position: absolute;
+    top: 39%;
+    height: 100px;
+    left: 39%;
+    margin:auto;
+
+}
+.tablo2{
+    position: absolute;
+    top: 450px;
+    left: 40%;
+    margin:auto;
+    border: double;
+}
+.combo4{
+    position: absolute;
+    top:10px;
+    margin:auto;
+    right: 10px;
+}
+.tablo3{
+    text-align: left;
+    position: absolute;
+    top: 490px;
+    left: 50px;
+    margin:auto;
+    right: 50px;
+}
+.sunucuara{
+
+    position: absolute;
+    top: 35%;
+    height: 100px;
+    left: 29.5%;
+    margin:auto;
+
+}
+
+.eklebuton{
+    position: fixed;
+    top:-110px;
+
+    left: 73%;
+    height: 30px;
+    width: 180px;
+    text-align: left;
+}
+.eklebuton2{
+    position: fixed;
+    top:15px;
+    margin:auto;
+    left: 64.5%;
+    height: 30px;
+    width: 180px;
+    text-align: left;
+}
+.guncel{
+    position: absolute;
+    text-align: center;
+    left: 38%;
+}
+.buton2{
+    left: 48%;
+    top: 115px;
+    text-align: center;
+}
+.buton3{
+    left: 94.5%;
+    top: 177px;
+    width: 35px;
+    height:35px;
+    text-align: center;
+}
+.buton{
+    left: 88.6%;
+    top: 176px;
+    width: 39px;
+    height:35px;
+    text-align: center;
+}
