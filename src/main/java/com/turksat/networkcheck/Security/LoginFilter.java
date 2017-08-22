@@ -29,14 +29,14 @@ public class LoginFilter implements Filter {
         if (girisBean != null) {
             if (girisBean.isLoggedIn()) {
                 // user is logged in, continue request
-                System.out.println("FILTRE" + girisBean.isLoggedIn());
+                System.out.println("FILTRE " + girisBean.isLoggedIn());
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 // user is not logged in, redirect to login page
                 httpServletResponse.sendRedirect(
                         httpServletRequest.getContextPath()
                                 + LOGIN_PAGE);
-                System.out.println("FILTRE" + girisBean.isLoggedIn());
+                System.out.println("FILTRE " + girisBean.isLoggedIn());
 
             }
         }

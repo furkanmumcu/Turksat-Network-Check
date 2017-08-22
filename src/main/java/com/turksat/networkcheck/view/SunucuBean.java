@@ -153,7 +153,7 @@ public class SunucuBean implements Serializable{
         System.out.println("CONSTRUCTIONNNNN");
 
         //db yi kontrol edip networkcheckleri initilaze et
-        //checkSunucu();
+        checkSunucu();
     }
 
     public void sunucuaraButonu()  {
@@ -301,8 +301,8 @@ public class SunucuBean implements Serializable{
         session.close();
 
         //Add to networkCheck system
-        //NetworkCheck networkCheck = new NetworkCheck(uuid.toString());
-        //networkCheck.check();
+        NetworkCheck networkCheck = new NetworkCheck(uuid.toString());
+        networkCheck.check();
 
         //clear the form
         sunucuData.setSunucuSanalAdi("");
@@ -462,36 +462,6 @@ public class SunucuBean implements Serializable{
 
     public void sunucuPasifButonu(){
         System.out.println("pasif butonu");
-        System.out.println("id " + selectedSunucuData.getId());
-        ////////////////////
-        //NetworkCheck networkCheck = new NetworkCheck(selectedSunucuData.getId());
-        //networkCheck.check();
-
-        //String ahql = "FROM Sunucu";
-        /*
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        //Query query = session.createQuery(ahql);
-
-        Sunucu sunucu = new Sunucu();
-        sunucu.setAktifPasif(false);
-        fillSunucuExceptAktifPasif(sunucu);
-
-        /* // log ekleme
-        Log log = new Log();
-        log.setDurum("dasdas");
-        log.setZaman("Dasda");
-        log.setSunucuId(selectedSunucuData.getId());
-        log.setSunucu(sunucu);
-        log.setDate(new Date());
-        log.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-
-        //session.save(log);
-        session.getTransaction().commit();
-        session.close();
-        */
     }
 
     public void sunucuPasifButonuEvet(){

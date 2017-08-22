@@ -23,8 +23,6 @@ import java.util.List;
 @SessionScoped
 public class AnasayfaBean {
     private String selectMenu1;
-    private String selectMenu2;
-    private String selectMenu3;
 
     private String sunucuTuru;
     private String sunucuTipi;
@@ -110,48 +108,7 @@ public class AnasayfaBean {
         this.selectMenu1 = selectMenu1;
     }
 
-    public String getSelectMenu2() {
-        return selectMenu2;
-    }
-
-    public void setSelectMenu2(String selectMenu2) {
-        this.selectMenu2 = selectMenu2;
-    }
-
-    public String getSelectMenu3() {
-        return selectMenu3;
-    }
-
-    public void setSelectMenu3(String selectMenu3) {
-        this.selectMenu3 = selectMenu3;
-    }
-
     public void uygulaButonu() {
-        /**
-        // Date kullanarak arama yapma
-        //String hql = "From Log L where L.date = :date";
-        //String hql = "From Log L where L.date between :date AND :date2";
-        String hql = "From Log L where L.sunucuId=:id AND L.date between :date AND :date2";
-        //String hql = "FROM Log L where L.sunucuId = :id";
-        //String hql = "FROM Log L where L.sunucuId = :id order by date desc , time desc ";
-
-        Configuration configuration = new Configuration();
-        configuration.configure();
-
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query = session.createQuery(hql);
-        query.setParameter("date2",new Date());
-        query.setParameter("date",new Date(System.currentTimeMillis()-24*60*60*1000));
-        query.setParameter("id","3075cc7a-76dd-4784-95fc-a8f79f159a4f");
-        List <Log> logs = query.list(); //
-
-        System.out.println(logs.size());
-        System.out.println(logs.get(0).getDurum());
-        */
-
         tablo.removeAll(tablo);
 
         Configuration configuration = new Configuration();
@@ -194,7 +151,7 @@ public class AnasayfaBean {
             }
             System.out.println(hql);
             System.out.println("tip" + sunucuTipi);
-            System.out.println("tur" + selectMenu2);
+            System.out.println("tur" + sunucuTuru);
             query = session.createQuery(hql);
             if(emptyCheck[0] == 1)
                 query.setParameter("tip",sunucuTipi);
