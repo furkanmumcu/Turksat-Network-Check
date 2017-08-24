@@ -150,10 +150,8 @@ public class SunucuBean implements Serializable{
 
     @PostConstruct
     public void onStart(){
-        System.out.println("CONSTRUCTIONNNNN");
-
         //db yi kontrol edip networkcheckleri initilaze et
-        checkSunucu();
+        //checkSunucu();
     }
 
     public void sunucuaraButonu()  {
@@ -565,6 +563,13 @@ public class SunucuBean implements Serializable{
         sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
     }
 
+    /**
+     * Could be used to initiate check for
+     * already in database servers.
+     * But it must used once, only in first boot
+     * And it must be client side independent.
+     * Note: Problematic when multiple users calls @PostConstruct
+     */
     public void checkSunucu(){
         //onStart
         //gets all servers, creates networkCheck system for them
