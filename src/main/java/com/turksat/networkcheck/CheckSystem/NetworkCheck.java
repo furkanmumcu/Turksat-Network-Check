@@ -264,7 +264,7 @@ public class NetworkCheck {
                         }
 
                         try {
-                            Thread.sleep(sunucu.getKontrolPeriyodu() * 1000);
+                            Thread.sleep(sunucu.getKontrolPeriyodu() * 60000);
                         } catch (InterruptedException e) {
                             //e.printStackTrace();
                         }
