@@ -52,6 +52,8 @@ public class SunucuBean implements Serializable{
 
     private int[] emptyCheckPasser;
 
+    private static int counter = 0;
+
     public String getCurrentHQL() {
         return currentHQL;
     }
@@ -151,7 +153,8 @@ public class SunucuBean implements Serializable{
     @PostConstruct
     public void onStart(){
         //db yi kontrol edip networkcheckleri initilaze et
-        //checkSunucu();
+        bootSetup();
+        counter++;
     }
 
     public void sunucuaraButonu()  {
@@ -491,7 +494,7 @@ public class SunucuBean implements Serializable{
     }
 
 
-    public void refresh(){
+    private void refresh(){
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("sunucuislem.xhtml");
         } catch (IOException e) {
@@ -499,7 +502,7 @@ public class SunucuBean implements Serializable{
         }
     }
 
-    public void fillTable(){
+    private void fillTable(){
         if(!currentHQL.isEmpty()) { //check again
             sunucuTablo.removeAll(sunucuTablo);
 
@@ -548,7 +551,7 @@ public class SunucuBean implements Serializable{
         }
     }
 
-    public void fillSunucuExceptAktifPasif(Sunucu sunucu){
+    private void fillSunucuExceptAktifPasif(Sunucu sunucu){
         sunucu.setSunucuId(selectedSunucuData.getId());
         sunucu.setSunucuSanalAdi(selectedSunucuData.getSunucuSanalAdi());
         sunucu.setSunucuIp(selectedSunucuData.getSunucuIp());
@@ -563,14 +566,22 @@ public class SunucuBean implements Serializable{
         sunucu.setHataMesaj(selectedSunucuData.getHataMesaj());
     }
 
+    //finds existing threads by names
+    private boolean isThreadsExist(String threadName) {
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getName().equals(threadName))
+                return true;
+        }
+        return false;
+    }
+
     /**
-     * Could be used to initiate check for
-     * already in database servers.
-     * But it must used once, only in first boot
-     * And it must be client side independent.
-     * Note: Problematic when multiple users calls @PostConstruct
+     * Initiates NetworkChecks for already in database servers.
+     * It runs once, when the program first deployed.
+     * The implementation of this method can be used in a different place,
+     * according to design of the program.
      */
-    public void checkSunucu(){
+    public void bootSetup(){
         //onStart
         //gets all servers, creates networkCheck system for them
         Configuration configuration = new Configuration();
@@ -585,12 +596,21 @@ public class SunucuBean implements Serializable{
 
         List<Sunucu> sunucuList = query.list();
 
-        for (int i = 0; i < sunucuList.size(); i++) {
-            NetworkCheck networkCheck = new NetworkCheck(sunucuList.get(i).getSunucuId());
-            networkCheck.check();
+        // the static int counter guarantees that,
+        // if will be visited once during the lifecycle of program
+        if(counter == 0) {
+            System.out.println("initialing threads for first time ");
+            for (int i = 0; i < sunucuList.size(); i++) {
+                NetworkCheck networkCheck = new NetworkCheck(sunucuList.get(i).getSunucuId());
+                networkCheck.check();
+            }
         }
+        else{
+            // do nothing
+            System.out.println("threads already exist. No need for re-create.");
+        }
+
         session.close();
     }
-
 
 }
