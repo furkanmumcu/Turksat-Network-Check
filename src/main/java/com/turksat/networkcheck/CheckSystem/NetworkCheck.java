@@ -159,7 +159,7 @@ public class NetworkCheck {
 
     public void check(){
 
-        Thread t = new Thread()
+        Thread t = new Thread(sunucuId)
         {
             public void run() {
 
