@@ -1,0 +1,37 @@
+CREATE TABLE kullanici
+(
+    kullaniciadi VARCHAR(255) NOT NULL,
+    sifre VARCHAR(255) NOT NULL,
+    ad VARCHAR(255) NOT NULL,
+    soyad VARCHAR(255),
+    telno VARCHAR(255) NOT NULL,
+    eposta VARCHAR(255) NOT NULL,
+    rol VARCHAR(255) NOT NULL,
+    sifretekrar VARCHAR(255) NOT NULL
+);
+CREATE TABLE log
+(
+    durum VARCHAR NOT NULL,
+    sunucuid VARCHAR(255),
+    date DATE,
+    time VARCHAR(255),
+    iserror BOOLEAN,
+    logid INTEGER NOT NULL
+);
+CREATE UNIQUE INDEX log_logid_uindex ON log (logid);
+CREATE TABLE sunucu
+(
+    sunucusanaladi VARCHAR(255) NOT NULL,
+    hatamesaji VARCHAR(255) NOT NULL,
+    kontrolperiyodu INTEGER NOT NULL,
+    sunucuprotokolu VARCHAR(255) NOT NULL,
+    sunucuid VARCHAR(255) NOT NULL,
+    sunucuip VARCHAR(255) NOT NULL,
+    sunucukullaniciadi VARCHAR(255) NOT NULL,
+    sunucuportbilgisi VARCHAR(255) NOT NULL,
+    sunucusifre VARCHAR(255) NOT NULL,
+    sunucutipi VARCHAR(255) NOT NULL,
+    sunucuturu VARCHAR(255) NOT NULL,
+    sunucuuygulamatipi VARCHAR(255) NOT NULL,
+    aktifpasif BOOLEAN NOT NULL
+);
